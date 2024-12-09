@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../../style/Style.css'
+import './InputFieldSet.css'
 
 function InputFieldSet(props) {
 
