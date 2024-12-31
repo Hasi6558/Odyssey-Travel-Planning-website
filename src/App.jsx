@@ -8,6 +8,7 @@ import Blog from './pages/blog/Blog'
 import Home from './pages/home/Home'
 import LogIn from './pages/login/LogIn'
 import SignUp from './pages/signUp/SignUp'
+import HotelDetails from './pages/hotelDetails/HotelDetails'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path='/tours' element={<Tours />}></Route>
           <Route path='/tripPlanner' element={<TripPlanner />}></Route>
           <Route path='/blog' element={<Blog />}></Route>
+          <Route path='/hotel-details/:id' element={<HotelDetails />} />
         </Routes>
       </BrowserRouter>
     </>

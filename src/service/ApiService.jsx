@@ -38,6 +38,16 @@ class ApiService {
         }
 
     }
+
+    static async getHotelById(id) {
+        try {
+            const response = await axios.get(`${BASE_URL}/hotels/getHotelById/${id}`);
+            return response.data;
+        } catch (error) {
+            onsole.error('Error fetching hotels:', error);
+            throw error;
+        }
+    }
 }
 
 export default ApiService;
