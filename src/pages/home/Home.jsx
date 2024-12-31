@@ -44,9 +44,10 @@ const Home = () => {
 
           {/* Responsive Grid */}
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-            {hotels.map((hotel) => (
+            {hotels.slice(0, 8).map((hotel) => (
               <ContentCard
                 key={hotel.id}
+                id={hotel.id}
                 RatingCount={hotel.reviewCount}
                 Ratings={hotel.ratings}
                 title={hotel.title}
@@ -70,7 +71,7 @@ const Home = () => {
 
           {/* Responsive Grid */}
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-            {restaurants.map((restaurant) => (
+            {restaurants.slice(0, 8).map((restaurant) => (
               <ContentCard
                 key={restaurant.id}
                 RatingCount={restaurant.review_count}
@@ -95,7 +96,7 @@ const Home = () => {
 
           {/* Responsive Grid */}
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-            {tours.map((tour) => (
+            {tours.slice(0, 8).map((tour) => (
               <ContentCard
                 key={tour.id}
                 RatingCount={tour.review_count}

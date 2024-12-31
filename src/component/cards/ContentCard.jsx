@@ -3,7 +3,7 @@ import ContentImage from '../../assets/images/signup_background.png';
 import RatingBar from '../bars/RatingBar';
 import locationLogo from '../../assets/icons/mdi_location.png';
 
-const ContentCard = ({ RatingCount, title, location_city, destination_link, Ratings, imgUrl }) => {
+const ContentCard = ({ id, RatingCount, title, location_city, destination_link, Ratings, imgUrl }) => {
     return (
         <div className="w-full overflow-hidden rounded-xl shadow-lg bg-white flex flex-col">
 
@@ -27,7 +27,7 @@ const ContentCard = ({ RatingCount, title, location_city, destination_link, Rati
             </div>
 
             {/* Content Section */}
-            <a href={destination_link} className="flex flex-col ">
+            <a href={`/hotel-details/${id}`} className="flex flex-col ">
                 <div className="p-4">
                     {/* Rating and Price */}
                     <div className="flex justify-between items-center mb-2">
