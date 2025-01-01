@@ -1,0 +1,130 @@
+/* Main Container */
+.login-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Login Form */
+.login-form {
+    width: 100%;
+    padding-left: 50px;
+}
+
+.login-form form {
+    padding: 0;
+}
+
+/* Background Image */
+.login-back-image img {
+    height: 100vh;
+    width: auto;
+}
+
+/* Logo */
+.logo {
+    width: 215px;
+    margin-top: 45px;
+}
+
+/* Input Fieldset */
+.input-fieldset {
+    border-radius: 10px;
+    border: 1px solid #3EA3E7;
+    width: 340px;
+}
+
+input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.input-fieldset legend {
+    color: #3EA3E7;
+    font-size: 10px;
+}
+
+/* Input Container */
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fa-regular {
+    color: #3EA3E7;
+    padding: 0 10px;
+}
+
+/* Buttons */
+.sign-in-btn {
+    background-color: #3EA3E7;
+    color: white;
+    width: 100%;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+/* Social Media Buttons */
+.social-media-fieldset {
+    border-top: 2px solid #CCC;
+    width: 92%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.social-media-sign-in {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.socialMedia-btn-container {
+    background-color: transparent;
+    padding: 5px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.socialMedia-btn-container img {
+    height: 20px;
+}
+
+/* Sign-Up Link */
+.sign-up-link {
+    font-size: medium;
+    color: #3EA3E7;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Form Container */
+.form-container {
+    margin: auto;
+}
+
+.form-container form {
+    max-width: fit-content;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-container .login-subtitle {
+    font-size: 10px;
+    text-align: left !important;
+    width: 100%;
+    padding-left: 35px;
+}
+
+.form-container .login-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 5px;
+    width: 100%;
+    padding-left: 35px;
+}
