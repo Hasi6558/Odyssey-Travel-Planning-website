@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentImage from '../../assets/images/signup_background.png';
 import RatingBar from '../bars/RatingBar';
-import locationLogo from '../../assets/icons/mdi_location.png';
+import locationLogo from '../../assets/icons/location_logo_2.png';
 
 const ContentCard = ({ id, RatingCount, title, location_city, destination_link, Ratings, imgUrl }) => {
     return (
@@ -9,7 +9,7 @@ const ContentCard = ({ id, RatingCount, title, location_city, destination_link, 
 
             {/* Image Section */}
             <div className="w-full h-48 overflow-hidden">
-                <a href={destination_link}>
+                <a href={`/hotel-details/${id}`}>
                     {imgUrl ? (
                         <img
                             src={imgUrl}
