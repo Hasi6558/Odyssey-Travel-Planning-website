@@ -51,10 +51,10 @@ const HotelDetails = () => {
                 <div className='flex flex-row gap-44 items-center '>
 
                     <div className='w-5/12'>
-                        <ImageGallery />
+                        <ImageGallery images={hotel.imgUrl || []} />
                     </div>
 
-                    <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.6822184537104!2d79.83956527772371!3d6.928535375206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2593b09364c4f%3A0x7dc13fa1f24d5c16!2sShangri-La%20Colombo!5e0!3m2!1sen!2slk!4v1735667518277!5m2!1sen!2slk" width="200" height="200" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                    <div><iframe src={hotel.locationMap} width="200" height="200" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
                 </div>
 
                 <div className='my-10 mx-20 rounded-xl shadow-lg p-10 bg-gray-100'>
@@ -90,7 +90,7 @@ const HotelDetails = () => {
                             <span>Dryer</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                            <span className="text-xl">📶</span> {/* Icon placeholder */}
+                            <span className="text-xl">📶</span>
                             <span>Free WiFi</span>
                         </div>
                     </div>
