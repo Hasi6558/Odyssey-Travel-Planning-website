@@ -44,10 +44,11 @@ class ApiService {
             const response = await axios.get(`${BASE_URL}/hotels/getHotelById/${id}`);
             return response.data;
         } catch (error) {
-            onsole.error('Error fetching hotels:', error);
+            console.error('Error fetching hotel by ID:', error);
             throw error;
         }
     }
+
     static async getRoomsByHotelId(hotelId) {
         try {
             const response = await axios.get(`${BASE_URL}/hotelRooms/getAllHotelRoomsByHotelId/${hotelId}`)
@@ -57,6 +58,17 @@ class ApiService {
             throw error;
         }
     }
+    static async getReviewsByReviewdItemId(reviewdItemId) {
+        try {
+            const response = await axios.get(`${BASE_URL}/reviews/getReviewsByItemId/${reviewdItemId}`)
+            return response.data;
+
+        } catch (error) {
+            console.error('Error fetching Reviews', error);
+            throw error;
+        }
+    }
+
 }
 
 export default ApiService;

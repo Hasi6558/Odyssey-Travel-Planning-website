@@ -6,12 +6,16 @@ import Footer from '../../component/Footer/Footer';
 import ImageGallery from '../../component/imageGallery/ImageGallery';
 import RoomCard from '../../component/cards/RoomCard';
 import LocationLogo from '../../assets/icons/location_logo_2.png';
+import ReviewSection from '../../component/ReviewSection';
 
 const HotelDetails = () => {
 
     const { id } = useParams();
     const [hotel, setHotel] = useState([]);
     const [hotelRooms, setHotelRooms] = useState([]);
+    const [reviews, setReviews] = useState([]);
+
+
 
 
     useEffect(() => {
@@ -20,8 +24,14 @@ const HotelDetails = () => {
             try {
                 const hotelData = await ApiService.getHotelById(id);
                 const hotelRoomsData = await ApiService.getRoomsByHotelId("H001");
+                const reviewData = await ApiService.getReviewsByReviewdItemId("12345")
+
+
                 setHotel(hotelData);
                 setHotelRooms(hotelRoomsData);
+                setReviews(reviewData);
+
+
             } catch (error) {
                 console.error('Error fetching data', error);
             }
@@ -29,8 +39,6 @@ const HotelDetails = () => {
         fetchHotel();
 
     }, [id])
-
-    console.log(hotel)
 
 
     return (
@@ -123,9 +131,14 @@ const HotelDetails = () => {
 
 
 
+                <div className='ms-20'>
 
+                    <ReviewSection review_count={reviews.length} reviews={reviews} />
+
+                </div>
 
             </div>
+
 
             <Footer />
         </>
