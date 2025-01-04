@@ -52,8 +52,8 @@ const Home = () => {
                 Ratings={hotel.ratings}
                 title={hotel.title}
                 location_city={hotel.locationCity}
-                destination_link="#"
                 imgUrl={hotel.imgUrl}
+                destination_link={`/hotel-details/${hotel.id}`}
               />
             ))}
 
@@ -78,7 +78,7 @@ const Home = () => {
                 Ratings={restaurant.rating}
                 title={restaurant.title}
                 location_city={restaurant.location_city}
-                destination_link="#"
+                destination_link={`/restaurant-details/${restaurant.id}`}
                 imgUrl={restaurant.image_url}
               />
             ))}

@@ -9,6 +9,7 @@ import Home from './pages/home/Home'
 import LogIn from './pages/login/LogIn'
 import SignUp from './pages/signUp/SignUp'
 import HotelDetails from './pages/hotelDetails/HotelDetails'
+import RestaurantDetails from './pages/restaurantDetails/RestaurantDetails'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path='/tripPlanner' element={<TripPlanner />}></Route>
           <Route path='/blog' element={<Blog />}></Route>
           <Route path='/hotel-details/:id' element={<HotelDetails />} />
+          <Route path='/restaurant-details/:id' element={<RestaurantDetails />} />
         </Routes>
       </BrowserRouter>
     </>

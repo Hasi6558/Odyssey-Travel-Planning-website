@@ -49,6 +49,7 @@ class ApiService {
         }
     }
 
+
     static async getRoomsByHotelId(hotelId) {
         try {
             const response = await axios.get(`${BASE_URL}/hotelRooms/getAllHotelRoomsByHotelId/${hotelId}`)
@@ -79,6 +80,16 @@ class ApiService {
             console.error('Error fetching hotels data', error);
         }
     }
+    static async getRestaurantById(id) {
+        try {
+            const response = await axios.get(`${BASE_URL}/restaurant/getRestaurantById/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching hotel by ID:', error);
+            throw error;
+        }
+    }
+
 
 }
 
