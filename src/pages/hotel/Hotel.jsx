@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import NavBar from '../../component/navBar/NavBar'
-import Footer from '../../component/Footer/Footer'
-import SearchBar from '../../component/bars/SearchBar'
-import ListingCard from '../../component/cards/ListingCard'
-import ApiService from '../../service/ApiService'
+import React, { useEffect, useState, useRef } from 'react';
+import NavBar from '../../component/navBar/NavBar';
+import Footer from '../../component/Footer/Footer';
+import SearchBar from '../../component/bars/SearchBar';
+import ListingCard from '../../component/cards/ListingCard';
+import ApiService from '../../service/ApiService';
 
 const Hotel = () => {
-
   const [hotels, setHotels] = useState([]);
+  const [searchedText, setSearchedText] = useState('');
+  const [searchedHotels, setsearchedHotels] = useState([]);
+  const [loading, setLoading] = useState(false);
 
 
+  const resultsRef = useRef(null);
 
   useEffect(() => {
-
     const fetchData = async () => {
+      setLoading(true);
       try {
         const hotelsData = await ApiService.getHotels();
         setHotels(hotelsData);
@@ -21,48 +24,82 @@ const Hotel = () => {
 
       } catch (error) {
         console.error('Error fetching data', error);
-      }
+      } finally {
 
-    }
+        setLoading(false);
+      }
+    };
     fetchData();
-  }, [])
-  console.log(hotels);
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (searchedText) {
+        setLoading(true);
+        try {
+          const searchedHotelsData = await ApiService.gethotelByCity(searchedText);
+          setsearchedHotels(searchedHotelsData);
+
+
+          if (resultsRef.current) {
+            resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+          }
+        } catch (error) {
+          console.error('Error fetching data', error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    fetchData();
+  }, [searchedText]);
+
+  const displayHotels = searchedText ? searchedHotels : hotels;
 
   return (
     <>
       <NavBar />
       <div>
-        <SearchBar title="Find Your Perfect Stay" subtitleLine1="Explore a world of comfort and luxury." subtitleLine2="From cozy retreats to grand escapes, discover the ideal destination for your next adventure." hintText="Where are you going?" />
-        <div className='mx-40 flex justify-center'>
-          <h1 className='font-bold text-2xl my-4 '>Explore hotels</h1>
-        </div>
-        <div className=' mx-20 flex flex-col items-center'>
+        <SearchBar
+          title="Find Your Perfect Stay"
+          subtitleLine1="Explore a world of comfort and luxury."
+          subtitleLine2="From cozy retreats to grand escapes, discover the ideal destination for your next adventure."
+          hintText="Where are you going?"
+          setSearchedText={setSearchedText}
+        />
 
-          {hotels.map((hotel) => (
-            <ListingCard
-              key={hotel.id}
-              title={hotel.title}
-              location_city={hotel.locationCity}
-              location_map_url={hotel.locationMap}
-              rating={hotel.ratings}
-              review_count={hotel.reviewCount}
-              description={hotel.descriptionShort}
-              imgUrl={hotel.imgUrl?.[0]}
-            />
-          ))}
-          <ListingCard title="Araliya Red - Lean Luxury - Where you
-          find stunning 360 panoramic view of
-                    Nuwara Eliya" location_city="Nuwara Eliya" location_map_url="#" rating="4.5" review_count="366" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus excepturi hic vel ratione? Ullam porro, dolorum maiores quo voluptatum quidem officia quisquam a recusandae quaerat quam veniam eius" imgUrl="https://plus.unsplash.com/premium_photo-1661964071015-d97428970584?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWx8ZW58MHx8MHx8fDA%3D" />
-
-          <ListingCard />
+        <div className="mx-40 flex justify-center">
+          <h1 className="font-bold text-2xl my-4">Explore hotels</h1>
         </div>
 
+        <div ref={resultsRef}>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="mx-20 flex flex-col items-center">
+              {displayHotels.length > 0 ? (
+                displayHotels.map((hotel) => (
+                  <ListingCard
+                    key={hotel.id}
+                    title={hotel.title}
+                    location_city={hotel.locationCity}
+                    location_map_url={hotel.locationMap}
+                    rating={hotel.ratings}
+                    review_count={hotel.reviewCount}
+                    description={hotel.descriptionShort}
+                    imgUrl={hotel.imgUrl?.[0]}
+                  />
+                ))
+              ) : (
+                <p className="font-bold text-2xl text-gray-500 h-screen">No Hotels found!</p>
+              )}
+            </div>
+          )}
+        </div>
       </div>
       <Footer />
-
     </>
+  );
+};
 
-  )
-}
-
-export default Hotel
+export default Hotel;
