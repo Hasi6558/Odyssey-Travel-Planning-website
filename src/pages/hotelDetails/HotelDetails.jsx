@@ -11,7 +11,7 @@ import ReviewSection from '../../component/ReviewSection';
 const HotelDetails = () => {
 
     const { id } = useParams();
-    const [hotel, setHotel] = useState([]);
+    const [hotel, setHotel] = useState({});
     const [hotelRooms, setHotelRooms] = useState([]);
     const [reviews, setReviews] = useState([]);
 
@@ -39,6 +39,8 @@ const HotelDetails = () => {
         fetchHotel();
 
     }, [id])
+    console.log(hotel)
+    console.log(reviews)
 
 
     return (
@@ -79,27 +81,27 @@ const HotelDetails = () => {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">🔥</span>
-                            <span>Barbecue grill</span>
+                            <span>{hotel.facilities?.[0]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">❄️</span>
-                            <span>Air conditioning</span>
+                            <span>{hotel.facilities?.[1]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">🅿️</span>
-                            <span>Parking included</span>
+                            <span>{hotel.facilities?.[2]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">🏡</span>
-                            <span>Outdoor Space</span>
+                            <span>{hotel.facilities?.[3]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">🌀</span>
-                            <span>Dryer</span>
+                            <span>{hotel.facilities?.[4]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">📶</span>
-                            <span>Free WiFi</span>
+                            <span>{hotel.facilities?.[5]}</span>
                         </div>
                     </div>
                 </div>
@@ -132,9 +134,7 @@ const HotelDetails = () => {
 
 
                 <div className='ms-20'>
-
                     <ReviewSection review_count={reviews.length} reviews={reviews} />
-
                 </div>
 
             </div>

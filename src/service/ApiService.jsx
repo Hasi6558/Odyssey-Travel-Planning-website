@@ -60,7 +60,8 @@ class ApiService {
     }
     static async getReviewsByReviewdItemId(reviewdItemId) {
         try {
-            const response = await axios.get(`${BASE_URL}/reviews/getReviewsByItemId/${reviewdItemId}`)
+
+            const response = await axios.get(`${BASE_URL}/reviews/getReviewByReviewdId/${reviewdItemId}`);
             return response.data;
 
         } catch (error) {
