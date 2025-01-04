@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../../component/navBar/NavBar'
 import Footer from '../../component/Footer/Footer'
 import SearchBar from '../../component/bars/SearchBar'
 import ListingCard from '../../component/cards/ListingCard'
+import ApiService from '../../service/ApiService'
 
 const Hotel = () => {
+
+  const [hotels, setHotels] = useState([]);
+
+
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const hotelsData = await ApiService.getHotels();
+        setHotels(hotelsData);
+
+
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+
+    }
+    fetchData();
+  }, [])
+  console.log(hotels);
+
   return (
     <>
       <NavBar />
@@ -14,6 +37,19 @@ const Hotel = () => {
           <h1 className='font-bold text-2xl my-4 '>Explore hotels</h1>
         </div>
         <div className=' mx-20 flex flex-col items-center'>
+
+          {hotels.map((hotel) => (
+            <ListingCard
+              key={hotel.id}
+              title={hotel.title}
+              location_city={hotel.locationCity}
+              location_map_url={hotel.locationMap}
+              rating={hotel.ratings}
+              review_count={hotel.reviewCount}
+              description={hotel.descriptionShort}
+              imgUrl={hotel.imgUrl?.[0]}
+            />
+          ))}
           <ListingCard title="Araliya Red - Lean Luxury - Where you
           find stunning 360 panoramic view of
                     Nuwara Eliya" location_city="Nuwara Eliya" location_map_url="#" rating="4.5" review_count="366" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus excepturi hic vel ratione? Ullam porro, dolorum maiores quo voluptatum quidem officia quisquam a recusandae quaerat quam veniam eius" imgUrl="https://plus.unsplash.com/premium_photo-1661964071015-d97428970584?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWx8ZW58MHx8MHx8fDA%3D" />

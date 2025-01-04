@@ -5,7 +5,7 @@ const ListingCard = ({ title, location_city, location_map_url, rating, review_co
     return (
 
         <div className='rounded-2xl overflow-hidden flex border max-w-[800px] m-2'>
-            <div>
+            <div className='w-96'>
                 <img src={imgUrl} alt="listing image" className='h-full w-full object-cover w-[350px] ' />
             </div>
             <div className='w-[700px] p-8'>
