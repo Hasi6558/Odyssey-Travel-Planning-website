@@ -3,7 +3,7 @@ import ContentImage from '../../assets/images/signup_background.png';
 import RatingBar from '../bars/RatingBar';
 import locationLogo from '../../assets/icons/location_logo_2.png';
 
-const ContentCard = ({ id, RatingCount, title, location_city, destination_link, Ratings, imgUrl }) => {
+const ContentCard = ({ id, RatingCount, title, location_city, Ratings, imgUrl }) => {
     return (
         <div className="w-full overflow-hidden rounded-xl shadow-lg bg-white flex flex-col">
 

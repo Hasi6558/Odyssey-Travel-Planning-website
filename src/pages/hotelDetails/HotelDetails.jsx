@@ -6,12 +6,16 @@ import Footer from '../../component/Footer/Footer';
 import ImageGallery from '../../component/imageGallery/ImageGallery';
 import RoomCard from '../../component/cards/RoomCard';
 import LocationLogo from '../../assets/icons/location_logo_2.png';
+import ReviewSection from '../../component/ReviewSection';
 
 const HotelDetails = () => {
 
     const { id } = useParams();
-    const [hotel, setHotel] = useState([]);
+    const [hotel, setHotel] = useState({});
     const [hotelRooms, setHotelRooms] = useState([]);
+    const [reviews, setReviews] = useState([]);
+
+
 
 
     useEffect(() => {
@@ -20,8 +24,14 @@ const HotelDetails = () => {
             try {
                 const hotelData = await ApiService.getHotelById(id);
                 const hotelRoomsData = await ApiService.getRoomsByHotelId("H001");
+                const reviewData = await ApiService.getReviewsByReviewdItemId("12345")
+
+
                 setHotel(hotelData);
                 setHotelRooms(hotelRoomsData);
+                setReviews(reviewData);
+
+
             } catch (error) {
                 console.error('Error fetching data', error);
             }
@@ -29,8 +39,8 @@ const HotelDetails = () => {
         fetchHotel();
 
     }, [id])
-
     console.log(hotel)
+    console.log(reviews)
 
 
     return (
@@ -51,10 +61,10 @@ const HotelDetails = () => {
                 <div className='flex flex-row gap-44 items-center '>
 
                     <div className='w-5/12'>
-                        <ImageGallery />
+                        <ImageGallery images={hotel.imgUrl || []} />
                     </div>
 
-                    <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.6822184537104!2d79.83956527772371!3d6.928535375206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2593b09364c4f%3A0x7dc13fa1f24d5c16!2sShangri-La%20Colombo!5e0!3m2!1sen!2slk!4v1735667518277!5m2!1sen!2slk" width="200" height="200" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                    <div><iframe src={hotel.locationMap} width="200" height="200" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
                 </div>
 
                 <div className='my-10 mx-20 rounded-xl shadow-lg p-10 bg-gray-100'>
@@ -71,27 +81,27 @@ const HotelDetails = () => {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">🔥</span>
-                            <span>Barbecue grill</span>
+                            <span>{hotel.facilities?.[0]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">❄️</span>
-                            <span>Air conditioning</span>
+                            <span>{hotel.facilities?.[1]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">🅿️</span>
-                            <span>Parking included</span>
+                            <span>{hotel.facilities?.[2]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">🏡</span>
-                            <span>Outdoor Space</span>
+                            <span>{hotel.facilities?.[3]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span className="text-xl">🌀</span>
-                            <span>Dryer</span>
+                            <span>{hotel.facilities?.[4]}</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                            <span className="text-xl">📶</span> {/* Icon placeholder */}
-                            <span>Free WiFi</span>
+                            <span className="text-xl">📶</span>
+                            <span>{hotel.facilities?.[5]}</span>
                         </div>
                     </div>
                 </div>
@@ -123,9 +133,12 @@ const HotelDetails = () => {
 
 
 
-
+                <div className='ms-20'>
+                    <ReviewSection review_count={reviews.length} reviews={reviews} />
+                </div>
 
             </div>
+
 
             <Footer />
         </>
