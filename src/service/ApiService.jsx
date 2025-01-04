@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios } from "axios";
 
 const BASE_URL = 'http://localhost:9090/api'
 
@@ -67,6 +67,16 @@ class ApiService {
         } catch (error) {
             console.error('Error fetching Reviews', error);
             throw error;
+        }
+    }
+    static async gethotelByCity(searchTerm) {
+        try {
+
+            const response = await axios.get(`${BASE_URL}/hotels/searchHotelsByCity?searchTerm=${searchTerm}`)
+            return response.data;
+
+        } catch (error) {
+            console.error('Error fetching hotels data', error);
         }
     }
 
