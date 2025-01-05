@@ -21,7 +21,7 @@ const TourDetails = () => {
             setLoading(true);
             try {
                 const tourData = await ApiService.getTourById(id);
-                const reviewData = await ApiService.getReviewsByReviewdItemId("12345");
+                const reviewData = await ApiService.getReviewsByReviewdItemId(id);
 
                 setTour(tourData);
                 setReviews(reviewData);

@@ -73,24 +73,29 @@ const Tour = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <div className="mx-20 flex flex-col items-center">
-              {displayTours.length > 0 ? (
-                displayTours.map((tour) => (
-                  <ListingCard
-                    key={tour.id}
-                    title={tour.title}
-                    location_city={tour.location_city}
-                    location_map_url={tour.location_map}
-                    rating={tour.rating}
-                    review_count={tour.review_count}
-                    description={tour.description}
-                    imgUrl={tour.image_url?.[0]}
-                  />
-                ))
-              ) : (
-                <p className="font-bold text-2xl text-gray-500 h-screen">No Tours found!</p>
-              )}
-            </div>
+            <>
+              {searchedText ? (<div className='max-w-[800px] m-auto my-4 font-semibold text-lg'> Nearby Tours in : {searchedText}</div>) : ("")}
+              <div className="mx-20 flex flex-col items-center">
+                {displayTours.length > 0 ? (
+                  displayTours.map((tour) => (
+                    <ListingCard
+                      key={tour.id}
+                      title={tour.title}
+                      location_city={tour.location_city}
+                      location_map_url={tour.location_map}
+                      rating={tour.rating}
+                      review_count={tour.review_count}
+                      description={tour.description}
+                      imgUrl={tour.image_url?.[0]}
+                      destination_link={`tour-details/${tour.id}`}
+                    />
+                  ))
+                ) : (
+                  <p className="font-bold text-2xl text-gray-500 h-screen">No Tours found!</p>
+                )}
+              </div>
+            </>
+
           )}
         </div>
       </div>

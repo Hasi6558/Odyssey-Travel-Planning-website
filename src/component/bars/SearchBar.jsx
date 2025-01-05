@@ -14,6 +14,11 @@ const SearchBar = ({ title, subtitleLine1, subtitleLine2, hintText, setSearchedT
         setSearchedText(currentText);
 
     }
+    const handleKeyDown = () => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
+    }
 
     return (
         <div className='w-screen h-screen  flex flex-col items-center relative bg-cover bg-center' style={{ backgroundImage: `url(${searchBackgroundImg})` }}>
@@ -33,7 +38,7 @@ const SearchBar = ({ title, subtitleLine1, subtitleLine2, hintText, setSearchedT
                 <span className='px-2'>
                     <img src={redLocationLogo} alt="" />
                 </span>
-                <input type="text" placeholder={hintText} onChange={handleInputChange} />
+                <input type="text" placeholder={hintText} onChange={handleInputChange} onKeyDown={handleKeyDown} />
                 <div className='flex items-center px-2'>
                     <button><img src={Searchlogo} alt="" className='bg-blue-400 rounded-full p-2' onClick={handleSearch} /></button>
                 </div>

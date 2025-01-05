@@ -1,7 +1,7 @@
 import React from 'react'
 import LocationIcon from '../../assets/icons/location_logo_2.png'
 
-const ListingCard = ({ title, location_city, location_map_url, rating, review_count, description, imgUrl }) => {
+const ListingCard = ({ title, location_city, location_map_url, rating, review_count, description, imgUrl, destination_link }) => {
     return (
 
         <div className='rounded-2xl overflow-hidden flex border max-w-[800px] m-2'>
@@ -25,6 +25,8 @@ const ListingCard = ({ title, location_city, location_map_url, rating, review_co
                 <div className='h-24 overflow-hidden'>
                     <p>{description}</p>
                 </div>
+                <a href={destination_link}><div className='w-full flex justify-end pe-4 text-gray-500'>See more</div></a>
+
 
 
 
