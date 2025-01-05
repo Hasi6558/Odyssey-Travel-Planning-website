@@ -58,7 +58,7 @@ const HotelDetails = () => {
                             <div className='ms-20 me-2'><img src={LocationLogo} alt="" className='h-4' /></div>
                             <div>{`${hotel.locationCity},${hotel.locationCountry}`}</div>
 
-                            <div className='ps-10 font-semibold'><a href="#">Show on map</a></div>
+                            <div className='ps-10 font-semibold'><a href={hotel.locationMap}>Show on map</a></div>
                             <div className='bg-blue-700 text-white p-1 ms-10'><p>{hotel.ratings}</p></div>
                         </div>
                         <div className='flex flex-row gap-44 items-center '>

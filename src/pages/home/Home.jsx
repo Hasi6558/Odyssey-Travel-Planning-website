@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import NavBar from '../../component/navBar/NavBar'
 import Footer from '../../component/Footer/Footer'
 import ContentCard from '../../component/cards/ContentCard'
@@ -55,6 +55,10 @@ const Home = () => {
           setsearchedRestaurants(searchedRestaurantsData);
           setsearchedTours(searchedToursData);
 
+          if (resultRef.current) {
+            resultRef.current.scrollIntoView({ behaviour: 'smooth' })
+          }
+
         } catch (error) {
           console.error('Error fetching data', error);
 
@@ -70,6 +74,8 @@ const Home = () => {
   const displayRestaurants = searchedText ? searchedRestaurants : restaurants;
   const displayTours = searchedText ? searchedTours : tours;
 
+  const resultRef = useRef(null);
+
   return (
     <div>
       <NavBar />
@@ -84,108 +90,113 @@ const Home = () => {
 
 
       />
-      {
-        loading ? (
-          <LoadingScreen />
-        ) : (
-          <>
-            {/* Top Hotels */}
-            <div className='m-auto w-9/12'>
-              <div className='my-10'>
-                <div className='flex items-center justify-between mb-10'>
-                  <span className='text-4xl font-semibold'> {searchedText ? (<p> Top Hotels in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Top Hotels</p>)} </span>
-                  <span><a href="/hotel">See all</a></span>
-                </div>
 
-                {/* Responsive Grid */}
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+      <div ref={resultRef}>
+        {
+          loading ? (
+            <LoadingScreen />
+          ) : (
+            <>
+              {/* Top Hotels */}
+              <div className='m-auto w-9/12'>
+                <div className='my-10'>
+                  <div className='flex items-center justify-between mb-10'>
+                    <span className='text-4xl font-semibold'> {searchedText ? (<p> Top Hotels in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Top Hotels</p>)} </span>
+                    <span><a href="/hotel">See all</a></span>
+                  </div>
 
-                  {displayHotels.length > 0 ? (
-                    displayHotels.slice(0, 8).map((hotel) => (
-                      <ContentCard
-                        key={hotel.id}
-                        id={hotel.id}
-                        RatingCount={hotel.reviewCount}
-                        Ratings={hotel.ratings}
-                        title={hotel.title}
-                        location_city={hotel.locationCity}
-                        imgUrl={hotel.imgUrl}
-                        destination_link={`/hotel-details/${hotel.id}`}
-                      />
-                    ))
+                  {/* Responsive Grid */}
+                  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
 
-                  ) : (<p>No Hotels found</p>)}
+                    {displayHotels.length > 0 ? (
+                      displayHotels.slice(0, 8).map((hotel) => (
+                        <ContentCard
+                          key={hotel.id}
+                          id={hotel.id}
+                          RatingCount={hotel.reviewCount}
+                          Ratings={hotel.ratings}
+                          title={hotel.title}
+                          location_city={hotel.locationCity}
+                          imgUrl={hotel.imgUrl}
+                          destination_link={`/hotel-details/${hotel.id}`}
+                        />
+                      ))
 
-
-                </div>
-              </div>
-            </div>
-
-            {/* Popular Restaurants */}
-            <div className='m-auto w-9/12'>
-              <div className='mb-10'>
-                <div className='flex items-center justify-between mb-10'>
-                  <span className='text-4xl font-semibold'>{searchedText ? (<p> Popular Restaurants in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Popular Restaurants</p>)}</span>
-                  <span><a href="/restaurant  ">See all</a></span>
-                </div>
-
-                {/* Responsive Grid */}
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-                  {displayRestaurants.length > 0 ? (
-                    displayRestaurants.slice(0, 8).map((restaurant) => (
-                      <ContentCard
-                        key={restaurant.id}
-                        RatingCount={restaurant.review_count}
-                        Ratings={restaurant.rating}
-                        title={restaurant.title}
-                        location_city={restaurant.location_city}
-                        destination_link={`/restaurant-details/${restaurant.id}`}
-                        imgUrl={restaurant.image_url}
-                      />
-                    ))
-                  ) : (<p>No Restaurants found</p>)
+                    ) : (<p>No Hotels found</p>)}
 
 
-                  }
-
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Best Tours */}
-            <div className='m-auto w-9/12'>
-              <div className='mb-10'>
-                <div className='flex items-center justify-between mb-10'>
-                  <span className='text-4xl font-semibold'>{searchedText ? (<p> Best Tours in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Top Tours</p>)}</span>
-                  <span><a href="/tours">See all</a></span>
-                </div>
+              {/* Popular Restaurants */}
+              <div className='m-auto w-9/12'>
+                <div className='mb-10'>
+                  <div className='flex items-center justify-between mb-10'>
+                    <span className='text-4xl font-semibold'>{searchedText ? (<p> Popular Restaurants in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Popular Restaurants</p>)}</span>
+                    <span><a href="/restaurant  ">See all</a></span>
+                  </div>
 
-                {/* Responsive Grid */}
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-                  {displayTours.length > 0 ? (
-                    displayTours.slice(0, 8).map((tour) => (
-                      <ContentCard
-                        key={tour.id}
-                        RatingCount={tour.review_count}
-                        Ratings={tour.rating}
-                        title={tour.title}
-                        location_city={tour.location_city}
-                        destination_link={`/tour-details/${tour.id}`}
-                        imgUrl={tour.image_url}
-                      />
-                    ))
-                  ) : (<p>No Tours found</p>)
+                  {/* Responsive Grid */}
+                  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+                    {displayRestaurants.length > 0 ? (
+                      displayRestaurants.slice(0, 8).map((restaurant) => (
+                        <ContentCard
+                          key={restaurant.id}
+                          RatingCount={restaurant.review_count}
+                          Ratings={restaurant.rating}
+                          title={restaurant.title}
+                          location_city={restaurant.location_city}
+                          destination_link={`/restaurant-details/${restaurant.id}`}
+                          imgUrl={restaurant.image_url}
+                        />
+                      ))
+                    ) : (<p>No Restaurants found</p>)
 
 
-                  }
+                    }
+
+                  </div>
                 </div>
               </div>
-            </div>
+
+              {/* Best Tours */}
+              <div className='m-auto w-9/12'>
+                <div className='mb-10'>
+                  <div className='flex items-center justify-between mb-10'>
+                    <span className='text-4xl font-semibold'>{searchedText ? (<p> Best Tours in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Top Tours</p>)}</span>
+                    <span><a href="/tours">See all</a></span>
+                  </div>
+
+                  {/* Responsive Grid */}
+                  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+                    {displayTours.length > 0 ? (
+                      displayTours.slice(0, 8).map((tour) => (
+                        <ContentCard
+                          key={tour.id}
+                          RatingCount={tour.review_count}
+                          Ratings={tour.rating}
+                          title={tour.title}
+                          location_city={tour.location_city}
+                          destination_link={`/tour-details/${tour.id}`}
+                          imgUrl={tour.image_url}
+                        />
+                      ))
+                    ) : (<p>No Tours found</p>)
 
 
-          </>
-        )
-      }
+                    }
+                  </div>
+                </div>
+              </div>
+
+
+            </>
+          )
+        }
+
+
+      </div>
 
 
       <Footer />
