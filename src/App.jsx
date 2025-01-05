@@ -17,7 +17,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/Odyssey-Travel-Planning-website">
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
