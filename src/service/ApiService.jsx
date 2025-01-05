@@ -1,6 +1,6 @@
 import axios, { Axios } from "axios";
 
-const BASE_URL = 'http://localhost:9090/api'
+const BASE_URL = 'https://odyssey-travel-planning-site-bac-production.up.railway.app/api'
 
 
 class ApiService {
