@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import redLocationLogo from '../../assets/icons/mdi_location_red.png'
 import Searchlogo from '../../assets/icons/material-symbols_search.png'
 
-const SearchBar = ({ title, subtitleLine1, subtitleLine2, hintText, setSearchedText }) => {
+const SearchBar = ({ title, subtitleLine1, subtitleLine2, hintText, setSearchedText, searchBackgroundImg }) => {
 
     const [currentText, setCurrentText] = useState("");
 
@@ -16,7 +16,7 @@ const SearchBar = ({ title, subtitleLine1, subtitleLine2, hintText, setSearchedT
     }
 
     return (
-        <div className='w-screen h-screen  flex flex-col items-center relative bg-cover bg-center' style={{ backgroundImage: "url('https://plus.unsplash.com/premium_photo-1661964071015-d97428970584?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWx8ZW58MHx8MHx8fDA%3D')" }}>
+        <div className='w-screen h-screen  flex flex-col items-center relative bg-cover bg-center' style={{ backgroundImage: `url(${searchBackgroundImg})` }}>
 
             <div className='absolute inset-0 bg-black opacity-50'>
 
