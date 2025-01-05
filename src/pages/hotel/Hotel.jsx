@@ -4,6 +4,7 @@ import Footer from '../../component/Footer/Footer';
 import SearchBar from '../../component/bars/SearchBar';
 import ListingCard from '../../component/cards/ListingCard';
 import ApiService from '../../service/ApiService';
+import BackgroudImage from '../../assets/images/hotel_bg.jpg'
 
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
@@ -66,6 +67,7 @@ const Hotel = () => {
           subtitleLine2="From cozy retreats to grand escapes, discover the ideal destination for your next adventure."
           hintText="Where are you going?"
           setSearchedText={setSearchedText}
+          searchBackgroundImg={BackgroudImage}
         />
 
         <div className="mx-40 flex justify-center">

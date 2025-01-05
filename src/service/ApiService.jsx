@@ -89,7 +89,15 @@ class ApiService {
             throw error;
         }
     }
-
+    static async getRestaurantByCity(searchTerm) {
+        try {
+            const response = await axios.get(`${BASE_URL}/restaurants/searchRestaurantsByCity?searchTerm=${searchTerm}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching hotel by ID:', error);
+            throw error;
+        }
+    }
 
 }
 

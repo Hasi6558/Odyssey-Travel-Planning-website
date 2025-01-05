@@ -10,6 +10,7 @@ import LogIn from './pages/login/LogIn'
 import SignUp from './pages/signUp/SignUp'
 import HotelDetails from './pages/hotelDetails/HotelDetails'
 import RestaurantDetails from './pages/restaurantDetails/RestaurantDetails'
+import LoadingScreen from './component/LoadingScreen'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/blog' element={<Blog />}></Route>
           <Route path='/hotel-details/:id' element={<HotelDetails />} />
           <Route path='/restaurant-details/:id' element={<RestaurantDetails />} />
+          <Route path='/loading' element={<LoadingScreen />} />
         </Routes>
       </BrowserRouter>
     </>
