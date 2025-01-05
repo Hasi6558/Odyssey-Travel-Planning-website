@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios } from "axios";
 
 const BASE_URL = 'http://localhost:9090/api'
 
@@ -44,10 +44,22 @@ class ApiService {
             const response = await axios.get(`${BASE_URL}/hotels/getHotelById/${id}`);
             return response.data;
         } catch (error) {
-            onsole.error('Error fetching hotels:', error);
+            console.error('Error fetching hotel by ID:', error);
             throw error;
         }
     }
+
+    static async getTourById(id) {
+        try {
+            const response = await axios.get(`${BASE_URL}/tours/getTourById/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching hotel by ID:', error);
+            throw error;
+        }
+    }
+
+
     static async getRoomsByHotelId(hotelId) {
         try {
             const response = await axios.get(`${BASE_URL}/hotelRooms/getAllHotelRoomsByHotelId/${hotelId}`)
@@ -57,6 +69,57 @@ class ApiService {
             throw error;
         }
     }
+    static async getReviewsByReviewdItemId(reviewdItemId) {
+        try {
+
+            const response = await axios.get(`${BASE_URL}/reviews/getReviewByReviewdId/${reviewdItemId}`);
+            return response.data;
+
+        } catch (error) {
+            console.error('Error fetching Reviews', error);
+            throw error;
+        }
+    }
+    static async gethotelByCity(searchTerm) {
+        try {
+
+            const response = await axios.get(`${BASE_URL}/hotels/searchHotelsByCity?searchTerm=${searchTerm}`)
+            return response.data;
+
+        } catch (error) {
+            console.error('Error fetching hotels data', error);
+        }
+    }
+    static async getRestaurantById(id) {
+        try {
+            const response = await axios.get(`${BASE_URL}/restaurant/getRestaurantById/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching hotel by ID:', error);
+            throw error;
+        }
+    }
+    static async getRestaurantByCity(searchTerm) {
+        try {
+            const response = await axios.get(`${BASE_URL}/restaurant/searchRestaurantsByCity?searchTerm=${searchTerm}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching restaurant:', error);
+            throw error;
+        }
+    }
+
+    static async getToursByCity(searchTerm) {
+        try {
+            const response = await axios.get(`${BASE_URL}/tours/searchToursByCity?searchTerm=${searchTerm}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching restaurant:', error);
+            throw error;
+        }
+    }
+
+
 }
 
 export default ApiService;
