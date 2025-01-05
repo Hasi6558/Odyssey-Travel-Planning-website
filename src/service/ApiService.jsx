@@ -49,6 +49,16 @@ class ApiService {
         }
     }
 
+    static async getTourById(id) {
+        try {
+            const response = await axios.get(`${BASE_URL}/tours/getTourById/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching hotel by ID:', error);
+            throw error;
+        }
+    }
+
 
     static async getRoomsByHotelId(hotelId) {
         try {
@@ -91,13 +101,24 @@ class ApiService {
     }
     static async getRestaurantByCity(searchTerm) {
         try {
-            const response = await axios.get(`${BASE_URL}/restaurants/searchRestaurantsByCity?searchTerm=${searchTerm}`);
+            const response = await axios.get(`${BASE_URL}/restaurant/searchRestaurantsByCity?searchTerm=${searchTerm}`);
             return response.data;
         } catch (error) {
-            console.error('Error fetching hotel by ID:', error);
+            console.error('Error fetching restaurant:', error);
             throw error;
         }
     }
+
+    static async getToursByCity(searchTerm) {
+        try {
+            const response = await axios.get(`${BASE_URL}/tours/searchToursByCity?searchTerm=${searchTerm}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching restaurant:', error);
+            throw error;
+        }
+    }
+
 
 }
 

@@ -4,6 +4,8 @@ import Footer from '../../component/Footer/Footer'
 import ContentCard from '../../component/cards/ContentCard'
 import ApiService from '../../service/ApiService'
 import LoadingScreen from '../../component/LoadingScreen'
+import SearchBar from '../../component/bars/SearchBar'
+import BackgroundImg from '../../assets/images/home_bg.jpg'
 
 const Home = () => {
 
@@ -11,6 +13,7 @@ const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchedText, setSearchedText] = useState("");
 
   useEffect(
     () => {
@@ -35,9 +38,45 @@ const Home = () => {
       fetchData();
     }, []
   );
+
+  useEffect(
+    () => {
+      const fetchData = async () => {
+        setLoading(true);
+        try {
+          const searchedHotelData = await ApiService.getHotels();
+          const SearchedRestaurantData = await ApiService.getRestaurants();
+          const SearchedTourData = await ApiService.getTours();
+
+          setHotels(hotelData);
+          setRestaurants(restaurantData);
+          setTours(tourData);
+
+        } catch (error) {
+          console.error('Error fetching data', error);
+
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+    }, []
+  );
+
   return (
     <div>
       <NavBar />
+      <SearchBar
+
+        title="Discover Your Next Adventure"
+        subtitleLine1=" From breathtaking destinations to personalized itineraries, plan every step of your journey effortlessly."
+        subtitleLine2="Find experiences that inspire, and let us handle the details for a trip you’ll never forget."
+        hintText="Where are you going?"
+        setSearchedText={setSearchedText}
+        searchBackgroundImg={BackgroundImg}
+
+
+      />
       {
         loading ? (
           <LoadingScreen />
@@ -112,7 +151,7 @@ const Home = () => {
                       Ratings={tour.rating}
                       title={tour.title}
                       location_city={tour.location_city}
-                      destination_link="#"
+                      destination_link={`/tour-details/${tour.id}`}
                       imgUrl={tour.image_url}
                     />
                   ))}

@@ -11,6 +11,7 @@ import SignUp from './pages/signUp/SignUp'
 import HotelDetails from './pages/hotelDetails/HotelDetails'
 import RestaurantDetails from './pages/restaurantDetails/RestaurantDetails'
 import LoadingScreen from './component/LoadingScreen'
+import TourDetails from './pages/tourDetailsPage/TourDetailsPage'
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path='/hotel-details/:id' element={<HotelDetails />} />
           <Route path='/restaurant-details/:id' element={<RestaurantDetails />} />
           <Route path='/loading' element={<LoadingScreen />} />
+          <Route path='/tour-details/:id' element={<TourDetails />} />
         </Routes>
       </BrowserRouter>
     </>
