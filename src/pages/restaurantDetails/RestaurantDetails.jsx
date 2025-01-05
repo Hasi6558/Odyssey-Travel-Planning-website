@@ -21,7 +21,7 @@ const RestaurantDetails = () => {
             setLoading(true);
             try {
                 const restaurantData = await ApiService.getRestaurantById(id);
-                const reviewData = await ApiService.getReviewsByReviewdItemId("12345");
+                const reviewData = await ApiService.getReviewsByReviewdItemId(id);
 
                 setRestaurant(restaurantData);
                 setReviews(reviewData);

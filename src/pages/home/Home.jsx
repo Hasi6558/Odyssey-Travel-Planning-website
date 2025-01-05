@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import NavBar from '../../component/navBar/NavBar'
 import Footer from '../../component/Footer/Footer'
 import ContentCard from '../../component/cards/ContentCard'
@@ -13,7 +13,10 @@ const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchedText, setSearchedText] = useState("");
+  const [searchedText, setSearchedText] = useState("");;
+  const [searchedHotels, setsearchedHotels] = useState([]);
+  const [searchedRestaurants, setsearchedRestaurants] = useState([]);
+  const [searchedTours, setsearchedTours] = useState([]);
 
   useEffect(
     () => {
@@ -44,13 +47,17 @@ const Home = () => {
       const fetchData = async () => {
         setLoading(true);
         try {
-          const searchedHotelData = await ApiService.getHotels();
-          const SearchedRestaurantData = await ApiService.getRestaurants();
-          const SearchedTourData = await ApiService.getTours();
+          const searchedHotelsData = await ApiService.gethotelByCity(searchedText);
+          const searchedRestaurantsData = await ApiService.getRestaurantByCity(searchedText);
+          const searchedToursData = await ApiService.getToursByCity(searchedText);
 
-          setHotels(hotelData);
-          setRestaurants(restaurantData);
-          setTours(tourData);
+          setsearchedHotels(searchedHotelsData);
+          setsearchedRestaurants(searchedRestaurantsData);
+          setsearchedTours(searchedToursData);
+
+          if (resultRef.current) {
+            resultRef.current.scrollIntoView({ behaviour: 'smooth' })
+          }
 
         } catch (error) {
           console.error('Error fetching data', error);
@@ -60,8 +67,14 @@ const Home = () => {
         }
       };
       fetchData();
-    }, []
+    }, [searchedText]
   );
+
+  const displayHotels = searchedText ? searchedHotels : hotels;
+  const displayRestaurants = searchedText ? searchedRestaurants : restaurants;
+  const displayTours = searchedText ? searchedTours : tours;
+
+  const resultRef = useRef(null);
 
   return (
     <div>
@@ -77,96 +90,117 @@ const Home = () => {
 
 
       />
-      {
-        loading ? (
-          <LoadingScreen />
-        ) : (
-          <>
-            {/* Top Hotels */}
-            <div className='m-auto w-9/12'>
-              <div className='my-10'>
-                <div className='flex items-center justify-between mb-10'>
-                  <span className='text-4xl font-semibold'>Top Hotels</span>
-                  <span><a href="/hotel">See all</a></span>
-                </div>
 
-                {/* Responsive Grid */}
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-                  {hotels.slice(0, 8).map((hotel) => (
-                    <ContentCard
-                      key={hotel.id}
-                      id={hotel.id}
-                      RatingCount={hotel.reviewCount}
-                      Ratings={hotel.ratings}
-                      title={hotel.title}
-                      location_city={hotel.locationCity}
-                      imgUrl={hotel.imgUrl}
-                      destination_link={`/hotel-details/${hotel.id}`}
-                    />
-                  ))}
+      <div ref={resultRef}>
+        {
+          loading ? (
+            <LoadingScreen />
+          ) : (
+            <>
+              {/* Top Hotels */}
+              <div className='m-auto w-9/12'>
+                <div className='my-10'>
+                  <div className='flex items-center justify-between mb-10'>
+                    <span className='text-4xl font-semibold'> {searchedText ? (<p> Top Hotels in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Top Hotels</p>)} </span>
+                    <span><a href="/hotel">See all</a></span>
+                  </div>
 
-                </div>
-              </div>
-            </div>
+                  {/* Responsive Grid */}
+                  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
 
-            {/* Popular Restaurants */}
-            <div className='m-auto w-9/12'>
-              <div className='mb-10'>
-                <div className='flex items-center justify-between mb-10'>
-                  <span className='text-4xl font-semibold'>Popular Restaurants</span>
-                  <span><a href="/restaurant  ">See all</a></span>
-                </div>
+                    {displayHotels.length > 0 ? (
+                      displayHotels.slice(0, 8).map((hotel) => (
+                        <ContentCard
+                          key={hotel.id}
+                          id={hotel.id}
+                          RatingCount={hotel.reviewCount}
+                          Ratings={hotel.ratings}
+                          title={hotel.title}
+                          location_city={hotel.locationCity}
+                          imgUrl={hotel.imgUrl}
+                          destination_link={`/hotel-details/${hotel.id}`}
+                        />
+                      ))
 
-                {/* Responsive Grid */}
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-                  {restaurants.slice(0, 8).map((restaurant) => (
-                    <ContentCard
-                      key={restaurant.id}
-                      RatingCount={restaurant.review_count}
-                      Ratings={restaurant.rating}
-                      title={restaurant.title}
-                      location_city={restaurant.location_city}
-                      destination_link={`/restaurant-details/${restaurant.id}`}
-                      imgUrl={restaurant.image_url}
-                    />
-                  ))}
+                    ) : (<p>No Hotels found</p>)}
+
+
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Best Tours */}
-            <div className='m-auto w-9/12'>
-              <div className='mb-10'>
-                <div className='flex items-center justify-between mb-10'>
-                  <span className='text-4xl font-semibold'>Best Tours</span>
-                  <span><a href="/tours">See all</a></span>
-                </div>
+              {/* Popular Restaurants */}
+              <div className='m-auto w-9/12'>
+                <div className='mb-10'>
+                  <div className='flex items-center justify-between mb-10'>
+                    <span className='text-4xl font-semibold'>{searchedText ? (<p> Popular Restaurants in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Popular Restaurants</p>)}</span>
+                    <span><a href="/restaurant  ">See all</a></span>
+                  </div>
 
-                {/* Responsive Grid */}
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-                  {tours.slice(0, 8).map((tour) => (
-                    <ContentCard
-                      key={tour.id}
-                      RatingCount={tour.review_count}
-                      Ratings={tour.rating}
-                      title={tour.title}
-                      location_city={tour.location_city}
-                      destination_link={`/tour-details/${tour.id}`}
-                      imgUrl={tour.image_url}
-                    />
-                  ))}
+                  {/* Responsive Grid */}
+                  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+                    {displayRestaurants.length > 0 ? (
+                      displayRestaurants.slice(0, 8).map((restaurant) => (
+                        <ContentCard
+                          key={restaurant.id}
+                          RatingCount={restaurant.review_count}
+                          Ratings={restaurant.rating}
+                          title={restaurant.title}
+                          location_city={restaurant.location_city}
+                          destination_link={`/restaurant-details/${restaurant.id}`}
+                          imgUrl={restaurant.image_url}
+                        />
+                      ))
+                    ) : (<p>No Restaurants found</p>)
+
+
+                    }
+
+                  </div>
                 </div>
               </div>
-            </div>
+
+              {/* Best Tours */}
+              <div className='m-auto w-9/12'>
+                <div className='mb-10'>
+                  <div className='flex items-center justify-between mb-10'>
+                    <span className='text-4xl font-semibold'>{searchedText ? (<p> Best Tours in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Top Tours</p>)}</span>
+                    <span><a href="/tours">See all</a></span>
+                  </div>
+
+                  {/* Responsive Grid */}
+                  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+                    {displayTours.length > 0 ? (
+                      displayTours.slice(0, 8).map((tour) => (
+                        <ContentCard
+                          key={tour.id}
+                          RatingCount={tour.review_count}
+                          Ratings={tour.rating}
+                          title={tour.title}
+                          location_city={tour.location_city}
+                          destination_link={`/tour-details/${tour.id}`}
+                          imgUrl={tour.image_url}
+                        />
+                      ))
+                    ) : (<p>No Tours found</p>)
 
 
-          </>
-        )
-      }
+                    }
+                  </div>
+                </div>
+              </div>
+
+
+            </>
+          )
+        }
+
+
+      </div>
 
 
       <Footer />
-    </div>
+    </div >
   )
 }
 

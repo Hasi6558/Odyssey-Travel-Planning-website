@@ -5,6 +5,7 @@ import SearchBar from '../../component/bars/SearchBar';
 import ListingCard from '../../component/cards/ListingCard';
 import ApiService from '../../service/ApiService';
 import BackgroudImage from '../../assets/images/hotel_bg.jpg'
+import LoadingScreen from '../../component/LoadingScreen';
 
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
@@ -39,6 +40,8 @@ const Hotel = () => {
         setLoading(true);
         try {
           const searchedHotelsData = await ApiService.gethotelByCity(searchedText);
+
+
           setsearchedHotels(searchedHotelsData);
 
 
@@ -57,6 +60,7 @@ const Hotel = () => {
 
   const displayHotels = searchedText ? searchedHotels : hotels;
 
+
   return (
     <>
       <NavBar />
@@ -71,31 +75,37 @@ const Hotel = () => {
         />
 
         <div className="mx-40 flex justify-center">
-          <h1 className="font-bold text-2xl my-4">Explore hotels</h1>
+          <h1 className="font-bold text-4xl my-4">Explore hotels</h1>
+
         </div>
 
         <div ref={resultsRef}>
           {loading ? (
-            <p>Loading...</p>
+            <LoadingScreen />
           ) : (
-            <div className="mx-20 flex flex-col items-center">
-              {displayHotels.length > 0 ? (
-                displayHotels.map((hotel) => (
-                  <ListingCard
-                    key={hotel.id}
-                    title={hotel.title}
-                    location_city={hotel.locationCity}
-                    location_map_url={hotel.locationMap}
-                    rating={hotel.ratings}
-                    review_count={hotel.reviewCount}
-                    description={hotel.descriptionShort}
-                    imgUrl={hotel.imgUrl?.[0]}
-                  />
-                ))
-              ) : (
-                <p className="font-bold text-2xl text-gray-500 h-screen">No Hotels found!</p>
-              )}
-            </div>
+            <>
+              {searchedText ? (<div className='max-w-[800px] m-auto my-4 font-semibold text-lg'> Nearby Hotels in : {searchedText}</div>) : ("")}
+              <div className="mx-20 flex flex-col items-center">
+                {displayHotels.length > 0 ? (
+                  displayHotels.map((hotel) => (
+                    <ListingCard
+                      key={hotel.id}
+                      title={hotel.title}
+                      location_city={hotel.locationCity}
+                      location_map_url={hotel.locationMap}
+                      rating={hotel.ratings}
+                      review_count={hotel.reviewCount}
+                      description={hotel.descriptionShort}
+                      imgUrl={hotel.imgUrl?.[0]}
+                      destination_link={`hotel-details/${hotel.id}`}
+                    />
+                  ))
+                ) : (
+                  <p className="font-bold text-2xl text-gray-500 h-screen">No Hotels found!</p>
+                )}
+              </div>
+            </>
+
           )}
         </div>
       </div>

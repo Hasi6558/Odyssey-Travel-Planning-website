@@ -36,7 +36,6 @@ const Restaurant = () => {
           const searchedRestaurantsData = await ApiService.getRestaurantByCity(searchedText);
           setSearchedRestaurants(searchedRestaurantsData);
 
-
           if (resultsRef.current) {
             resultsRef.current.scrollIntoView({ behavior: 'smooth' });
           }
@@ -73,24 +72,29 @@ const Restaurant = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <div className="mx-20 flex flex-col items-center">
-              {displayRestaurants.length > 0 ? (
-                displayRestaurants.map((restaurant) => (
-                  <ListingCard
-                    key={restaurant.id}
-                    title={restaurant.title}
-                    location_city={restaurant.location_city}
-                    location_map_url={restaurant.location_map}
-                    rating={restaurant.rating}
-                    review_count={restaurant.review_count}
-                    description={restaurant.description}
-                    imgUrl={restaurant.image_url?.[0]}
-                  />
-                ))
-              ) : (
-                <p className="font-bold text-2xl text-gray-500 h-screen">No Restaurants found!</p>
-              )}
-            </div>
+            <>
+              {searchedText ? (<div className='max-w-[800px] m-auto my-4 font-semibold text-lg'> Nearby Restaurants in : {searchedText}</div>) : ("")}
+              <div className="mx-20 flex flex-col items-center">
+                {displayRestaurants.length > 0 ? (
+                  displayRestaurants.map((restaurant) => (
+                    <ListingCard
+                      key={restaurant.id}
+                      title={restaurant.title}
+                      location_city={restaurant.location_city}
+                      location_map_url={restaurant.location_map}
+                      rating={restaurant.rating}
+                      review_count={restaurant.review_count}
+                      description={restaurant.description}
+                      imgUrl={restaurant.image_url?.[0]}
+                      destination_link={`restaurant-details/${restaurant.id}`}
+                    />
+                  ))
+                ) : (
+                  <p className="font-bold text-2xl text-gray-500 h-screen">No Restaurants found!</p>
+                )}
+              </div>
+            </>
+
           )}
         </div>
       </div>

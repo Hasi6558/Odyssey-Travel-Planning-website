@@ -18,7 +18,7 @@ const ReviewSection = ({ review_count, reviews }) => {
                 <div className='h-0.5 bg-gray-500 '></div>
 
                 <div className='my-6 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4'>
-                    {reviewsToShow.map((review) => (
+                    {reviews.length > 0 ? (reviewsToShow.map((review) => (
 
                         < ReviewCard
                             key={review.id}
@@ -28,7 +28,9 @@ const ReviewSection = ({ review_count, reviews }) => {
                             comment={review.comment}
 
                         />
-                    ))}
+                    ))) : (<p>No reviews available</p>)
+
+                    }
 
                 </div>
 
