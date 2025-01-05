@@ -2,7 +2,6 @@ import axios, { Axios } from "axios";
 
 const BASE_URL = 'https://odyssey-travel-planning-site-bac-production.up.railway.app/api'
 
-
 class ApiService {
     static async getHotels() {
         try {
