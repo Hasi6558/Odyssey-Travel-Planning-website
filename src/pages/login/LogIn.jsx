@@ -1,7 +1,6 @@
 import React from 'react'
 import Logo from '../../assets/images/logo.png'
 import LoginBackground from '../../assets/images/background_login.png'
-import './LogIn.css'
 import BlueButton1 from '../../component/Buttons/BlueButton1'
 import InputFieldSet from '../../component/fieldSets/InputFieldSet'
 import GoogleLogo from '../../assets/images/googleLogo.png'
