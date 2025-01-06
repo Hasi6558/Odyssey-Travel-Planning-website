@@ -36,6 +36,7 @@ const TourDetails = () => {
         console.log(tour)
 
     }, [id]);
+    console.log(tour.guide_languages)
 
     return (
         <>

@@ -12,6 +12,8 @@ const Tour = () => {
   const [searchedTours, setSearchedTours] = useState([]);
   const [loading, setLoading] = useState(false);
 
+
+
   const resultsRef = useRef(null);
 
   useEffect(() => {
