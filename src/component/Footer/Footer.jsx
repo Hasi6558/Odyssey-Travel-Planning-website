@@ -1,6 +1,6 @@
 import React from 'react'
 import Logo from '../../assets/images/logo.png'
-import GreyButton1 from '../Buttons/greyButton1.jsx'
+import GreyButton1 from '../Buttons/GreyButton1'
 import Homelogo from '../../assets/icons/mdi-light_home.png'
 import Messagelogo from '../../assets/icons/lets-icons_message-light.png'
 import Telephonelogo from '../../assets/icons/mdi_telephone.png'
