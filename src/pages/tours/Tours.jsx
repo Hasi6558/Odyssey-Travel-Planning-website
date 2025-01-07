@@ -71,7 +71,7 @@ const Tour = () => {
 
         <div ref={resultsRef}>
           {loading ? (
-            <p>Loading...</p>
+            <LoadingPage />
           ) : (
             <>
               {searchedText ? (<div className='max-w-[800px] m-auto my-4 font-semibold text-lg'> Nearby Tours in : {searchedText}</div>) : ("")}

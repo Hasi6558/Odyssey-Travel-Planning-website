@@ -12,6 +12,7 @@ import HotelDetails from './pages/hotelDetails/HotelDetails'
 import RestaurantDetails from './pages/restaurantDetails/RestaurantDetails'
 import LoadingScreen from './component/LoadingScreen'
 import TourDetails from './pages/tourDetailsPage/TourDetailsPage'
+import ProfilePage from './pages/profilePage/ProfilePage'
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home />}></Route>
+          <Route path='/' element={<ProfilePage />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
           <Route path='/login' element={<LogIn />} ></Route>
           <Route path='/hotel' element={<Hotel />}></Route>
