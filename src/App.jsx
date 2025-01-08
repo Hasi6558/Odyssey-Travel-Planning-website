@@ -20,7 +20,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<ProfilePage />}></Route>
+          <Route path='/' element={<Home />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
           <Route path='/login' element={<LogIn />} ></Route>
           <Route path='/hotel' element={<Hotel />}></Route>
@@ -32,6 +32,7 @@ function App() {
           <Route path='/restaurant-details/:id' element={<RestaurantDetails />} />
           <Route path='/loading' element={<LoadingScreen />} />
           <Route path='/tour-details/:id' element={<TourDetails />} />
+          <Route path='/profilePage' element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </>

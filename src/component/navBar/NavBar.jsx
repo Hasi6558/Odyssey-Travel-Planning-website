@@ -101,7 +101,11 @@ function NavBar() {
 
         {/* Profile Section */}
         <div className="hidden lg:flex items-center space-x-2">
-          <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+          <a href="/profilePage">
+            <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+          </a>
+
+
           <span className="font-medium text-gray-800">Hi, User</span>
         </div>
       </div>

@@ -5,7 +5,7 @@ import SearchBar from '../../component/bars/SearchBar';
 import ListingCard from '../../component/cards/ListingCard';
 import ApiService from '../../service/ApiService';
 import BackgroundImage from '../../assets/images/tour_bg.jpg';
-
+import LoadingScreen from '../../component/LoadingScreen';
 const Tour = () => {
   const [tours, setTours] = useState([]);
   const [searchedText, setSearchedText] = useState('');
@@ -71,7 +71,7 @@ const Tour = () => {
 
         <div ref={resultsRef}>
           {loading ? (
-            <LoadingPage />
+            <LoadingScreen />
           ) : (
             <>
               {searchedText ? (<div className='max-w-[800px] m-auto my-4 font-semibold text-lg'> Nearby Tours in : {searchedText}</div>) : ("")}
