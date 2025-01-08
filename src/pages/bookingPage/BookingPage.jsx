@@ -17,14 +17,20 @@ const BookingPage = () => {
         if (startDate && endDate) {
             const start = new Date(startDate);
             const end = new Date(endDate);
-            const difference = (end - start) / (1000 * 60 * 60 * 24);
-            setDayCount(difference + 1)
-            const totalPrice = dayCount * pricePerDay;
-            setTotalCost(totalPrice);
+            if (end >= start) {
+                const difference = (end - start) / (1000 * 60 * 60 * 24);
+                const calculatedDays = difference + 1;
+                setDayCount(calculatedDays);
+                setTotalCost(calculatedDays * pricePerDay);
+            } else {
+                setDayCount(0)
+                setTotalCost(0)
+            }
         } else {
             setDayCount(0);
-            setTotalCount(0);
+            setTotalCost(0);
         }
+
 
     }, [startDate, endDate, pricePerDay]);
 
