@@ -13,6 +13,7 @@ import RestaurantDetails from './pages/restaurantDetails/RestaurantDetails'
 import LoadingScreen from './component/LoadingScreen'
 import TourDetails from './pages/tourDetailsPage/TourDetailsPage'
 import ProfilePage from './pages/profilePage/ProfilePage'
+import BookingPage from './pages/bookingPage/BookingPage'
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<ProfilePage />}></Route>
+          <Route path='/' element={<Home />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
           <Route path='/login' element={<LogIn />} ></Route>
           <Route path='/hotel' element={<Hotel />}></Route>
@@ -32,6 +33,8 @@ function App() {
           <Route path='/restaurant-details/:id' element={<RestaurantDetails />} />
           <Route path='/loading' element={<LoadingScreen />} />
           <Route path='/tour-details/:id' element={<TourDetails />} />
+          <Route path='/profilePage' element={<ProfilePage />} />
+          <Route path='/booking-page/:id' element={<BookingPage />} />
         </Routes>
       </BrowserRouter>
     </>
