@@ -34,7 +34,7 @@ function App() {
           <Route path='/loading' element={<LoadingScreen />} />
           <Route path='/tour-details/:id' element={<TourDetails />} />
           <Route path='/profilePage' element={<ProfilePage />} />
-          <Route path='/booking-page' element={<BookingPage />} />
+          <Route path='/booking-page/:id' element={<BookingPage />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -3,14 +3,21 @@ import React, { useEffect, useState } from 'react'
 import NavBar from '../../component/navBar/NavBar'
 import Footer from '../../component/Footer/Footer'
 import ContentCard from '../../component/cards/ContentCard';
-
+import { useParams } from 'react-router';
+import ApiService from '../../service/ApiService';
+import LoadingScreen from '../../component/LoadingScreen';
+import CheckIcon from '../../assets/icons/bi_check.png'
+import PayHerePayment from '../../payment/payHerePayment';
 const BookingPage = () => {
 
+    const { id } = useParams();
+    const [hotelRoom, setHotelRoom] = useState("");
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [dayCount, setDayCount] = useState(0);
     const [pricePerDay, setPricePerDay] = useState(12);
     const [totalCost, setTotalCost] = useState(0);
+    const [loading, setLoading] = useState(0);
 
 
     useEffect(() => {
@@ -34,6 +41,29 @@ const BookingPage = () => {
 
     }, [startDate, endDate, pricePerDay]);
 
+    useEffect(() => {
+
+        const fetchHotelRoom = async () => {
+            setLoading(true);
+            try {
+
+                const response = await ApiService.getHotelRoomById(id);
+                setHotelRoom(response);
+                setPricePerDay(response.price);
+
+            } catch (error) {
+                console.error('Error fetching data', error);
+            } finally {
+                setLoading(false)
+            }
+        };
+        fetchHotelRoom();
+
+    }, [id])
+    console.log(hotelRoom)
+    console.log(pricePerDay)
+
+
     return (
         <>
             <NavBar />
@@ -41,8 +71,16 @@ const BookingPage = () => {
 
                 <div className='text-2xl font-bold mb-2'><h3>Reserve your stay</h3></div>
                 <div className='mb-4'>
-                    <div className='flex mb-1'><span><h4 className='font-bold font-sm'>Deulux Room -</h4> </span><h4 className='font-bold font-sm'> Subtitle</h4>  </div>
-                    <div className='flex mb-2'><p className='text-green-600 font-bold text-sm me-4'>facility1</p><p className='text-green-600 font-bold me-4 text-sm'>facility2</p></div>
+                    <div className='flex mb-1'><span><h4 className='font-bold font-sm'>{hotelRoom.title} - </h4> </span><h4 className='font-bold font-sm pl-2'>  {hotelRoom.subtitle}</h4>  </div>
+                    <div className='flex mb-2'>
+                        {hotelRoom.facilities && hotelRoom.facilities.length > 0 ? (
+                            hotelRoom.facilities.map((facility, index) => (
+                                <p key={index} className='text-green-600 font-semibold text-sm mx-1 flex' ><img src={CheckIcon} alt="" className='mr-1 ' />{facility}</p>
+                            ))
+                        ) : (
+                            <p>No facilities available.</p>
+                        )}
+                    </div>
                 </div>
                 <div>
                     <form className=''>
@@ -83,12 +121,14 @@ const BookingPage = () => {
                     <input type="date" className='p-2 rounded-xl border-solid border-gray-100 w-64 me-4' onChange={(e) => setEndDate(e.target.value)} />
                 </div>
                 <div className='flex justify-between mt-6'>
-                    <p className='text-lg'>Total Cost :<span className='text-2xl text-green-800 px-4 font-bold'>{totalCost} $</span></p>
+                    <p className='text-lg flex'>Total Cost :<span className='text-2xl text-green-800 px-4 font-bold'>{totalCost} $ </span><div>{dayCount > 0 ? (<span>For {dayCount} days</span>) : ("")}</div> </p>
                     <button className='blue text-white bg-blue-700 px-4 py-2 rounded-2xl'>Proceed</button>
                 </div>
 
 
             </div>
+
+            {/* <PayHerePayment /> */}
 
             <Footer />
 
