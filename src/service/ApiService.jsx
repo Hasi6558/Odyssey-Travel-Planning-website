@@ -49,6 +49,16 @@ class ApiService {
         }
     }
 
+    static async getHotelRoomById(id) {
+        try {
+            const response = await axios.get(`${BASE_URL}/hotelRooms/getHotelRoomById/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching hotel by ID:', error);
+            throw error;
+        }
+    }
+
     static async getTourById(id) {
         try {
             const response = await axios.get(`${BASE_URL}/tours/getTourById/${id}`);
@@ -118,6 +128,8 @@ class ApiService {
             throw error;
         }
     }
+
+    static async
 
 
 }

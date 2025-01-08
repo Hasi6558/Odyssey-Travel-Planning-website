@@ -126,6 +126,7 @@ const HotelDetails = () => {
                                             price={hotelRoom.price}
                                             discountedPrice={hotelRoom.discountedPrice}
                                             avalRooms={hotelRoom.avalCount}
+                                            roomId={hotelRoom.id}
                                         />
                                     ))}
 
