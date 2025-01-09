@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../../component/navBar/NavBar'
 import Footer from '../../component/Footer/Footer'
 import SettingIcon from '../../assets/icons/setting_icon.png'
+import FavouriteIcon from '../../assets/icons/favourite_icon.png'
+import PurchaseIcon from '../../assets/icons/purchase_icon.png'
+import MapIcon from '../../assets/icons/map_icon.png'
+import FavouriteItems from './FavouriteItems'
+import Purchases from './Purchases'
+import PlanedTrip from './PlanedTrip'
 
 const ProfilePage = () => {
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+
+    const handleFavouriteClick = () => {
+        setCurrentIndex(0)
+
+    }
+    const handlePurchaseClick = () => {
+        setCurrentIndex(1)
+
+    }
+    const handlePlanClick = () => {
+        setCurrentIndex(2)
+    }
+
+
+
     return (
         <>
             <NavBar />
@@ -31,24 +55,24 @@ const ProfilePage = () => {
 
                         </div>
 
-
-
-
-
-
                     </div>
 
                 </div>
                 <div className='pt-36 bg-gray-100  '>
 
-                    <div className='max-w-[1000px] m-auto pt-36 bg-gray-100 mx-auto auto-width max-w-[80%] sm:max-w-[90%]'>
-                        <div className='bg-white w-full'>
-                            <ul>
-                                <li>favourites</li>
-                                <li>Purchases</li>
-                                <li>Planned trips</li>
+                    <div className='max-w-[1220px] m-auto flex'>
+                        <div className='bg-white w-[250px] px-8 py-4'>
+                            <ul className=''>
+                                <li className='my-4'><button className='flex' onClick={handleFavouriteClick}><img src={FavouriteIcon} className='mr-4 h-5' />Favourites</button></li>
+                                <li className='my-4'><button href="#" className='flex' onClick={handlePurchaseClick}><img src={PurchaseIcon} className='mr-4 h-5' />Purchases</button></li>
+                                <li className='my-4'><button href="#" className='flex' onClick={handlePlanClick}><img src={MapIcon} className='mr-4 h-5' />Planned trips</button></li>
                             </ul>
 
+                        </div>
+                        <div className='w-full'>
+                            <div className='px-8'>{currentIndex === 0 ? (<FavouriteItems indexParameter={currentIndex} />) : ("")}</div>
+                            <div className='w-full'> {currentIndex === 1 ? (<Purchases />) : ("")}</div>
+                            <div> {currentIndex === 2 ? (<PlanedTrip />) : ("")}</div>
                         </div>
 
                     </div>
@@ -56,27 +80,6 @@ const ProfilePage = () => {
 
                 </div>
 
-
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione architecto enim earum laborum nulla necessitatibus et pariatur excepturi corrupti deleniti natus sit odit, iusto ut harum maxime sunt molestiae voluptas.
-                    Vel iure amet, cupiditate earum dolorem praesentium necessitatibus laborum illum quod voluptate itaque aspernatur eaque, quo inventore aliquid. Earum, fugit architecto. Expedita ipsa sunt, cum nulla quam asperiores a quos!
-                    Provident ratione repudiandae, sed minima deleniti nam? Reiciendis ducimus exercitationem eius nisi magni illum rem tempore quibusdam! Perspiciatis quidem sint ducimus fuga, suscipit porro quasi? Est quaerat corporis itaque nam.
-                    Sunt debitis corporis, vitae animi ut officia ipsa excepturi quae totam veniam assumenda praesentium magnam architecto odit, expedita velit, sint ipsam. Temporibus eaque mollitia esse dicta amet repudiandae laboriosam ea.
-                    Debitis molestias saepe id eius voluptatibus, assumenda facilis sed quos voluptatem culpa, dolores quae ut neque veritatis a ad similique ullam accusamus! Deleniti inventore temporibus quaerat atque natus ab esse!
-                    Ea, maiores. Aliquid aut rem vel libero illo quasi quia? Dolore excepturi veniam possimus fugit obcaecati repellat impedit quam delectus culpa! Blanditiis labore quidem sed, consequuntur aspernatur nulla unde necessitatibus!
-                    Labore totam deserunt, temporibus officiis inventore hic! Laboriosam, inventore ipsum accusamus voluptatibus nihil error ea eum cupiditate nisi quia ducimus non, amet rem sed, alias asperiores corrupti. Nisi, reprehenderit ad.
-                    Quisquam possimus sunt nihil maiores eius veritatis sequi esse eaque cupiditate numquam, nemo consectetur? Itaque, amet doloribus. Accusamus veniam pariatur quibusdam voluptatem saepe quos atque. Nihil expedita dolore itaque quae.
-                    Nesciunt dolor quos earum dolore. Suscipit culpa architecto earum enim ea sed quae, aut, ipsa ipsum quisquam veritatis nisi a saepe eligendi eius vitae voluptatibus corrupti. Vero esse quis ea!
-                    Quisquam est illum fugiat accusamus inventore! Illum mollitia maxime voluptates, aspernatur reprehenderit odio, eos, adipisci assumenda repellendus nam quod accusamus at dignissimos veritatis atque ipsam quidem asperiores aut. Enim, nulla?
-                    Praesentium adipisci architecto illo vitae commodi molestiae amet pariatur? Nulla quas ipsam veniam libero officiis earum laboriosam repellendus autem dolores, dolor consequatur recusandae delectus sit, hic incidunt. Sed, dignissimos suscipit?
-                    Beatae error ex libero sapiente eum repellendus reprehenderit aliquid eius cumque! Quam molestiae adipisci harum id necessitatibus architecto voluptate nisi laudantium non exercitationem? Similique et, distinctio quis architecto quaerat commodi.
-                    Officiis quaerat id reprehenderit quibusdam at. Iusto earum sunt quas illo adipisci alias ducimus officiis enim. Repellendus nisi omnis dolorum, illum tenetur ea quibusdam natus aliquid eaque est explicabo harum!
-                    Unde, et iste, veritatis at provident illo consequatur facilis nisi eaque, possimus explicabo sunt voluptate temporibus incidunt dignissimos fugiat! Ad illum consectetur molestiae pariatur odio laborum quam ipsam? Libero, veritatis.
-                    Minima, dolorum nihil suscipit incidunt eligendi a eveniet impedit. Eius assumenda, minima saepe vel numquam magni quidem a alias velit voluptate id reiciendis tenetur, reprehenderit totam? Voluptatibus voluptates cupiditate itaque.
-                    Ipsam maiores asperiores qui reprehenderit perferendis, blanditiis aperiam officiis animi fugit id minima autem, placeat eligendi facere architecto consequatur corrupti cupiditate alias! Deleniti quidem magni, ut tempore aut cum ipsum!
-                    Dolorum, similique rerum fuga commodi pariatur cupiditate atque ipsa culpa facere eaque corporis laborum dolorem aliquid fugiat, possimus cum molestias, voluptatem asperiores? Et, nobis commodi voluptates nostrum ullam vero ratione?
-                    Deleniti recusandae magnam vitae molestiae. Veritatis eveniet aut nemo itaque aperiam ab corporis eligendi molestias provident, sit labore, earum quam optio rerum, repudiandae vero. Natus consequuntur dignissimos enim aliquid inventore.
-                    Fuga laborum aliquam, dignissimos aut harum sapiente velit consectetur ex saepe provident inventore adipisci. Molestias voluptatibus qui nulla, consequatur deleniti nemo commodi doloribus necessitatibus! Fuga cupiditate dolore iusto excepturi saepe.
-                    Iste similique repellat magni vero eum assumenda commodi, enim numquam ipsa dolorem minus alias quisquam maiores dignissimos amet perspiciatis, harum, veniam dolorum reiciendis quibusdam unde nostrum tempora. Odit, magnam odio!</p>
             </div>
 
             <div className=' '>
