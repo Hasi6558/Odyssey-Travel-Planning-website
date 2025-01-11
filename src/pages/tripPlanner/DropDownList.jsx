@@ -3,11 +3,10 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { format, eachDayOfInterval } from "date-fns";
-import ArrowIcon from '../../assets/icons/weui_arrow-filled.png'
+import ArrowIcon from '../../assets/icons/weui_arrow-filled.png';
 import ApiService from '../../service/ApiService';
 
 const DropDownList = () => {
-    // State declarations...
     const [dateRange, setDateRange] = useState({
         startDate: new Date(),
         endDate: new Date(),
@@ -21,13 +20,11 @@ const DropDownList = () => {
     const [currentSectionIndex, setCurrentSectionIndex] = useState(null);
     const [searchInput, setSearchInput] = useState("");
     const [costInput, setCostInput] = useState("");
-
     const [favoriteItems, setFavoriteItems] = useState({
         hotels: [],
         restaurants: [],
         tours: [],
     });
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,16 +33,10 @@ const DropDownList = () => {
                 const restaurantData = await ApiService.getRestaurants();
                 const tourData = await ApiService.getTours();
 
-                // Extract titles from the backend data
                 const hotelTitles = hotelData.map((hotel) => hotel.title);
                 const restaurantTitles = restaurantData.map((restaurant) => restaurant.title);
                 const tourTitles = tourData.map((tour) => tour.title);
 
-                console.log(hotelTitles);
-                console.log(restaurantTitles);
-                console.log(tourTitles)
-
-                // Update the favoriteItems state
                 setFavoriteItems({
                     hotels: hotelTitles,
                     restaurants: restaurantTitles,
@@ -58,8 +49,6 @@ const DropDownList = () => {
 
         fetchData();
     }, []);
-
-
 
     const toggleSection = (index) => setOpenSection(openSection === index ? null : index);
 
@@ -77,7 +66,7 @@ const DropDownList = () => {
         }));
 
         setSections(generatedSections);
-        setShowPicker(false); // Hide the date picker after generating sections
+        setShowPicker(false);
     };
 
     const openFavoritesPanel = (category, sectionIndex) => {
@@ -103,8 +92,6 @@ const DropDownList = () => {
 
         setSections((prevSections) => {
             const updatedSections = [...prevSections];
-
-            // Prevent duplicate entries
             const section = updatedSections[currentSectionIndex];
             const isDuplicate = section.items.some(
                 (existingItem) => existingItem.title === selectedItem.title && existingItem.cost === selectedItem.cost
@@ -118,9 +105,30 @@ const DropDownList = () => {
         });
 
         setTotalCost((prevTotal) => prevTotal + cost);
-        setShowFavoritesPanel(false); // Close the favorites panel after selection
+        setShowFavoritesPanel(false);
     };
 
+    const handleSavePlan = async () => {
+        const formattedSections = sections.map((section) =>
+            section.items.map((item) => [section.title, item.title, item.cost])
+        );
+
+        const travelPlan = {
+            userId: "user12345", // Replace this with a dynamic userId if needed
+            sections: formattedSections,
+            totalCost,
+        };
+
+        console.log(travelPlan);
+
+        try {
+            await ApiService.saveTravelPlan(travelPlan); // API method to save the plan
+            alert("Travel plan saved successfully!");
+        } catch (error) {
+            console.error("Error saving travel plan", error);
+            alert("Failed to save travel plan.");
+        }
+    };
 
     const filteredFavorites =
         currentCategory && favoriteItems[currentCategory.toLowerCase() + "s"]
@@ -129,16 +137,14 @@ const DropDownList = () => {
             )
             : [];
 
-
-
     return (
         <div className="flex flex-col min-h-screen">
+            <h1 className="text-center font-bold text-2xl my-4">Plan and Organize your Destinations</h1>
             <div className="flex-grow">
-                {/* Main Content */}
                 <div className="w-full max-w-[800px] mx-auto mt-10 flex flex-col rounded-xl">
                     <button
                         onClick={() => setShowPicker(!showPicker)}
-                        className="mb-4 max-w-80 text-black bg-transparent border border-solid border-black border-2 hover:text-white hover:bg-black px-4 py-2 rounded-lg"
+                        className="mb-4 max-w-80 text-black bg-transparent border hover:bg-black hover:text-white border-black px-4 py-2 rounded-lg"
                     >
                         Select Date Range
                     </button>
@@ -155,19 +161,18 @@ const DropDownList = () => {
                         <div className="flex justify-end">
                             <button
                                 onClick={generateSections}
-                                className="mb-4 mb-4 max-w-80 text-black bg-transparent border border-solid border-black border-2 hover:text-white hover:bg-black px-4 py-2 rounded-lg"
+                                className="mb-4 text-black bg-transparent border hover:bg-black hover:text-white   border-black px-4 py-2 rounded-lg"
                             >
                                 Create Plan
                             </button>
                         </div>
-
                     )}
 
                     <div className="bg-gray-50 border rounded shadow-md max-h-[70vh] overflow-y-auto">
                         {sections.map((section, index) => (
                             <div key={index} className="border-b border-gray-300">
                                 <button
-                                    className="w-full text-left p-4 bg-white  hover:bg-gray-200 flex justify-between items-center rounded-lg"
+                                    className="w-full text-left p-4 bg-white hover:bg-gray-200 flex justify-between items-center rounded-lg"
                                     onClick={() => toggleSection(index)}
                                 >
                                     <span>{section.title}</span>
@@ -189,17 +194,16 @@ const DropDownList = () => {
                                         ) : (
                                             <p className="p-4 text-gray-500">No items available</p>
                                         )}
-
                                         <div className="p-4">
                                             <button
                                                 onClick={() => openFavoritesPanel("Hotel", index)}
-                                                className=" px-4 py-2 font-semibold "
+                                                className="px-4 py-2 font-semibold"
                                             >
                                                 + Add Hotel
                                             </button>
                                             <button
                                                 onClick={() => openFavoritesPanel("Restaurant", index)}
-                                                className="px-4 py-2 font-semibold "
+                                                className="px-4 py-2 font-semibold"
                                             >
                                                 + Add Restaurant
                                             </button>
@@ -218,29 +222,32 @@ const DropDownList = () => {
                 </div>
             </div>
 
-            {/* Total Cost Section */}
-            <div className="bg-gray-100 p-4 text-center border-t">
+            <div className="bg-gray-100 p-4 text-center border-t flex items-center justify-center">
                 <h2 className="text-lg font-bold">Total Cost: ${totalCost.toFixed(2)}</h2>
+                <button
+                    onClick={handleSavePlan}
+                    className="ms-8 text-black font-bold hover:text-white hover:bg-black bg-transparent border border-black px-4 py-2 rounded-lg"
+                >
+                    Save Plan
+                </button>
             </div>
 
-            {/* Favorites Panel */}
             {showFavoritesPanel && (
                 <div className="absolute top-0 right-0 h-full w-[30%] bg-white shadow-lg p-6">
-
                     <h2 className="text-lg font-bold mb-4 mt-20 text-4xl">Add Your Favourite {currentCategory}</h2>
                     <input
                         type="text"
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
                         placeholder={`Search ${currentCategory}s`}
-                        className="w-full p-2 border rounded mb-4"
+                        className="w-full p-4  mb-4 border rounded rounded-2xl border-solid border-2 border-black"
                     />
                     <input
                         type="number"
                         value={costInput}
                         onChange={(e) => setCostInput(e.target.value)}
                         placeholder="Enter cost"
-                        className="w-full p-2 border rounded mb-4"
+                        className="w-full p-4 border mb-4  border-solid border-0 border-b-2"
                     />
                     <ul className="mb-4">
                         {filteredFavorites.map((item, index) => (
@@ -248,25 +255,23 @@ const DropDownList = () => {
                                 <span>{item}</span>
                                 <button
                                     onClick={() => handleAddFavorite(item)}
-                                    className="bg-blue-500 text-white px-2 py-1 rounded"
+                                    className="hover:bg-black hover:text-white bg-white text-black px-2 py-1 rounded"
                                 >
-                                    Add
+                                    <div>
+                                        +
+                                    </div>
                                 </button>
                             </li>
                         ))}
                     </ul>
                     <button
                         onClick={() => setShowFavoritesPanel(false)}
-                        className="mb-4 mb-4 max-w-80 text-black bg-transparent border border-solid border-black border-2 hover:text-white hover:bg-black px-4 py-2 rounded-lg"
+                        className="text-black bg-transparent border border-black px-4 py-2 rounded-lg"
                     >
                         Close
                     </button>
                 </div>
             )}
-
-            <footer className="bg-gray-800 text-white p-4 text-center">
-                <p>&copy; 2025 Travel Planner. All Rights Reserved.</p>
-            </footer>
         </div>
     );
 };

@@ -139,6 +139,16 @@ class ApiService {
         }
     }
 
+    static async saveTravelPlan(travelPlan) {
+        try {
+            const response = await axios.post(`${BASE_URL}/trip-plans/save`, travelPlan);
+            return response.data;
+        } catch (error) {
+            console.error('Error saving travel plan:', error);
+            throw error;
+        }
+    }
+
 
 }
 
