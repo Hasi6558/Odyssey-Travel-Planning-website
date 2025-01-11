@@ -19,9 +19,9 @@ const Footer = () => {
                     <div  >
                         <img src={Logo} alt="logo" />
                         <div className='flex items-center pt-8'>
-                            <GreyButton1 label='Sign in' />
+                            <GreyButton1 label='Sign in' navigationLink='/login' />
                             <p className='text-white p-0 mx-4' >or</p>
-                            <GreyButton1 label='Register' />
+                            <GreyButton1 label='Register' navigationLink='/register' />
 
                         </div>
 

@@ -10,7 +10,8 @@ function LogIn() {
         <div className="min-h-screen flex flex-col md:flex-row bg-gray-100">
             {/* Left Section */}
             <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-8">
-                <img src={Logo} alt="logo" className="w-24 mb-6" />
+                <a href='/'> <img src={Logo} alt="logo" className="w-24 mb-6" /></a>
+
                 <div className="w-full max-w-sm">
                     <p className="text-left text-gray-600 text-sm">Start your journey</p>
                     <h1 className="text-left text-2xl font-bold text-gray-800 mb-6">Sign in to Odyssey</h1>
