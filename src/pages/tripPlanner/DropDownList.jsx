@@ -29,6 +29,12 @@ const DropDownList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+
+                const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType("user02", "hotel");
+                const favouriteRestaurantsData = await ApiService.getFavouritesByUserIdAndItemType("user06", "restaurant");
+                const favouriteToursData = await ApiService.getFavouritesByUserIdAndItemType("user07", "tour");
+
+
                 const hotelData = await ApiService.getHotels();
                 const restaurantData = await ApiService.getRestaurants();
                 const tourData = await ApiService.getTours();

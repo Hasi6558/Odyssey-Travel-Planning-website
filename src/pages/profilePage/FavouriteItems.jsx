@@ -8,45 +8,49 @@ const FavouriteItems = ({ indexParameter }) => {
     const [tours, setTours] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // State to control the visible count of each category
     const [visibleHotels, setVisibleHotels] = useState(4);
     const [visibleRestaurants, setVisibleRestaurants] = useState(4);
     const [visibleTours, setVisibleTours] = useState(4);
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
+            setLoading(true); // Start loading
             try {
-                const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType("user02", "hotel");
-                const favouriteRestaurantsData = await ApiService.getFavouritesByUserIdAndItemType("user06", "restaurant");
-                const favouriteToursData = await ApiService.getFavouritesByUserIdAndItemType("user07", "tour");
+                // Fetch favorite item IDs
+                const favouriteHotelIds = await ApiService.getFavouritesByUserIdAndItemType("user02", "hotel");
+                const favouriteRestaurantIds = await ApiService.getFavouritesByUserIdAndItemType("user06", "restaurant");
+                const favouriteTourIds = await ApiService.getFavouritesByUserIdAndItemType("user07", "tour");
 
-                const hotelIds = favouriteHotelsData.map(item => item.itemId);
-                const restaurantIds = favouriteRestaurantsData.map(item => item.itemId);
-                const tourIds = favouriteToursData.map(item => item.itemId);
+                // Fetch full details for each favorite item using their IDs
+                const favouriteHotels = await Promise.all(
+                    favouriteHotelIds.map((id) => ApiService.getHotelById(id))
+                );
+                const favouriteRestaurants = await Promise.all(
+                    favouriteRestaurantIds.map((id) => ApiService.getRestaurantById(id))
+                );
+                const favouriteTours = await Promise.all(
+                    favouriteTourIds.map((id) => ApiService.getTourById(id))
+                );
 
-                const hotelPromises = hotelIds.map(id => ApiService.getHotelById(id));
-                const restaurantPromises = restaurantIds.map(id => ApiService.getRestaurantById(id));
-                const tourPromises = tourIds.map(id => ApiService.getTourById(id));
-
-                const fetchedHotels = await Promise.all(hotelPromises);
-                const fetchedRestaurants = await Promise.all(restaurantPromises);
-                const fetchedTours = await Promise.all(tourPromises);
-
-                setHotels(fetchedHotels);
-                setRestaurants(fetchedRestaurants);
-                setTours(fetchedTours);
+                // Set the fetched data to state
+                setHotels(favouriteHotels);
+                setRestaurants(favouriteRestaurants);
+                setTours(favouriteTours);
             } catch (error) {
-                console.error('Error fetching data', error);
+                console.error("Error fetching data", error);
             } finally {
-                setLoading(false);
+                setLoading(false); // End loading
             }
         };
+
         fetchData();
-    }, [indexParameter]);
+    }, []);
 
     return (
         <div>
+            {/* Loading Spinner */}
+            {loading && <div className='text-center text-lg my-4'>Loading...</div>}
+
             <div className='text-2xl mb-4'>Favourites</div>
 
             {/* Hotels Section */}
@@ -80,12 +84,13 @@ const FavouriteItems = ({ indexParameter }) => {
                 {restaurants.slice(0, visibleRestaurants).map((restaurant) => (
                     <ContentCard
                         key={restaurant.id}
-                        RatingCount={restaurant.review_count}
-                        Ratings={restaurant.rating}
+                        id={restaurant.id}
+                        RatingCount={restaurant.reviewCount}
+                        Ratings={restaurant.ratings}
                         title={restaurant.title}
-                        location_city={restaurant.location_city}
+                        location_city={restaurant.locationCity}
+                        imgUrl={restaurant.imgUrl}
                         destination_link={`/restaurant-details/${restaurant.id}`}
-                        imgUrl={restaurant.image_url}
                     />
                 ))}
             </div>
@@ -104,12 +109,13 @@ const FavouriteItems = ({ indexParameter }) => {
                 {tours.slice(0, visibleTours).map((tour) => (
                     <ContentCard
                         key={tour.id}
-                        RatingCount={tour.review_count}
-                        Ratings={tour.rating}
+                        id={tour.id}
+                        RatingCount={tour.reviewCount}
+                        Ratings={tour.ratings}
                         title={tour.title}
-                        location_city={tour.location_city}
+                        location_city={tour.locationCity}
+                        imgUrl={tour.imgUrl}
                         destination_link={`/tour-details/${tour.id}`}
-                        imgUrl={tour.image_url}
                     />
                 ))}
             </div>
