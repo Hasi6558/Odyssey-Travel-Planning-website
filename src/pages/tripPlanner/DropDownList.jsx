@@ -34,10 +34,17 @@ const DropDownList = () => {
                 const favouriteRestaurantsData = await ApiService.getFavouritesByUserIdAndItemType("user06", "restaurant");
                 const favouriteToursData = await ApiService.getFavouritesByUserIdAndItemType("user07", "tour");
 
+                const hotelIds = favouriteHotelsData.map(item => item.itemId);
+                const restaurantIds = favouriteRestaurantsData.map(item => item.itemId);
+                const tourIds = favouriteToursData.map(item => item.itemId);
 
-                const hotelData = await ApiService.getHotels();
-                const restaurantData = await ApiService.getRestaurants();
-                const tourData = await ApiService.getTours();
+                const hotelPromises = hotelIds.map(id => ApiService.getHotelById(id));
+                const restaurantPromises = restaurantIds.map(id => ApiService.getRestaurantById(id));
+                const tourPromises = tourIds.map(id => ApiService.getTourById(id));
+
+                const hotelData = await Promise.all(hotelPromises);
+                const restaurantData = await Promise.all(restaurantPromises);
+                const tourData = await Promise.all(tourPromises);
 
                 const hotelTitles = hotelData.map((hotel) => hotel.title);
                 const restaurantTitles = restaurantData.map((restaurant) => restaurant.title);
