@@ -5,7 +5,7 @@ import SignUpBackground from '../../assets/images/signup_background.png';
 function SignUp() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-gray-100">
-      {/* Left Section */}
+
       <div className="w-full md:w-1/2 hidden md:flex items-center justify-center bg-gray-200">
         <img
           src={SignUpBackground}
@@ -14,7 +14,7 @@ function SignUp() {
         />
       </div>
 
-      {/* Right Section */}
+
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-8">
         <img src={Logo} alt="logo" className="w-24 mb-6" />
         <div className="w-full max-w-sm">
@@ -22,7 +22,7 @@ function SignUp() {
           <h1 className="text-left text-2xl font-bold text-gray-800 mb-6">Sign Up</h1>
 
           <form>
-            {/* Full Name Input */}
+
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-600" htmlFor="fullname">Full Name</label>
               <div className="flex items-center border rounded-md px-3 py-2">
@@ -36,7 +36,7 @@ function SignUp() {
               </div>
             </div>
 
-            {/* Email Input */}
+
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-600" htmlFor="email">Email</label>
               <div className="flex items-center border rounded-md px-3 py-2">
@@ -50,7 +50,6 @@ function SignUp() {
               </div>
             </div>
 
-            {/* Password Input */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-600" htmlFor="password">Password</label>
               <div className="flex items-center border rounded-md px-3 py-2">
@@ -64,7 +63,7 @@ function SignUp() {
               </div>
             </div>
 
-            {/* Terms and Conditions */}
+
             <div className="flex items-start mb-6">
               <input
                 type="checkbox"
@@ -78,7 +77,7 @@ function SignUp() {
               </label>
             </div>
 
-            {/* Sign Up Button */}
+
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-md text-center hover:bg-blue-700 transition">
@@ -86,7 +85,7 @@ function SignUp() {
             </button>
           </form>
 
-          {/* Sign In Link */}
+
           <p className="text-center text-gray-600 mt-6">
             Already have an account? <span className="text-blue-600 cursor-pointer hover:underline">Sign In</span>
           </p>

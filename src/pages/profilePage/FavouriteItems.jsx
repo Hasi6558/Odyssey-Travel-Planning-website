@@ -52,7 +52,7 @@ const FavouriteItems = ({ indexParameter }) => {
         <div>
             <div className='text-2xl mb-4'>Favourites</div>
 
-            {/* Hotels Section */}
+
             <div className='text-lg my-2'>Hotels</div>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                 {hotels.slice(0, visibleHotels).map((hotel) => (
@@ -77,7 +77,7 @@ const FavouriteItems = ({ indexParameter }) => {
                 </button>
             )}
 
-            {/* Restaurants Section */}
+
             <div className='text-lg my-2'>Restaurants</div>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                 {restaurants.slice(0, visibleRestaurants).map((restaurant) => (
@@ -101,7 +101,7 @@ const FavouriteItems = ({ indexParameter }) => {
                 </button>
             )}
 
-            {/* Tours Section */}
+
             <div className='text-lg my-2'>Tours</div>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                 {tours.slice(0, visibleTours).map((tour) => (

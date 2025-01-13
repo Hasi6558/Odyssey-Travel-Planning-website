@@ -144,8 +144,8 @@ const DropDownList = () => {
                 draftName,
                 sections: formattedSections,
                 totalCost,
-                noOfSections, // Add noOfSections
-                draftSavingTime, // Add draftSavingTime
+                noOfSections,
+                draftSavingTime,
             };
 
             console.log(travelPlan);

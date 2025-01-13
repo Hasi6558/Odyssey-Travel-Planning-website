@@ -8,7 +8,7 @@ import AppleLogo from '../../assets/images/appleLogo.png';
 function LogIn() {
     return (
         <div className="min-h-screen flex flex-col md:flex-row bg-gray-100">
-            {/* Left Section */}
+
             <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-8">
                 <a href='/'> <img src={Logo} alt="logo" className="w-24 mb-6" /></a>
 
@@ -71,7 +71,7 @@ function LogIn() {
                 </div>
             </div>
 
-            {/* Right Section */}
+
             <div className="w-full md:w-1/2 hidden md:flex items-center justify-center bg-gray-200">
                 <img
                     src={LoginBackground}

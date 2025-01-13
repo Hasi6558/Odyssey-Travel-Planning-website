@@ -58,7 +58,7 @@ const PlannedTripDetails = () => {
                             <PlanCard key={index} sections={section} />
                         ))
                     ) : (
-                        <p>No sections available</p> // Optional, to show a message if there are no sections
+                        <p>No sections available</p>
                     )}
                 </div>
 
