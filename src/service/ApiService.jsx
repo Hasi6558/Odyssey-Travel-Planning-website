@@ -148,6 +148,24 @@ class ApiService {
             throw error;
         }
     }
+    static async getTravelPlansByUserId(userId) {
+        try {
+            const response = await axios.get(`${BASE_URL}/trip-plans/user/${userId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error saving travel plan:', error);
+            throw error;
+        }
+    }
+    static async getTravelPlanById(id) {
+        try {
+            const response = await axios.get(`${BASE_URL}/trip-plans/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error saving travel plan:', error);
+            throw error;
+        }
+    }
 
 
 }
