@@ -66,7 +66,7 @@ function LogIn() {
                     </fieldset>
 
                     <p className="text-center text-gray-600 mt-6">
-                        Have no account? <span className="text-blue-600 cursor-pointer hover:underline">Sign Up</span>
+                        Have no account?<a href="/register"> <span className="text-blue-600 cursor-pointer hover:underline">Sign Up</span></a>
                     </p>
                 </div>
             </div>

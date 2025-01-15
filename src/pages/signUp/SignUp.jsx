@@ -88,7 +88,7 @@ function SignUp() {
 
           {/* Sign In Link */}
           <p className="text-center text-gray-600 mt-6">
-            Already have an account? <span className="text-blue-600 cursor-pointer hover:underline">Sign In</span>
+            Already have an account? <a href="/login"><span className="text-blue-600 cursor-pointer hover:underline">Sign In</span></a>
           </p>
         </div>
       </div>

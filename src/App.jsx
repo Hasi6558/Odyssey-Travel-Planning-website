@@ -15,12 +15,15 @@ import TourDetails from './pages/tourDetailsPage/TourDetailsPage'
 import ProfilePage from './pages/profilePage/ProfilePage'
 import BookingPage from './pages/bookingPage/BookingPage'
 import PlannedTripDetails from './pages/tripPlanner/PlannedTripDetails'
+import ScrollToTop from './component/ScrollToTop'
 
 function App() {
 
   return (
     <>
+
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
