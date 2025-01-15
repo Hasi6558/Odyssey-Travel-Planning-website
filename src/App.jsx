@@ -14,6 +14,7 @@ import LoadingScreen from './component/LoadingScreen'
 import TourDetails from './pages/tourDetailsPage/TourDetailsPage'
 import ProfilePage from './pages/profilePage/ProfilePage'
 import BookingPage from './pages/bookingPage/BookingPage'
+import PlannedTripDetails from './pages/tripPlanner/PlannedTripDetails'
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <Route path='/tour-details/:id' element={<TourDetails />} />
           <Route path='/profilePage' element={<ProfilePage />} />
           <Route path='/booking-page/:id' element={<BookingPage />} />
+          <Route path='/trip-planDetails/:id' element={<PlannedTripDetails />} />
         </Routes>
       </BrowserRouter>
     </>

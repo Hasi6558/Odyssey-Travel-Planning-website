@@ -97,7 +97,7 @@ const Home = () => {
             <LoadingScreen />
           ) : (
             <>
-              {/* Top Hotels */}
+
               <div className='m-auto w-9/12'>
                 <div className='my-10'>
                   <div className='flex items-center justify-between mb-10'>
@@ -105,7 +105,7 @@ const Home = () => {
                     <span><a href="/hotel">See all</a></span>
                   </div>
 
-                  {/* Responsive Grid */}
+
                   <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
 
                     {displayHotels.length > 0 ? (
@@ -129,7 +129,7 @@ const Home = () => {
                 </div>
               </div>
 
-              {/* Popular Restaurants */}
+
               <div className='m-auto w-9/12'>
                 <div className='mb-10'>
                   <div className='flex items-center justify-between mb-10'>
@@ -137,7 +137,6 @@ const Home = () => {
                     <span><a href="/restaurant  ">See all</a></span>
                   </div>
 
-                  {/* Responsive Grid */}
                   <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                     {displayRestaurants.length > 0 ? (
                       displayRestaurants.slice(0, 8).map((restaurant) => (
@@ -160,7 +159,7 @@ const Home = () => {
                 </div>
               </div>
 
-              {/* Best Tours */}
+
               <div className='m-auto w-9/12'>
                 <div className='mb-10'>
                   <div className='flex items-center justify-between mb-10'>
@@ -168,7 +167,7 @@ const Home = () => {
                     <span><a href="/tours">See all</a></span>
                   </div>
 
-                  {/* Responsive Grid */}
+
                   <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                     {displayTours.length > 0 ? (
                       displayTours.slice(0, 8).map((tour) => (

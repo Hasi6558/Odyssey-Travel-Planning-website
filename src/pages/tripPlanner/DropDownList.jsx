@@ -19,12 +19,20 @@ const DropDownList = () => {
     const [currentCategory, setCurrentCategory] = useState("");
     const [currentSectionIndex, setCurrentSectionIndex] = useState(null);
     const [searchInput, setSearchInput] = useState("");
+    const [draftName, setDraftName] = useState("");
     const [costInput, setCostInput] = useState("");
     const [favoriteItems, setFavoriteItems] = useState({
         hotels: [],
         restaurants: [],
         tours: [],
     });
+
+    const handleDraftName = (e) => {
+        const name = e.target.value;
+        setDraftName(name);
+
+    }
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,10 +42,17 @@ const DropDownList = () => {
                 const favouriteRestaurantsData = await ApiService.getFavouritesByUserIdAndItemType("user06", "restaurant");
                 const favouriteToursData = await ApiService.getFavouritesByUserIdAndItemType("user07", "tour");
 
+                const hotelIds = favouriteHotelsData.map(item => item.itemId);
+                const restaurantIds = favouriteRestaurantsData.map(item => item.itemId);
+                const tourIds = favouriteToursData.map(item => item.itemId);
 
-                const hotelData = await ApiService.getHotels();
-                const restaurantData = await ApiService.getRestaurants();
-                const tourData = await ApiService.getTours();
+                const hotelPromises = hotelIds.map(id => ApiService.getHotelById(id));
+                const restaurantPromises = restaurantIds.map(id => ApiService.getRestaurantById(id));
+                const tourPromises = tourIds.map(id => ApiService.getTourById(id));
+
+                const hotelData = await Promise.all(hotelPromises);
+                const restaurantData = await Promise.all(restaurantPromises);
+                const tourData = await Promise.all(tourPromises);
 
                 const hotelTitles = hotelData.map((hotel) => hotel.title);
                 const restaurantTitles = restaurantData.map((restaurant) => restaurant.title);
@@ -115,26 +130,39 @@ const DropDownList = () => {
     };
 
     const handleSavePlan = async () => {
-        const formattedSections = sections.map((section) =>
-            section.items.map((item) => [section.title, item.title, item.cost])
-        );
+        if (draftName) {
+            const formattedSections = sections.map((section) =>
+                section.items.map((item) => [section.title, item.title, item.cost])
+            );
 
-        const travelPlan = {
-            userId: "user12345", // Replace this with a dynamic userId if needed
-            sections: formattedSections,
-            totalCost,
-        };
+            const noOfSections = sections.length;
 
-        console.log(travelPlan);
+            const draftSavingTime = new Date().toISOString();
 
-        try {
-            await ApiService.saveTravelPlan(travelPlan); // API method to save the plan
-            alert("Travel plan saved successfully!");
-        } catch (error) {
-            console.error("Error saving travel plan", error);
-            alert("Failed to save travel plan.");
+            const travelPlan = {
+                userId: "user12345",
+                draftName,
+                sections: formattedSections,
+                totalCost,
+                noOfSections,
+                draftSavingTime,
+            };
+
+            console.log(travelPlan);
+
+            try {
+                await ApiService.saveTravelPlan(travelPlan);
+                alert("Travel plan saved successfully!");
+            } catch (error) {
+                console.error("Error saving travel plan", error);
+                alert("Failed to save travel plan.");
+            }
+
+        } else {
+            alert("Please enter a draft name!");
         }
     };
+
 
     const filteredFavorites =
         currentCategory && favoriteItems[currentCategory.toLowerCase() + "s"]
@@ -230,11 +258,15 @@ const DropDownList = () => {
 
             <div className="bg-gray-100 p-4 text-center border-t flex items-center justify-center">
                 <h2 className="text-lg font-bold">Total Cost: ${totalCost.toFixed(2)}</h2>
+                <div>
+                    <input type="text" placeholder="enter the draft name " className="ms-8 me-0 border-none p-2" onChange={handleDraftName} />
+
+                </div>
                 <button
                     onClick={handleSavePlan}
                     className="ms-8 text-black font-bold hover:text-white hover:bg-black bg-transparent border border-black px-4 py-2 rounded-lg"
                 >
-                    Save Plan
+                    Draft
                 </button>
             </div>
 
