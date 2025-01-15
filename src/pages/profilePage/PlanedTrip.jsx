@@ -27,7 +27,7 @@ const PlanedTrip = () => {
     return (
 
 
-        <div className='h-screen'>
+        <div className='min-h-screen'>
             <div className='text-2xl mb-4'>Planned Travels</div>
 
             <div>

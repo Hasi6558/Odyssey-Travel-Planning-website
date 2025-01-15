@@ -61,7 +61,7 @@ const ProfilePage = () => {
                 <div className='pt-36 bg-gray-100  '>
 
                     <div className='max-w-[1220px] m-auto flex'>
-                        <div className='bg-white w-[250px] px-8 py-4'>
+                        <div className='bg-white w-[250px] px-8 py-4 h-[170px]'>
                             <ul className=''>
                                 <li className='my-4'><button className='flex' onClick={handleFavouriteClick}><img src={FavouriteIcon} className='mr-4 h-5' />Favourites</button></li>
                                 <li className='my-4'><button href="#" className='flex' onClick={handlePurchaseClick}><img src={PurchaseIcon} className='mr-4 h-5' />Purchases</button></li>
@@ -69,7 +69,7 @@ const ProfilePage = () => {
                             </ul>
 
                         </div>
-                        <div className='w-full'>
+                        <div className='w-full mb-8'>
                             <div className='px-8'>{currentIndex === 0 ? (<FavouriteItems indexParameter={currentIndex} />) : ("")}</div>
                             <div className='w-full'> {currentIndex === 1 ? (<Purchases />) : ("")}</div>
                             <div> {currentIndex === 2 ? (<PlanedTrip />) : ("")}</div>
