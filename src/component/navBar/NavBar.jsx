@@ -9,7 +9,7 @@ function NavBar() {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
-        {/* Logo */}
+
         <div>
           <img
             src={Logo}
@@ -19,7 +19,6 @@ function NavBar() {
           />
         </div>
 
-        {/* Hamburger Menu for Mobile */}
         <div
           className="lg:hidden flex flex-col justify-between h-6 w-6 cursor-pointer"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -38,7 +37,7 @@ function NavBar() {
           ></span>
         </div>
 
-        {/* Navigation Links */}
+
         <ul
           className={`lg:flex lg:items-center lg:space-x-6 absolute lg:static bg-white w-full lg:w-auto transition-all duration-300 ${menuOpen ? 'top-16 left-0 shadow-md p-4' : 'top-[-300px]'
             }`}
@@ -99,9 +98,13 @@ function NavBar() {
           </li>
         </ul>
 
-        {/* Profile Section */}
+
         <div className="hidden lg:flex items-center space-x-2">
-          <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+          <a href="/profilePage">
+            <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+          </a>
+
+
           <span className="font-medium text-gray-800">Hi, User</span>
         </div>
       </div>

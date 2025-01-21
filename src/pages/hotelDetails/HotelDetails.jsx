@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ApiService from '../../service/ApiService';
 import NavBar from '../../component/navBar/NavBar';
@@ -126,6 +126,7 @@ const HotelDetails = () => {
                                             price={hotelRoom.price}
                                             discountedPrice={hotelRoom.discountedPrice}
                                             avalRooms={hotelRoom.avalCount}
+                                            roomId={hotelRoom.id}
                                         />
                                     ))}
 

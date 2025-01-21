@@ -48,6 +48,16 @@ class ApiService {
         }
     }
 
+    static async getHotelRoomById(id) {
+        try {
+            const response = await axios.get(`${BASE_URL}/hotelRooms/getHotelRoomById/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching hotel by ID:', error);
+            throw error;
+        }
+    }
+
     static async getTourById(id) {
         try {
             const response = await axios.get(`${BASE_URL}/tours/getTourById/${id}`);
@@ -114,6 +124,44 @@ class ApiService {
             return response.data;
         } catch (error) {
             console.error('Error fetching restaurant:', error);
+            throw error;
+        }
+    }
+
+    static async getFavouritesByUserIdAndItemType(userId, itemType) {
+        try {
+            const response = await axios.get(`${BASE_URL}/favourites?userId=${userId}&itemType=${itemType}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching restaurant:', error);
+            throw error;
+        }
+    }
+
+    static async saveTravelPlan(travelPlan) {
+        try {
+            const response = await axios.post(`${BASE_URL}/trip-plans/save`, travelPlan);
+            return response.data;
+        } catch (error) {
+            console.error('Error saving travel plan:', error);
+            throw error;
+        }
+    }
+    static async getTravelPlansByUserId(userId) {
+        try {
+            const response = await axios.get(`${BASE_URL}/trip-plans/user/${userId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error saving travel plan:', error);
+            throw error;
+        }
+    }
+    static async getTravelPlanById(id) {
+        try {
+            const response = await axios.get(`${BASE_URL}/trip-plans/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error saving travel plan:', error);
             throw error;
         }
     }
