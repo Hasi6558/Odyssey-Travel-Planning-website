@@ -15,6 +15,7 @@ class ApiService {
         }
 
     }
+    
     static async getRestaurants() {
         try {
             const response = await axios.get(`${BASE_URL}/restaurant/getAllRestaurant`);

@@ -13,6 +13,7 @@ const PlanedTrip = () => {
                 try {
                     const planData = await ApiService.getTravelPlansByUserId("user12345");
                     setPlans(planData);
+                    console.log(planData)
 
                 } catch (error) {
                     console.error('Error fetching plan data', error);
