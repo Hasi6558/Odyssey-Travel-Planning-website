@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
+import { useLocation } from 'react-router'
 import './App.css'
 import Restaurant from './pages/restaurant/Restaurant'
 import Hotel from './pages/hotel/Hotel'
@@ -15,12 +16,24 @@ import TourDetails from './pages/tourDetailsPage/TourDetailsPage'
 import ProfilePage from './pages/profilePage/ProfilePage'
 import BookingPage from './pages/bookingPage/BookingPage'
 import PlannedTripDetails from './pages/tripPlanner/PlannedTripDetails'
+import { useEffect } from 'react'
 
 function App() {
+
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]); 
+  
+    return null; 
+  };
 
   return (
     <>
       <BrowserRouter>
+      <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/register' element={<SignUp />}></Route>

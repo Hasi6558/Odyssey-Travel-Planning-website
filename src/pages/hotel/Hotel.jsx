@@ -39,7 +39,7 @@ const Hotel = () => {
       if (searchedText) {
         setLoading(true);
         try {
-          const searchedHotelsData = await ApiService.gethotelByCity(searchedText);
+          const searchedHotelsData = await ApiService.getHotelByCity(searchedText);
 
 
           setsearchedHotels(searchedHotelsData);

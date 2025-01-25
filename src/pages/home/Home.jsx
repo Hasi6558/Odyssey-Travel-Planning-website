@@ -47,7 +47,7 @@ const Home = () => {
       const fetchData = async () => {
         setLoading(true);
         try {
-          const searchedHotelsData = await ApiService.gethotelByCity(searchedText);
+          const searchedHotelsData = await ApiService.getHotelByCity(searchedText);
           const searchedRestaurantsData = await ApiService.getRestaurantByCity(searchedText);
           const searchedToursData = await ApiService.getToursByCity(searchedText);
 

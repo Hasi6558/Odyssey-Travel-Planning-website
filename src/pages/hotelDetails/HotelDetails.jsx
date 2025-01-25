@@ -31,6 +31,8 @@ const HotelDetails = () => {
                 setHotelRooms(hotelRoomsData);
                 setReviews(reviewData);
 
+                console.log(reviewData);
+
 
             } catch (error) {
                 console.error('Error fetching data', error);
@@ -101,11 +103,11 @@ const HotelDetails = () => {
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <span className="text-xl">🌀</span>
-                                    <span>{hotel.facilities?.[4]}</span>
+                                    <span>Air Condition</span>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <span className="text-xl">📶</span>
-                                    <span>{hotel.facilities?.[5]}</span>
+                                    <span>Wi fi</span>
                                 </div>
                             </div>
                         </div>

@@ -173,7 +173,7 @@ const DropDownList = () => {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <h1 className="text-center font-bold text-2xl my-4">Plan and Organize your Destinations</h1>
+            <h1 className="text-center font-bold text-5xl mb-4 mt-8 ">Plan and Organize your Destinations</h1>
             <div className="flex-grow">
                 <div className="w-full max-w-[800px] mx-auto mt-10 flex flex-col rounded-xl">
                     <button
