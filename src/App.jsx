@@ -17,6 +17,7 @@ import ProfilePage from './pages/profilePage/ProfilePage'
 import BookingPage from './pages/bookingPage/BookingPage'
 import PlannedTripDetails from './pages/tripPlanner/PlannedTripDetails'
 import { useEffect } from 'react'
+import ForgetPassword from './pages/signUp/ForgetPassword'
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
           <Route path='/profilePage' element={<ProfilePage />} />
           <Route path='/booking-page/:id' element={<BookingPage />} />
           <Route path='/trip-planDetails/:id' element={<PlannedTripDetails />} />
+          <Route path='/forget-password' element={<ForgetPassword />} />
         </Routes>
       </BrowserRouter>
     </>

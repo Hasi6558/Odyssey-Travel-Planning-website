@@ -41,7 +41,12 @@ function LogIn() {
                                     className="w-full outline-none text-gray-700"
                                 />
                             </div>
+                            <div>
+                            <a href="/forget-password" className='text-sm text-gray-500 my-1'>Forget Password ?</a>
                         </div>
+                        </div>
+                        
+                        
 
                         <button
                             type="submit"
@@ -66,7 +71,7 @@ function LogIn() {
                     </fieldset>
 
                     <p className="text-center text-gray-600 mt-6">
-                        Have no account? <span className="text-blue-600 cursor-pointer hover:underline">Sign Up</span>
+                        Have no account? <span className="text-blue-600 cursor-pointer hover:underline"><a href="/register">Sign Up</a></span>
                     </p>
                 </div>
             </div>
