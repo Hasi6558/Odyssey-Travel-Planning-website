@@ -85,7 +85,7 @@ const Hotel = () => {
           ) : (
             <>
               {searchedText ? (<div className='max-w-[800px] m-auto my-4 font-semibold text-lg'> Nearby Hotels in : {searchedText}</div>) : ("")}
-              <div className="mx-20 flex flex-col items-center">
+              <div className="mx-20 flex flex-col items-center mb-4">
                 {displayHotels.length > 0 ? (
                   displayHotels.map((hotel) => (
                     <ListingCard
