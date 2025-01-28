@@ -102,7 +102,7 @@ const Home = () => {
                 <div className='my-10'>
                   <div className='flex items-center justify-between mb-10'>
                     <span className='text-4xl font-semibold'> {searchedText ? (<p> Top Hotels in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Top Hotels</p>)} </span>
-                    <span><a href="/hotel">See all</a></span>
+                    <span><a href="/hotel" className='text-lg font-bold'>Show all</a></span>
                   </div>
 
 
@@ -134,7 +134,7 @@ const Home = () => {
                 <div className='mb-10'>
                   <div className='flex items-center justify-between mb-10'>
                     <span className='text-4xl font-semibold'>{searchedText ? (<p> Popular Restaurants in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Popular Restaurants</p>)}</span>
-                    <span><a href="/restaurant  ">See all</a></span>
+                    <span><a href="/restaurant  " className='text-lg font-bold'>Show all</a></span>
                   </div>
 
                   <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
@@ -164,7 +164,7 @@ const Home = () => {
                 <div className='mb-10'>
                   <div className='flex items-center justify-between mb-10'>
                     <span className='text-4xl font-semibold'>{searchedText ? (<p> Best Tours in <span className='text-xl text-blue-600'>{searchedText}</span></p>) : (<p> Top Tours</p>)}</span>
-                    <span><a href="/tours">See all</a></span>
+                    <span><a href="/tours" className='text-lg font-bold'>Show all</a></span>
                   </div>
 
 

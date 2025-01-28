@@ -4,6 +4,16 @@ import { Star } from "lucide-react";
 const AddReview = ({handlePopUp}) => {
     const [rating,setRating] =useState(0);
     const [hover,setHover] = useState(0);
+    const [review,setReview] = useState("");
+
+    const handleChangeReviewText =(e)=>{
+        let value = e.target.value;
+        setReview(value); 
+    }
+
+    const handleSubmit =()=>{
+        
+    }
 
 
   return (
@@ -37,7 +47,7 @@ const AddReview = ({handlePopUp}) => {
             }
             </div>
             <div className='flex justify-center items-center'>
-                <textarea name="" id="" className='w-full mx-8 rounded-lg mt-4 p-4 border border-black solid border-2 outline-none' rows={9} >
+                <textarea name="" id="" className='w-full mx-8 rounded-lg mt-4 p-4 border border-black solid border-2 outline-none' rows={9} onChange={handleChangeReviewText} >
 
                 </textarea>
                 
@@ -47,7 +57,7 @@ const AddReview = ({handlePopUp}) => {
             <button className='bg-black text-white p-2 rounded-lg mt-4 me-2 ' onClick={handlePopUp}>
                 Cancel
             </button>
-            <button className='bg-blue-700 text-white p-2 rounded-lg mt-4 '>
+            <button className='bg-blue-700 text-white p-2 rounded-lg mt-4 ' onClick={handleSubmit}>
                 Submit
             </button>
           </div>
