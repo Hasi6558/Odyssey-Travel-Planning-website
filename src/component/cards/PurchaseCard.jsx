@@ -2,17 +2,25 @@ import React from 'react'
 
 const PurchaseCard = () => {
     return (
-        <div className='border rounded-xl p-4'>
-            <div className='flex '>
-                <div className='pe-4'>Order Id: <span>55545565425456456445</span></div>
-                <div>Date : </div>
+        <div className='border rounded-xl p-4 bg-white'>
+            <div className='flex flex-col items-end '>
+                <div className=''>Order Id: <span>55545565425456456445</span></div>
+                <div>Date : 2025/01/01 00:00:00 </div>
             </div>
+            <hr />
+            <div className='flex justify-between'>
+            <div className='flex flex-col justify-between'>
+                <div className='mt-4'><h1 className='text-2xl font-semibold '>Unwind in Unmatched Comfort at Ocean Pearl</h1></div>
+                <div className='text-xl mt-1 font-semibold'><p>Total :240 $ </p></div>
+            </div>
+            <div className='flex flex-col justify-center items-center m-2'>
+                <button className='text-white font-semibold p-2 bg-blue-700 rounded-lg'>+ Add a review</button>
+                 <div className='mt-1 font-semibold text-white bg-black p-2 rounded-lg w-full text-center'><p><a href="">Show Item </a></p></div>
+            </div>
+            </div>
+           
 
-            <div><h1 className='text-xl font-semibold '>Title</h1></div>
-            <div className='flex justify-between mt-2'>
-                <div><p>Amount : </p></div>
-                <div><p><a href="">Show Item</a></p></div>
-            </div>
+           
         </div>
     )
 }
