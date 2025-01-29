@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Star } from "lucide-react";
+import ApiService from '../../service/ApiService';
 
 const AddReview = ({handlePopUp}) => {
     const [rating,setRating] =useState(0);
@@ -12,6 +13,35 @@ const AddReview = ({handlePopUp}) => {
     }
 
     const handleSubmit =()=>{
+        if(rating===0){
+            alert("please enter rating before submitting");
+            return;
+        }
+        if(review.trim()===""){
+            alert("please enter a reveiew before submitting");
+            return;
+        }
+
+        const reviewData = {
+    
+            reviewdItemId: "6772ec7679df1f60f2316e03",
+            reviewerName : "Hasindu Shehan",
+            rate :rating,
+            comment: review,
+            ratedAt:new Date().toISOString().split('T')[0],
+        }
+    
+            const sendData = async ()=>{
+                try{
+                    console.log(reviewData,"Reviewwwwwwwwwwwwwwwwwwwwwwwwww");
+                    await ApiService.AddReview(reviewData);
+                    alert("review Saved !")
+                }catch(error){
+                    console.error("Error saving review !",error);
+                    alert("Error saving review !");
+                }
+            }
+            sendData();
         
     }
 

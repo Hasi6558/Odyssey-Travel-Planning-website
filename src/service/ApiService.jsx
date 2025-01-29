@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = 'http://localhost:9090/api'; // Your API base URL
+const BASE_URL = 'http://localhost:9090/api'; 
 
 class ApiService {
     static async getHotels() {
@@ -174,7 +174,7 @@ class ApiService {
 
     static async getBlogById(id) {
         try {
-            const response = await axios.get(`${BASE_URL}/blogs/${id}`); // Adjust endpoint to match your backend
+            const response = await axios.get(`${BASE_URL}/blogs/${id}`);
             return response.data;
         } catch (error) {
             console.error('Error fetching blog by ID:', error);
@@ -184,7 +184,7 @@ class ApiService {
 
     static async getBlogsByCategory(category) {
         try {
-            const response = await axios.get(`${BASE_URL}/blogs/category/${category}`); // Replace with actual category endpoint
+            const response = await axios.get(`${BASE_URL}/blogs/category/${category}`);
             return response.data;
         } catch (error) {
             console.error('Error fetching blogs by category:', error);
@@ -194,13 +194,26 @@ class ApiService {
 
     static async getBlogsByKeyword(keyword) {
         try {
-            const response = await axios.get(`${BASE_URL}/blogs/search?keyword=${keyword}`); // Replace with actual search endpoint
+            const response = await axios.get(`${BASE_URL}/blogs/search?keyword=${keyword}`); 
             return response.data;
         } catch (error) {
             console.error('Error fetching blogs by keyword:', error);
             throw error;
         }
     }
+
+    static async AddReview(review){
+        try{
+            const response = await axios.post(`${BASE_URL}/reviews/addReview`,review);
+            return response.data;
+        }catch(error){
+            console.error("Error Posting review data",error);
+            throw error
+    }
+
+    }
+
+
 }
 
 export default ApiService;
