@@ -23,8 +23,13 @@ const ReviewSection = ({ review_count, reviews }) => {
             setCurrentIndex(currentIndex-1);
         }
     }
-    const startPage = Math.max(0, Math.min(currentIndex - Math.floor(maxPageNumbersToShow / 2), totalPages - maxPageNumbersToShow));
-    const endPage = Math.min(totalPages, startPage + maxPageNumbersToShow);
+    let startPage = Math.max(0, currentIndex - Math.floor(maxPageNumbersToShow / 2)); 
+    let endPage = startPage + maxPageNumbersToShow;
+    
+    if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = Math.max(0, endPage - maxPageNumbersToShow);
+    }
 
 
 
@@ -62,16 +67,15 @@ const ReviewSection = ({ review_count, reviews }) => {
                 >
                     Prev
                 </button>
-                    {Array.from({ length: Math.ceil(review_count / 3) }, (_, index) => (
-
-
-                        <span
-                            key={index}
-                            onClick={() => handlePageClick(index)}
-
-                            className={`px-4 py-2 w-fit text-lg rounded-full cursor-pointer ${index === currentIndex ? 'bg-black text-white' : 'bg-white text-black'}`}
-                        >{index + 1}</span>
-                    ))}
+                {Array.from({ length: endPage - startPage }, (_, index) => startPage + index).map((page) => (
+            <span
+                key={page}
+                onClick={() => handlePageClick(page)}
+                className={`px-4 py-2 w-fit text-lg rounded-full cursor-pointer ${page === currentIndex ? 'bg-black text-white' : 'bg-white text-black'}`}
+                >
+         {page + 1}
+        </span>
+))}
                     <button 
                     onClick={handleNext} 
                     disabled={currentIndex === totalPages - 1}
