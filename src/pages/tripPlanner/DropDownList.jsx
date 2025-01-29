@@ -172,8 +172,8 @@ const DropDownList = () => {
             : [];
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <h1 className="text-center font-bold text-5xl mb-4 mt-8 ">Plan and Organize your Destinations</h1>
+        <div className="flex flex-col min-h-screen bg-white max-w-fit m-auto p-8 px-16 mb-8  mt-4 rounded-2xl">
+            <h1 className="text-center font-bold text-4xl mb-4 mt-8 ">Plan and Organize your Destinations</h1>
             <div className="flex-grow">
                 <div className="w-full max-w-[800px] mx-auto mt-10 flex flex-col rounded-xl">
                     <button
@@ -271,7 +271,7 @@ const DropDownList = () => {
             </div>
 
             {showFavoritesPanel && (
-                <div className="absolute top-0 right-0 h-full w-[30%] bg-white shadow-lg p-6">
+                <div className="absolute top-0 right-0 h-full w-[30%] bg-white shadow-lg p-6 opacity-90">
                     <h2 className="text-lg font-bold mb-4 mt-20 text-4xl">Add Your Favourite {currentCategory}</h2>
                     <input
                         type="text"
