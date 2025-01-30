@@ -13,7 +13,7 @@ const ProfilePage = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-    const [isResetPasswordOpen, setIsResetPasswordOpen] = useState(false);
+    const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -46,12 +46,12 @@ const ProfilePage = () => {
         setIsEditProfileOpen(false);
     };
 
-    const handleResetPasswordClick = () => {
-        setIsResetPasswordOpen(true);
+    const handleChangePasswordClick = () => {
+        setIsChangePasswordOpen(true);
     };
 
-    const handleCloseResetPassword = () => {
-        setIsResetPasswordOpen(false);
+    const handleCloseChangePassword = () => {
+        setIsChangePasswordOpen(false);
     };
 
     const handleInputChange = (e) => {
@@ -70,10 +70,10 @@ const ProfilePage = () => {
         setIsEditProfileOpen(false);
     };
 
-    const handleResetPassword = () => {
-        // Add your reset password logic here
-        console.log('Password reset:', passwordData);
-        setIsResetPasswordOpen(false);
+    const handleChangePassword = () => {
+        // Add your change password logic here
+        console.log('Password changed:', passwordData);
+        setIsChangePasswordOpen(false);
     };
 
     return (
@@ -101,10 +101,10 @@ const ProfilePage = () => {
                                     <div><img src={SettingIcon} alt="setting icon" className='p-2 border-y-2 border-e-2' /></div>
                                 </button>
                                 <button
-                                    onClick={handleResetPasswordClick}
+                                    onClick={handleChangePasswordClick}
                                     className='flex mt-2'
                                 >
-                                    <div className='border-2 h-fit p-2 font-semibold'> Reset Password</div>
+                                    <div className='border-2 h-fit p-2 font-semibold'> Change Password</div>
                                     <div><img src={SettingIcon} alt="setting icon" className='p-2 border-y-2 border-e-2' /></div>
                                 </button>
                             </div>
@@ -210,10 +210,10 @@ const ProfilePage = () => {
                 </div>
             )}
 
-            {isResetPasswordOpen && (
+            {isChangePasswordOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-                        <h2 className="text-2xl font-semibold mb-4">Reset Password</h2>
+                        <h2 className="text-2xl font-semibold mb-4">Change Password</h2>
                         <form>
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="currentPassword">
@@ -254,16 +254,16 @@ const ProfilePage = () => {
                         </form>
                         <div className="flex justify-end space-x-4">
                             <button
-                                onClick={handleCloseResetPassword}
+                                onClick={handleCloseChangePassword}
                                 className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
                             >
                                 Close
                             </button>
                             <button
-                                onClick={handleResetPassword}
+                                onClick={handleChangePassword}
                                 className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
                             >
-                                Reset Password
+                                Change Password
                             </button>
                         </div>
                     </div>
