@@ -33,15 +33,30 @@ const AddReview = ({handlePopUp}) => {
     
             const sendData = async ()=>{
                 try{
-                    console.log(reviewData,"Reviewwwwwwwwwwwwwwwwwwwwwwwwww");
+                    
                     await ApiService.AddReview(reviewData);
-                    alert("review Saved !")
+                    const hotel = await ApiService.getHotelById("6772ec7679df1f60f2316e03");
+                    const currentReviewCount = hotel.reviewCount;
+                    const currentRatings = hotel.ratings;
+                    const newReviewCount = currentReviewCount +1;
+                    
+                    const newRatings = (currentRatings*currentReviewCount + reviewData.rate)/ newReviewCount;
+                    const roundedRatings = Math.round(newRatings*100)/10;
+                    console.log(newRatings);
+                    console.log(roundedRatings,"rounded rating")
+                    hotel.reviewCount= newReviewCount;
+                    hotel.ratings = roundedRatings;
+                   await ApiService.updateHotel(reviewData.reviewdItemId,hotel);
+                   alert("review Saved !");                
                 }catch(error){
                     console.error("Error saving review !",error);
                     alert("Error saving review !");
                 }
             }
             sendData();
+
+
+            handlePopUp(false);
         
     }
 
