@@ -256,15 +256,15 @@ const DropDownList = () => {
                 </div>
             </div>
 
-            <div className="bg-gray-100 p-4 text-center border-t flex items-center justify-center">
+            <div className="bg-gray-100 p-4 text-center border-t flex items-center justify-center rounded-lg">
                 <h2 className="text-lg font-bold">Total Cost: ${totalCost.toFixed(2)}</h2>
-                <div>
-                    <input type="text" placeholder="enter the draft name " className="ms-8 me-0 border-none p-2" onChange={handleDraftName} />
+                <div >
+                    <input type="text" placeholder="enter the draft name " className="ms-8 me-0 border-none p-2 rounded-xl ps-4"  onChange={handleDraftName} />
 
                 </div>
                 <button
                     onClick={handleSavePlan}
-                    className="ms-8 text-black font-bold hover:text-white hover:bg-black bg-transparent border border-black px-4 py-2 rounded-lg"
+                    className="ms-8 rounded-2xl text-black font-bold hover:text-white hover:bg-black bg-transparent border border-black px-4 py-2 rounded-lg"
                 >
                     Draft
                 </button>

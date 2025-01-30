@@ -54,7 +54,7 @@ const HotelDetails = () => {
                     <div className=' w-10/12 m-auto mt-10'>
                         <div></div>
                         <div className='w-2/3 mx-20 pt-6'>
-                            <h3 className='font-bold text-3xl mb-5 w-[600px]' >{hotel.title}</h3>
+                            <h3 className='font-bold text-3xl mb-3 w-[600px]' >{hotel.title}</h3>
                         </div>
                         <div className='flex items-center my-2'>
                             <div className='ms-20 me-2'><img src={LocationLogo} alt="" className='h-4' /></div>

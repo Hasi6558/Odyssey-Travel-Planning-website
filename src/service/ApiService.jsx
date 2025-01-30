@@ -12,15 +12,15 @@ class ApiService {
             throw error;
         }
     }
-    static async getRestaurants() {
-        try {
-            const response = await axios.get(`${BASE_URL}/restaurant/getAllRestaurant`);
-            return response.data;
-        } catch (error) {
-            console.error('Error fetching hotels:', error);
-            throw error;
+        static async getRestaurants() {
+            try {
+                const response = await axios.get(`${BASE_URL}/restaurant/getAllRestaurant`);
+                return response.data;
+            } catch (error) {
+                console.error('Error fetching hotels:', error);
+                throw error;
+            }
         }
-    }
 
     static async getTours() {
         try {
@@ -38,6 +38,15 @@ class ApiService {
             return response.data;
         } catch (error) {
             console.error('Error fetching hotel by ID:', error);
+            throw error;
+        }
+    }
+    static async updateHotel(id, updatedHotel) {
+        try {
+            const response = await axios.put(`${BASE_URL}/hotels/updateHotel/${id}`, updatedHotel);
+            return response.data;
+        } catch (error) {
+            console.error('Error updating hotel:', error);
             throw error;
         }
     }
