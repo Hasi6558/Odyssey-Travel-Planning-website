@@ -165,6 +165,27 @@ const Blog = () => {
             </>
           )}
         </div>
+        {selectedBlog && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-auto pt-16">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-full h-full max-w-none relative">
+              <button
+                onClick={() => setSelectedBlog(null)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              >
+                &times;
+              </button>
+              <div className="text-md overflow-y-auto h-full p-4">
+                <div dangerouslySetInnerHTML={{ __html: selectedBlog.description }}></div>
+                <button
+                  onClick={() => setSelectedBlog(null)}
+                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </>
