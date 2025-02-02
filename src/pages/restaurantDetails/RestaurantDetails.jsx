@@ -7,6 +7,7 @@ import ImageGallery from '../../component/imageGallery/ImageGallery';
 import LocationLogo from '../../assets/icons/location_logo_2.png';
 import ReviewSection from '../../component/ReviewSection';
 import LoadingScreen from '../../component/LoadingScreen';
+import WhiteFavIcon from '../../assets/icons/white_favourite.png';
 
 const RestaurantDetails = () => {
 
@@ -97,12 +98,12 @@ const RestaurantDetails = () => {
                         <div className='flex items-center my-2'>
                             <div className='ms-20 me-2'><img src={LocationLogo} alt="" className='h-4' /></div>
                             <div>{`${restaurant.location_city},${restaurant.location_country}`}</div>
-                            <div className='ps-10 font-semibold'><a href="#">Show on map</a></div>
+                            <div className='ps-5 font-semibold'><a href="#">Show on map</a></div>
                             <div className='bg-blue-700 text-white p-1 ms-10'><p>{restaurant.rating}</p></div>
-                            {favourites ? (<div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={removeFromFavourites}>
-                                <span>Remove From Favourites</span>
+                            {favourites ? (<div className='bg-black text-white font-bold ml-[20px] p-1 pr-4 cursor-pointer rounded-3xl ' onClick={removeFromFavourites}>
+                                <span className='flex'><img src={WhiteFavIcon} className='mx-2'/>Remove From Favourites</span>
                             </div>) : (
-                                <div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={addToFavourites}>
+                                <div className='bg-black text-white font-bold ml-[20px] p-1 px-4 cursor-pointer rounded-3xl' onClick={addToFavourites}>
                                     <span>Add to Favourites</span>
                                 </div>
                             )}
