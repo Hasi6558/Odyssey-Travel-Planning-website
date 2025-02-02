@@ -4,7 +4,6 @@ import LoginBackground from '../../assets/images/background_login.png';
 import GoogleLogo from '../../assets/images/googleLogo.png';
 import FbLogo from '../../assets/images/fbLogo.png';
 import AppleLogo from '../../assets/images/appleLogo.png';
-import { se } from 'date-fns/locale';
 import ApiService from '../../service/ApiService';
 import { useNavigate } from 'react-router';
 
@@ -13,6 +12,11 @@ function LogIn() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const submitData = async () => {
+        if (!userData.username || !userData.password) {
+            setError('Username and password are required');
+            return;
+        }
+        setError(''); // Clear previous errors if any
         try {
             const response = await ApiService.loginUser(userData);
             if (response.status === 200) {
@@ -22,13 +26,14 @@ function LogIn() {
                 navigate('/');
             } else {
                 console.error(response);
-                setError('User Login failed');
+                setError('Invalid username or password');
             }
         } catch (error) {
             console.error("Login Failed:", error);
-            setError('User Login failed');
+            setError('Invalid username or password');
         }
-    }
+    };
+
     return (
         <div className="min-h-screen flex flex-col md:flex-row bg-gray-100 register">
 
@@ -50,6 +55,7 @@ function LogIn() {
                                     placeholder="Your Usrename"
                                     className="w-full outline-none text-gray-700"
                                     name='username'
+                                    required
                                     onChange={(e) => setUserData({ ...userData, username: e.target.value })}
                                 />
                             </div>
@@ -65,6 +71,7 @@ function LogIn() {
                                     placeholder="**********"
                                     className="w-full outline-none text-gray-700"
                                     name='password'
+                                    required
                                     onChange={(e) => setUserData({ ...userData, password: e.target.value })}
                                 />
                             </div>
