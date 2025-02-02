@@ -4,3 +4,8 @@
     max-width: 80%;
 }
 
+body {
+    width: 100vw;
+    max-width: 100%;
+    overflow-x: hidden;
+}

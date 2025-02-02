@@ -172,8 +172,8 @@ const DropDownList = () => {
             : [];
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <h1 className="text-center font-bold text-2xl my-4">Plan and Organize your Destinations</h1>
+        <div className="flex flex-col min-h-screen bg-white max-w-fit m-auto p-8 px-16 mb-8  mt-4 rounded-2xl">
+            <h1 className="text-center font-bold text-4xl mb-4 mt-8 ">Plan and Organize your Destinations</h1>
             <div className="flex-grow">
                 <div className="w-full max-w-[800px] mx-auto mt-10 flex flex-col rounded-xl">
                     <button
@@ -256,22 +256,22 @@ const DropDownList = () => {
                 </div>
             </div>
 
-            <div className="bg-gray-100 p-4 text-center border-t flex items-center justify-center">
+            <div className="bg-gray-100 p-4 text-center border-t flex items-center justify-center rounded-lg">
                 <h2 className="text-lg font-bold">Total Cost: ${totalCost.toFixed(2)}</h2>
-                <div>
-                    <input type="text" placeholder="enter the draft name " className="ms-8 me-0 border-none p-2" onChange={handleDraftName} />
+                <div >
+                    <input type="text" placeholder="enter the draft name " className="ms-8 me-0 border-none p-2 rounded-xl ps-4"  onChange={handleDraftName} />
 
                 </div>
                 <button
                     onClick={handleSavePlan}
-                    className="ms-8 text-black font-bold hover:text-white hover:bg-black bg-transparent border border-black px-4 py-2 rounded-lg"
+                    className="ms-8 rounded-2xl text-black font-bold hover:text-white hover:bg-black bg-transparent border border-black px-4 py-2 rounded-lg"
                 >
                     Draft
                 </button>
             </div>
 
             {showFavoritesPanel && (
-                <div className="absolute top-0 right-0 h-full w-[30%] bg-white shadow-lg p-6">
+                <div className="absolute top-0 right-0 h-full w-[30%] bg-white shadow-lg p-6 opacity-90">
                     <h2 className="text-lg font-bold mb-4 mt-20 text-4xl">Add Your Favourite {currentCategory}</h2>
                     <input
                         type="text"

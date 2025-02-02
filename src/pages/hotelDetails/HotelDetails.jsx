@@ -31,6 +31,8 @@ const HotelDetails = () => {
                 setHotelRooms(hotelRoomsData);
                 setReviews(reviewData);
 
+                console.log(reviewData);
+
 
             } catch (error) {
                 console.error('Error fetching data', error);
@@ -52,7 +54,7 @@ const HotelDetails = () => {
                     <div className=' w-10/12 m-auto mt-10'>
                         <div></div>
                         <div className='w-2/3 mx-20 pt-6'>
-                            <h3 className='font-bold text-2xl mb-5' >{hotel.title}</h3>
+                            <h3 className='font-bold text-3xl mb-3 w-[600px]' >{hotel.title}</h3>
                         </div>
                         <div className='flex items-center my-2'>
                             <div className='ms-20 me-2'><img src={LocationLogo} alt="" className='h-4' /></div>
@@ -66,7 +68,7 @@ const HotelDetails = () => {
                             <div className='w-5/12'>
                                 <ImageGallery images={hotel.imgUrl || []} />
                             </div>
-                            <div><iframe src={hotel.locationMap} width="200" height="200" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
+                            <div><iframe src={hotel.locationMap} width="300" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
 
 
                         </div>
@@ -101,11 +103,11 @@ const HotelDetails = () => {
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <span className="text-xl">🌀</span>
-                                    <span>{hotel.facilities?.[4]}</span>
+                                    <span>Air Condition</span>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <span className="text-xl">📶</span>
-                                    <span>{hotel.facilities?.[5]}</span>
+                                    <span>Wi fi</span>
                                 </div>
                             </div>
                         </div>
