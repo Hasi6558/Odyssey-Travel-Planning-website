@@ -1,13 +1,39 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router';
 import Logo from '../../assets/images/logo.png';
+import ApiService from '../../service/ApiService';
 
 function NavBar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('authToken');
+  const [user, setUser] = useState({});
+
+  const isActive = (path) => location.pathname == path;
+
+  async function getUser() {
+    try {
+      const response = await ApiService.getUserById(userId, token);
+      if (response.status === 200) {
+        console.log('User fetched successfully');
+        setUser(response.data);
+      } else {
+        console.error(response);
+      }
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
+  }
+  useEffect(() => {
+    if (userId != undefined) {
+      getUser();
+    }
+  }, [userId]);
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-white shadow-md sticky top-0 z-50 px-[20px] max-w-full">
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
 
         <div>
@@ -37,75 +63,66 @@ function NavBar() {
           ></span>
         </div>
 
-
         <ul
           className={`lg:flex lg:items-center lg:space-x-6 absolute lg:static bg-white w-full lg:w-auto transition-all duration-300 ${menuOpen ? 'top-16 left-0 shadow-md p-4' : 'top-[-300px]'
             }`}
         >
-          <li
-            className="text-gray-800 font-medium cursor-pointer py-2 px-4 lg:py-0 hover:text-blue-500"
-            onClick={() => {
-              setMenuOpen(false);
-              navigate('/');
-            }}
-          >
-            Home
-          </li>
-          <li
-            className="text-gray-800 font-medium cursor-pointer py-2 px-4 lg:py-0 hover:text-blue-500"
-            onClick={() => {
-              setMenuOpen(false);
-              navigate('/hotel');
-            }}
-          >
-            Hotel
-          </li>
-          <li
-            className="text-gray-800 font-medium cursor-pointer py-2 px-4 lg:py-0 hover:text-blue-500"
-            onClick={() => {
-              setMenuOpen(false);
-              navigate('/restaurant');
-            }}
-          >
-            Restaurant
-          </li>
-          <li
-            className="text-gray-800 font-medium cursor-pointer py-2 px-4 lg:py-0 hover:text-blue-500"
-            onClick={() => {
-              setMenuOpen(false);
-              navigate('/tours');
-            }}
-          >
-            Tours
-          </li>
-          <li
-            className="text-gray-800 font-medium cursor-pointer py-2 px-4 lg:py-0 hover:text-blue-500"
-            onClick={() => {
-              setMenuOpen(false);
-              navigate('/tripPlanner');
-            }}
-          >
-            Plan Trip
-          </li>
-          <li
-            className="text-gray-800 font-medium cursor-pointer py-2 px-4 lg:py-0 hover:text-blue-500"
-            onClick={() => {
-              setMenuOpen(false);
-              navigate('/blog');
-            }}
-          >
-            Blog
-          </li>
+          {[
+            { label: 'Home', path: '/' },
+            { label: 'Hotel', path: '/hotel' },
+            { label: 'Restaurant', path: '/restaurant' },
+            { label: 'Tours', path: '/tours' },
+            { label: 'Plan Trip', path: '/tripPlanner' },
+            { label: 'Blog', path: '/blog' },
+          ].map((item) => (
+            <li
+              key={item.path}
+              className={`cursor-pointer py-2 px-4 lg:py-0 hover:text-blue-500 ${isActive(item.path) ? 'text-blue-600 font-bold' : 'text-gray-800 font-medium '
+                }`}
+              onClick={() => {
+                setMenuOpen(false);
+                navigate(item.path);
+              }}
+            >
+              {item.label}
+            </li>
+          ))}
         </ul>
 
-
         <div className="hidden lg:flex items-center space-x-2">
-          <a href="/profilePage">
+          {/* <a href="/profilePage">
             <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
-          </a>
-
-
-          <span className="font-medium text-gray-800">Hi, User</span>
+          </a> */}
+          {/* <span className="font-medium text-gray-800">Hi, User</span> */}
+          {
+            (userId != undefined) && (
+              <div className="flex gap-2 align-middle justify-center">
+                <span className="font-medium text-gray-800 h-fit cursor-pointer" onClick={() => navigate('/profilePage')}>Welcome, {user?.username}</span>
+                {/* <button
+                  className="bg-blue-600 text-white py-2 px-4 rounded-md"
+                  onClick={() => {
+                    localStorage.clear();
+                    navigate('/');
+                  }}>
+                  Logout
+                </button> */}
+              </div>
+            )
+          }
+          {(userId == undefined) && <div className="flex gap-2">
+            <button
+              className="bg-blue-600 text-white py-2 px-4 rounded-md"
+              onClick={() => navigate('/login')}
+            >
+              Login
+            </button>
+            <button
+              className="bg-blue-600 text-white py-2 px-4 rounded-md"
+              onClick={() => navigate('/register')}
+            >
+              Sign Up
+            </button>
+          </div>}
         </div>
       </div>
     </nav>

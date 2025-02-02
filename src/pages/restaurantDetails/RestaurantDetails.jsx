@@ -15,16 +15,23 @@ const RestaurantDetails = () => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('authToken');
+    const [favourites, setFavourites] = useState([]);
+
     useEffect(() => {
 
         const fetchRestaurant = async () => {
             setLoading(true);
             try {
+                const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "restaurant", token);
                 const restaurantData = await ApiService.getRestaurantById(id);
                 const reviewData = await ApiService.getReviewsByReviewdItemId(id);
 
                 setRestaurant(restaurantData);
                 setReviews(reviewData);
+                const found = favouriteHotelsData.some(fav => fav.itemId === id);
+                setFavourites(found);
 
             } catch (error) {
                 console.error('Error fetching data', error);
@@ -35,7 +42,47 @@ const RestaurantDetails = () => {
         fetchRestaurant();
         console.log(restaurant)
 
-    }, [id]);
+    }, [id, userId]);
+    async function addToFavourites() {
+        if (userId == undefined || token == undefined) {
+            alert('Please login to add to favourites');
+            return;
+        } else {
+            const favouriteData = {
+                userId: userId,
+                itemId: id,
+                itemType: 'restaurant'
+            }
+            try {
+                const response = await ApiService.addFavourite(favouriteData, token);
+                if (response.status === 200 || response.status === 201) {
+                    setFavourites(true);
+                }
+            } catch (error) {
+                console.error('Error adding to favourites', error);
+            }
+        }
+    }
+    async function removeFromFavourites() {
+        if (userId == undefined || token == undefined) {
+            alert('Please login to remove from favourites');
+            return;
+        } else {
+            const favouriteData = {
+                userId: userId,
+                itemId: id
+            }
+            try {
+                const response = await ApiService.removeFavourite(favouriteData, token);
+                console.log(response);
+                if (response.status === 200 || response.status === 204) {
+                    setFavourites(false);
+                }
+            } catch (error) {
+                console.error('Error removing from favourites', error);
+            }
+        }
+    }
 
     return (
         <>
@@ -52,6 +99,13 @@ const RestaurantDetails = () => {
                             <div>{`${restaurant.location_city},${restaurant.location_country}`}</div>
                             <div className='ps-10 font-semibold'><a href="#">Show on map</a></div>
                             <div className='bg-blue-700 text-white p-1 ms-10'><p>{restaurant.rating}</p></div>
+                            {favourites ? (<div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={removeFromFavourites}>
+                                <span>Remove From Favourites</span>
+                            </div>) : (
+                                <div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={addToFavourites}>
+                                    <span>Add to Favourites</span>
+                                </div>
+                            )}
                         </div>
                         <div className='flex flex-row gap-44 items-center '>
                             <div className='w-5/12'>

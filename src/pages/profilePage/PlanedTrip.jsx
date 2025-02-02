@@ -13,6 +13,7 @@ const PlanedTrip = () => {
                 try {
                     const planData = await ApiService.getTravelPlansByUserId("user12345");
                     setPlans(planData);
+                    console.log(planData)
 
                 } catch (error) {
                     console.error('Error fetching plan data', error);
@@ -27,10 +28,10 @@ const PlanedTrip = () => {
     return (
 
 
-        <div className='h-screen'>
-            <div className='text-2xl mb-4'>Planned Travels</div>
+        <div className='min-h-screen'>
+            <div className='text-2xl  mx-4 my-4'>Planned Travels</div>
 
-            <div>
+            <div > 
                 {plans.map((plan) => (
                     <a href={`/trip-planDetails/${plan.id}`} key={plan.id}>
                         <div className='flex items-center rounded-xl bg-gray-200 p-8 m-4'>

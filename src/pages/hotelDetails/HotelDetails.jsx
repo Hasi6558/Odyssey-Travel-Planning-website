@@ -8,6 +8,7 @@ import RoomCard from '../../component/cards/RoomCard';
 import LocationLogo from '../../assets/icons/location_logo_2.png';
 import ReviewSection from '../../component/ReviewSection';
 import LoadingScreen from '../../component/LoadingScreen';
+import { add } from 'date-fns';
 const HotelDetails = () => {
 
     const { id } = useParams();
@@ -16,20 +17,25 @@ const HotelDetails = () => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('authToken');
+    const [favourites, setFavourites] = useState([]);
 
 
 
     useEffect(() => {
-
         const fetchHotel = async () => {
             setLoading(true);
             try {
+                const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "hotel", token);
                 const hotelData = await ApiService.getHotelById(id);
                 const hotelRoomsData = await ApiService.getRoomsByHotelId("H001");
                 const reviewData = await ApiService.getReviewsByReviewdItemId(id);
                 setHotel(hotelData);
                 setHotelRooms(hotelRoomsData);
                 setReviews(reviewData);
+                const found = favouriteHotelsData.some(fav => fav.itemId === id);
+                setFavourites(found);
 
 
             } catch (error) {
@@ -40,9 +46,48 @@ const HotelDetails = () => {
         };
         fetchHotel();
 
-    }, [id])
+    }, [id, userId]);
 
-
+    async function addToFavourites() {
+        if (userId == undefined || token == undefined) {
+            alert('Please login to add to favourites');
+            return;
+        } else {
+            const favouriteData = {
+                userId: userId,
+                itemId: id,
+                itemType: 'hotel'
+            }
+            try {
+                const response = await ApiService.addFavourite(favouriteData, token);
+                if (response.status === 200 || response.status === 201) {
+                    setFavourites(true);
+                }
+            } catch (error) {
+                console.error('Error adding to favourites', error);
+            }
+        }
+    }
+    async function removeFromFavourites() {
+        if (userId == undefined || token == undefined) {
+            alert('Please login to remove from favourites');
+            return;
+        } else {
+            const favouriteData = {
+                userId: userId,
+                itemId: id
+            }
+            try {
+                const response = await ApiService.removeFavourite(favouriteData, token);
+                console.log(response);
+                if (response.status === 200 || response.status === 204) {
+                    setFavourites(false);
+                }
+            } catch (error) {
+                console.error('Error removing from favourites', error);
+            }
+        }
+    }
 
     return (
         <>
@@ -52,7 +97,7 @@ const HotelDetails = () => {
                     <div className=' w-10/12 m-auto mt-10'>
                         <div></div>
                         <div className='w-2/3 mx-20 pt-6'>
-                            <h3 className='font-bold text-2xl mb-5' >{hotel.title}</h3>
+                            <h3 className='font-bold text-3xl mb-3 w-[600px]' >{hotel.title}</h3>
                         </div>
                         <div className='flex items-center my-2'>
                             <div className='ms-20 me-2'><img src={LocationLogo} alt="" className='h-4' /></div>
@@ -60,13 +105,20 @@ const HotelDetails = () => {
 
                             <div className='ps-10 font-semibold'><a href={hotel.locationMap}>Show on map</a></div>
                             <div className='bg-blue-700 text-white p-1 ms-10'><p>{hotel.ratings}</p></div>
+                            {favourites ? (<div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={removeFromFavourites}>
+                                <span>Remove From Favourites</span>
+                            </div>) : (
+                                <div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={addToFavourites}>
+                                    <span>Add to Favourites</span>
+                                </div>
+                            )}
                         </div>
                         <div className='flex flex-row gap-44 items-center '>
 
                             <div className='w-5/12'>
                                 <ImageGallery images={hotel.imgUrl || []} />
                             </div>
-                            <div><iframe src={hotel.locationMap} width="200" height="200" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
+                            <div><iframe src={hotel.locationMap} width="300" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
 
 
                         </div>
@@ -101,11 +153,11 @@ const HotelDetails = () => {
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <span className="text-xl">🌀</span>
-                                    <span>{hotel.facilities?.[4]}</span>
+                                    <span>Air Condition</span>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <span className="text-xl">📶</span>
-                                    <span>{hotel.facilities?.[5]}</span>
+                                    <span>Wi fi</span>
                                 </div>
                             </div>
                         </div>

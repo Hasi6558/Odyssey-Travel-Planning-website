@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
+import { useLocation } from 'react-router'
 import './App.css'
 import Restaurant from './pages/restaurant/Restaurant'
 import Hotel from './pages/hotel/Hotel'
@@ -15,12 +16,25 @@ import TourDetails from './pages/tourDetailsPage/TourDetailsPage'
 import ProfilePage from './pages/profilePage/ProfilePage'
 import BookingPage from './pages/bookingPage/BookingPage'
 import PlannedTripDetails from './pages/tripPlanner/PlannedTripDetails'
+import { useEffect } from 'react'
+import ForgetPassword from './pages/signUp/ForgetPassword'
 
 function App() {
 
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]); 
+  
+    return null; 
+  };
+
   return (
     <>
-      <BrowserRouter >
+      <BrowserRouter>
+      <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
@@ -37,6 +51,7 @@ function App() {
           <Route path='/profilePage' element={<ProfilePage />} />
           <Route path='/booking-page/:id' element={<BookingPage />} />
           <Route path='/trip-planDetails/:id' element={<PlannedTripDetails />} />
+          <Route path='/forget-password' element={<ForgetPassword />} />
         </Routes>
       </BrowserRouter>
     </>

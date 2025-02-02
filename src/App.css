@@ -5,6 +5,15 @@
 }
 
 body {
+    width: 100vw;
+    max-width: 100%;
     overflow-x: hidden;
-    max-width: 100vw;
+}
+
+.register {
+    max-height: 100vh;
+}
+.disabled-btn {
+    cursor: not-allowed;
+    opacity: 0.5;
 }
