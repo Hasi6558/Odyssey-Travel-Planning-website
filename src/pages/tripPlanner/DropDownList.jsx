@@ -26,6 +26,8 @@ const DropDownList = () => {
         restaurants: [],
         tours: [],
     });
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('authToken');
 
     const handleDraftName = (e) => {
         const name = e.target.value;
@@ -35,12 +37,15 @@ const DropDownList = () => {
 
 
     useEffect(() => {
+        if (userId == undefined) {
+            navigate('/login');
+        }
         const fetchData = async () => {
             try {
 
-                const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType("user02", "hotel");
-                const favouriteRestaurantsData = await ApiService.getFavouritesByUserIdAndItemType("user06", "restaurant");
-                const favouriteToursData = await ApiService.getFavouritesByUserIdAndItemType("user07", "tour");
+                const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "hotel", token);
+                const favouriteRestaurantsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "restaurant", token);
+                const favouriteToursData = await ApiService.getFavouritesByUserIdAndItemType(userId, "tour", token);
 
                 const hotelIds = favouriteHotelsData.map(item => item.itemId);
                 const restaurantIds = favouriteRestaurantsData.map(item => item.itemId);
@@ -259,7 +264,7 @@ const DropDownList = () => {
             <div className="bg-gray-100 p-4 text-center border-t flex items-center justify-center rounded-lg">
                 <h2 className="text-lg font-bold">Total Cost: ${totalCost.toFixed(2)}</h2>
                 <div >
-                    <input type="text" placeholder="enter the draft name " className="ms-8 me-0 border-none p-2 rounded-xl ps-4"  onChange={handleDraftName} />
+                    <input type="text" placeholder="enter the draft name " className="ms-8 me-0 border-none p-2 rounded-xl ps-4" onChange={handleDraftName} />
 
                 </div>
                 <button
