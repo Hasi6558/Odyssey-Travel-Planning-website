@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = 'http://localhost:9090/api'; 
+const BASE_URL = 'http://localhost:9090/api';
 
 class ApiService {
     static async getHotels() {
@@ -12,15 +12,15 @@ class ApiService {
             throw error;
         }
     }
-        static async getRestaurants() {
-            try {
-                const response = await axios.get(`${BASE_URL}/restaurant/getAllRestaurant`);
-                return response.data;
-            } catch (error) {
-                console.error('Error fetching hotels:', error);
-                throw error;
-            }
+    static async getRestaurants() {
+        try {
+            const response = await axios.get(`${BASE_URL}/restaurant/getAllRestaurant`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching hotels:', error);
+            throw error;
         }
+    }
 
     static async getTours() {
         try {
@@ -203,7 +203,7 @@ class ApiService {
 
     static async getBlogsByKeyword(keyword) {
         try {
-            const response = await axios.get(`${BASE_URL}/blogs/search?keyword=${keyword}`); 
+            const response = await axios.get(`${BASE_URL}/blogs/search?keyword=${keyword}`);
             return response.data;
         } catch (error) {
             console.error('Error fetching blogs by keyword:', error);
@@ -211,18 +211,53 @@ class ApiService {
         }
     }
 
-    static async AddReview(review){
-        try{
-            const response = await axios.post(`${BASE_URL}/reviews/addReview`,review);
+    static async AddReview(review) {
+        try {
+            const response = await axios.post(`${BASE_URL}/reviews/addReview`, review);
             return response.data;
-        }catch(error){
-            console.error("Error Posting review data",error);
+        } catch (error) {
+            console.error("Error Posting review data", error);
             throw error
-    }
+        }
 
     }
 
+    static async registerUser(user) {
+        try {
+            const response = await axios.post(`${BASE_URL}/users/register`, user);
+            return response;
+        } catch (error) {
+            console.error('Error registering user:', error);
+            throw error;
+        }
+    }
+    static async loginUser(user) {
+        try {
+            const response = await axios.post(`${BASE_URL}/users/login`, user);
+            return response;
+        } catch (error) {
+            console.error('Error logging in user:', error);
+            throw error;
+        }
+    }
+    static logout() {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userId');
+    };
+    static isAuthenticated() {
+        return !!localStorage.getItem('authToken');
+    };
+
+    static async getUserById(userId, token) {
+        try {
+            return axios.get(`${BASE_URL}/users/${userId}`, { headers: { "Authorization": `Bearer ${token}` } });
+        } catch (error) {
+            console.error('Error fetching user:', error);
+            throw error;
+        }
+    }
 
 }
+
 
 export default ApiService;
