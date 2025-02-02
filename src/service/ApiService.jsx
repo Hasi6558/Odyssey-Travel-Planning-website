@@ -248,6 +248,15 @@ class ApiService {
         return !!localStorage.getItem('authToken');
     };
 
+    static async getUserById(userId, token) {
+        try {
+            return axios.get(`${BASE_URL}/users/${userId}`, { headers: { "Authorization": `Bearer ${token}` } });
+        } catch (error) {
+            console.error('Error fetching user:', error);
+            throw error;
+        }
+    }
+
 }
 
 
