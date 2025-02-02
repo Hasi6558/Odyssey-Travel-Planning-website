@@ -16,7 +16,7 @@ function LogIn() {
             setError('Username and password are required');
             return;
         }
-        setError(''); // Clear previous errors if any
+        setError('');
         try {
             const response = await ApiService.loginUser(userData);
             if (response.status === 200) {
