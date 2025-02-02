@@ -5,6 +5,7 @@ import "react-date-range/dist/theme/default.css";
 import { format, eachDayOfInterval } from "date-fns";
 import ArrowIcon from '../../assets/icons/weui_arrow-filled.png';
 import ApiService from '../../service/ApiService';
+import ConfirmBox from "../../component/boxes/ConfirmBox";
 
 const DropDownList = () => {
     const [dateRange, setDateRange] = useState({
@@ -28,6 +29,7 @@ const DropDownList = () => {
     });
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('authToken');
+    const [showConfirm,setShowConfirm] = useState(false);
 
     const handleDraftName = (e) => {
         const name = e.target.value;
@@ -103,6 +105,9 @@ const DropDownList = () => {
         setCostInput("");
     };
 
+    const handleCancel =()=>{
+        setShowConfirm(false);
+    }
     const handleAddFavorite = (item) => {
         const cost = parseFloat(costInput) || 0;
 
@@ -115,6 +120,8 @@ const DropDownList = () => {
             title: `${currentCategory}: ${item}`,
             cost,
         };
+
+        
 
         setSections((prevSections) => {
             const updatedSections = [...prevSections];
@@ -166,6 +173,7 @@ const DropDownList = () => {
         } else {
             alert("Please enter a draft name!");
         }
+        setShowConfirm(false);
     };
 
 
@@ -268,7 +276,7 @@ const DropDownList = () => {
 
                 </div>
                 <button
-                    onClick={handleSavePlan}
+                    onClick={()=>setShowConfirm(true)}
                     className="ms-8 rounded-2xl text-black font-bold hover:text-white hover:bg-black bg-transparent border border-black px-4 py-2 rounded-lg"
                 >
                     Draft
@@ -315,6 +323,13 @@ const DropDownList = () => {
                     </button>
                 </div>
             )}
+            {showConfirm && (
+        <ConfirmBox
+          message="Are you sure you want to save?"
+          onConfirm={handleSavePlan}
+          onCancel={handleCancel}
+        />
+      )}
         </div>
     );
 };
