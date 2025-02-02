@@ -118,7 +118,7 @@ function NavBar() {
             </button>
             <button
               className="bg-blue-600 text-white py-2 px-4 rounded-md"
-              onClick={() => navigate('/signup')}
+              onClick={() => navigate('/register')}
             >
               Sign Up
             </button>

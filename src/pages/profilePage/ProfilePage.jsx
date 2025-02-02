@@ -8,6 +8,7 @@ import MapIcon from '../../assets/icons/map_icon.png'
 import FavouriteItems from './FavouriteItems'
 import Purchases from './Purchases'
 import PlanedTrip from './PlanedTrip'
+import { useNavigate } from 'react-router'
 
 const ProfilePage = () => {
 
@@ -25,6 +26,11 @@ const ProfilePage = () => {
         newPassword: '',
         confirmPassword: ''
     });
+    const navigate = useNavigate();
+    const userId = localStorage.getItem('userId');
+    if (userId == undefined) {
+        navigate('/login');
+    }
 
     const handleFavouriteClick = () => {
         setCurrentIndex(0)

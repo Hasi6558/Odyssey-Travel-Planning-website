@@ -130,12 +130,32 @@ class ApiService {
         }
     }
 
-    static async getFavouritesByUserIdAndItemType(userId, itemType) {
+    static async getFavouritesByUserIdAndItemType(userId, itemType, token) {
         try {
-            const response = await axios.get(`${BASE_URL}/favourites?userId=${userId}&itemType=${itemType}`);
+            const response = await axios.get(`${BASE_URL}/favourites?userId=${userId}&itemType=${itemType}`, { headers: { "Authorization": `Bearer ${token}` } });
             return response.data;
         } catch (error) {
             console.error('Error fetching restaurant:', error);
+            throw error;
+        }
+    }
+
+    static async addFavourite(favourite, token) {
+        try {
+            const response = await axios.post(`${BASE_URL}/favourites/addFavourite`, favourite, { headers: { "Authorization": `Bearer ${token}` } });
+            return response;
+        } catch (error) {
+            console.error('Error saving favourite:', error);
+            throw error;
+        }
+    }
+
+    static async removeFavourite(favourite, token) {
+        try {
+            const response = await axios.delete(`${BASE_URL}/favourites/removeFavourite?userId=${favourite.userId}&itemId=${favourite.itemId}`, { headers: { "Authorization": `Bearer ${token}` } });
+            return response;
+        } catch (error) {
+            console.error('Error removing favourite:', error);
             throw error;
         }
     }
