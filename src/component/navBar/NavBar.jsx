@@ -97,7 +97,7 @@ function NavBar() {
           {
             (userId != undefined) && (
               <div className="flex gap-2 align-middle justify-center">
-                <span className="font-medium text-gray-800 h-fit cursor-pointer" onClick={() => navigate('/profilePage')}>Welcome, {user?.username}</span>
+                <span className=" text-gray-800 h-fit cursor-pointer" onClick={() => navigate('/profilePage')} >Welcome, <span className='font-bold text-lg'>{user?.username}</span></span>
                 {/* <button
                   className="bg-blue-600 text-white py-2 px-4 rounded-md"
                   onClick={() => {
