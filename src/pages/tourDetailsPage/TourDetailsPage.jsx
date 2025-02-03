@@ -112,7 +112,7 @@ const TourDetails = () => {
                             <div className='w-5/12'>
                                 <ImageGallery images={tour.image_url || []} />
                             </div>
-                            <div><iframe src={tour.location_map} width="200" height="200" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
+                            <div><iframe src={tour.location_map} width="300" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
                         </div>
                         <div className='my-10 mx-20 rounded-xl shadow-lg p-10 bg-gray-100'>
                             <div className='font-bold text-2xl pb-1'>About</div>

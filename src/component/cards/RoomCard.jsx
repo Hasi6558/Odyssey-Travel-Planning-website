@@ -43,8 +43,8 @@ const RoomCard = ({ title, subTitle, features, price, discountedPrice, avalRooms
                 </div>
                 <div >
                     <div className='flex items-baseline justify-center'>
-                        <p className='font-bold pe-2'>{price}</p>
-                        <p className='text-xs'><del>{discountedPrice}</del></p>
+                        <p className='font-bold pe-2'>{price} $</p>
+                        <p className='text-xs'><del>{discountedPrice} $</del></p>
                     </div>
                     <div className='flex justify-center mb-2'>
                         <p className='text-xs'>includes taxes & fees</p>

@@ -11,6 +11,7 @@ import LoadingScreen from '../../component/LoadingScreen';
 import { add } from 'date-fns';
 import favIcon from '../../assets/icons/favourite_icon.png';
 import WhiteFavIcon from '../../assets/icons/white_favourite.png';
+import FeatureFlag from '../../assets/icons/feature_flag.png';
 const HotelDetails = () => {
 
     const { id } = useParams();
@@ -137,38 +138,19 @@ const HotelDetails = () => {
                         <div className="w-2/3 mx-20 my-10">
                             <h3 className="font-bold text-lg mb-4">Facilities</h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">🔥</span>
-                                    <span>{hotel.facilities?.[0]}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">❄️</span>
-                                    <span>{hotel.facilities?.[1]}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">🅿️</span>
-                                    <span>{hotel.facilities?.[2]}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">🏡</span>
-                                    <span>{hotel.facilities?.[3]}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">🌀</span>
-                                    <span>Air Condition</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">📶</span>
-                                    <span>Wi fi</span>
-                                </div>
+                                {hotel.facilities?.map((facility,index)=>(
+                                       <div className="flex items-center space-x-2" key={index}>
+                                                                            <span className='flex'><img src={FeatureFlag} className='mr-2'/>{facility}</span>
+                                                                            </div>
+                                                                    ))}
                             </div>
                         </div>
 
                         <div>
                             <h3 className='text-2xl font-bold mx-20'>Rooms</h3>
                             <div className='h-0.5 bg-gray-500 mx-20'></div>
-
-                            <div className='m-auto w-9/12'>
+                            {hotelRooms.length > 0?(
+                                <div className='m-auto w-9/12'>
                                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 p-4 mb-5 mt-4'>
                                     {hotelRooms.map((hotelRoom) => (
 
@@ -187,6 +169,11 @@ const HotelDetails = () => {
 
                                 </div>
                             </div>
+                            
+                            ):(
+                                <div className='ms-20 my-5'>No Rooms Available</div>
+
+                            )}
 
                         </div>
 
