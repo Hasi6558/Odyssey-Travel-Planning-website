@@ -12,6 +12,7 @@ import { add } from 'date-fns';
 import favIcon from '../../assets/icons/favourite_icon.png';
 import WhiteFavIcon from '../../assets/icons/white_favourite.png';
 import FeatureFlag from '../../assets/icons/feature_flag.png';
+
 const HotelDetails = () => {
 
     const { id } = useParams();
@@ -145,6 +146,8 @@ const HotelDetails = () => {
                                                                     ))}
                             </div>
                         </div>
+
+                       
 
                         <div>
                             <h3 className='text-2xl font-bold mx-20'>Rooms</h3>

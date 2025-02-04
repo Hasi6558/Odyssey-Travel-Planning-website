@@ -277,6 +277,16 @@ class ApiService {
         }
     }
 
+    static async saveReservation(reservation) {
+        try {
+            const response = await axios.post(`${BASE_URL}/reservations/addReservation`, reservation);
+            return response.data;
+        } catch (error) {
+            console.error('Error saving travel plan:', error);
+            throw error;
+        }
+    }
+
 }
 
 
