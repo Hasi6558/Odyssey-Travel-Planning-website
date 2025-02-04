@@ -18,6 +18,7 @@ import BookingPage from './pages/bookingPage/BookingPage'
 import PlannedTripDetails from './pages/tripPlanner/PlannedTripDetails'
 import { useEffect } from 'react'
 import ForgetPassword from './pages/signUp/ForgetPassword'
+import MediaCenter from './pages/mediaCenter/MediaCenter'
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
           <Route path='/booking-page/:id' element={<BookingPage />} />
           <Route path='/trip-planDetails/:id' element={<PlannedTripDetails />} />
           <Route path='/forget-password' element={<ForgetPassword />} />
+          <Route path='/media-center/:tab' element={<MediaCenter />} />
         </Routes>
       </BrowserRouter>
     </>
