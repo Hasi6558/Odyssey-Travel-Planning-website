@@ -71,13 +71,13 @@ const ProfilePage = () => {
     };
 
     const handleUpdateProfile = () => {
-        // Add your update profile logic here
+        
         console.log('Profile updated:', formData);
         setIsEditProfileOpen(false);
     };
 
     const handleChangePassword = () => {
-        // Add your change password logic here
+      
         console.log('Password changed:', passwordData);
         setIsChangePasswordOpen(false);
     };
