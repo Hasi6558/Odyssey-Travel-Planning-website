@@ -9,6 +9,7 @@ import ReviewSection from '../../component/ReviewSection';
 import LoadingScreen from '../../component/LoadingScreen';
 import WhiteFavIcon from '../../assets/icons/white_favourite.png';
 import FeatureFlag from '../../assets/icons/feature_flag.png';
+import TableReservation from '../../component/fieldSets/TableReservation';
 
 const RestaurantDetails = () => {
 
@@ -135,6 +136,9 @@ const RestaurantDetails = () => {
                                 
                                 
                             </div>
+                        </div>
+                        <div className='my-4'>
+                            <TableReservation id="1234" itemId="54555"/>
                         </div>
                         <div className='ms-20'>
                             <ReviewSection review_count={reviews.length} reviews={reviews} />
