@@ -9,18 +9,14 @@ import FavouriteItems from './FavouriteItems'
 import Purchases from './Purchases'
 import PlanedTrip from './PlanedTrip'
 import { useNavigate } from 'react-router'
+import { use } from 'react'
+import ApiService from '../../service/ApiService'
 
 const ProfilePage = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
     const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        address: ''
-    });
     const [passwordData, setPasswordData] = useState({
         currentPassword: '',
         newPassword: '',
@@ -28,9 +24,11 @@ const ProfilePage = () => {
     });
     const navigate = useNavigate();
     const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('authToken');
     if (userId == undefined) {
         navigate('/login');
     }
+    const [user, setUser] = useState({});
 
     const handleFavouriteClick = () => {
         setCurrentIndex(0)
@@ -62,7 +60,7 @@ const ProfilePage = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setUser({ ...user, [name]: value });
     };
 
     const handlePasswordChange = (e) => {
@@ -70,17 +68,29 @@ const ProfilePage = () => {
         setPasswordData({ ...passwordData, [name]: value });
     };
 
-    const handleUpdateProfile = () => {
-        
-        console.log('Profile updated:', formData);
-        setIsEditProfileOpen(false);
+    const handleUpdateProfile = async () => {
+        try {
+            await ApiService.updateUserById(userId, user, token);
+        } catch (error) {
+            console.error('Profile update failed:', error);
+        } finally {
+            setIsEditProfileOpen(false);
+        }
     };
 
     const handleChangePassword = () => {
-      
+
         console.log('Password changed:', passwordData);
         setIsChangePasswordOpen(false);
     };
+
+    useEffect(() => {
+        const getUser = ApiService.getUserById(userId, token);
+        getUser.then((response) => {
+            setUser(response.data);
+        });
+
+    }, [userId]);
 
     return (
         <>
@@ -97,8 +107,8 @@ const ProfilePage = () => {
                         </div>
                         <div className='mt-8 flex justify-between w-full'>
                             <div className=''>
-                                <div><h2 className='text-[22px] text-lg font-semibold'>User Name</h2></div>
-                                <div><p className='text-gray-500 text-sm'>example@gmail.com</p></div>
+                                <div><h2 className='text-[22px] text-lg font-semibold'>{user.username}</h2></div>
+                                <div><p className='text-gray-500 text-sm'>{user.email}</p></div>
                             </div>
 
                             <div className='flex flex-col me-8'>
@@ -156,7 +166,7 @@ const ProfilePage = () => {
                                 <input
                                     type="text"
                                     name="firstName"
-                                    value={formData.firstName}
+                                    value={user.firstName}
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
@@ -168,7 +178,7 @@ const ProfilePage = () => {
                                 <input
                                     type="text"
                                     name="lastName"
-                                    value={formData.lastName}
+                                    value={user.lastName}
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
@@ -180,7 +190,7 @@ const ProfilePage = () => {
                                 <input
                                     type="email"
                                     name="email"
-                                    value={formData.email}
+                                    value={user.email}
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
@@ -192,7 +202,7 @@ const ProfilePage = () => {
                                 <input
                                     type="text"
                                     name="address"
-                                    value={formData.address}
+                                    value={user.address}
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />

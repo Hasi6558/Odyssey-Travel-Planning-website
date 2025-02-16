@@ -276,6 +276,15 @@ class ApiService {
             throw error;
         }
     }
+    static async updateUserById(userId, updatedUser, token) {
+        try {
+            const response = await axios.put(`${BASE_URL}/users/${userId}`, updatedUser, { headers: { "Authorization": `Bearer ${token}` } });
+            return response;
+        } catch (e) {
+            console.error('Error fetching user:', error);
+            throw error;
+        }
+    }
 
     static async saveReservation(reservation) {
         try {
