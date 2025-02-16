@@ -286,6 +286,15 @@ class ApiService {
             throw error;
         }
     }
+    static async getTourPackageByTourId(tourId) {
+        try {
+            const response = await axios.get(`${BASE_URL}/tour-packages/tour/${tourId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching hotel by ID:', error);
+            throw error;
+        }
+    }
 
 }
 

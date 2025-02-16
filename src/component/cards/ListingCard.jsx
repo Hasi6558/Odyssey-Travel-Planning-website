@@ -2,6 +2,8 @@ import React from 'react'
 import LocationIcon from '../../assets/icons/location_logo_2.png'
 
 const ListingCard = ({ title, location_city, location_map_url, rating, review_count, description, imgUrl, destination_link }) => {
+    
+    console.log(imgUrl)
     return (
 
         <div className='rounded-2xl overflow-hidden flex border max-w-[800px] h-[340px]  m-2'>

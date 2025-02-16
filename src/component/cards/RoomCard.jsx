@@ -1,7 +1,6 @@
 import React from 'react'
-import DemoImg from '../../assets/images/background_login.png'
 import { useNavigate } from 'react-router'
-const RoomCard = ({ title, subTitle, features, price, discountedPrice, avalRooms, roomId }) => {
+const RoomCard = ({ title, subTitle, features, price, discountedPrice, avalRooms, roomId,imgUrl }) => {
 
 
     const navigate = useNavigate();
@@ -9,7 +8,7 @@ const RoomCard = ({ title, subTitle, features, price, discountedPrice, avalRooms
     return (
         <div className='w-72 border rounded-[35px] border-2 border-gray-400 mb-10'>
             <div className='w-full h-44 overflow-hidden  rounded-[32px] rounded-b-none'>
-                <img src={DemoImg} alt="" />
+                <img src={imgUrl} alt="" />
             </div>
             <div className='p-4'>
                 <div>

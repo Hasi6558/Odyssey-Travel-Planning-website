@@ -8,7 +8,7 @@ const ContentCard = ({ id, RatingCount, title, location_city, Ratings, imgUrl, d
         <div className="w-full overflow-hidden rounded-xl shadow-lg bg-white flex flex-col">
 
 
-            <div className="w-full h-48 overflow-hidden">
+            <div className="w-full relative h-48 overflow-hidden">
                 <a href={destination_link}>
                     {imgUrl ? (
                         <img
