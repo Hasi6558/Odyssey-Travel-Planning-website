@@ -9,6 +9,7 @@ import FavouriteItems from './FavouriteItems'
 import Purchases from './Purchases'
 import PlanedTrip from './PlanedTrip'
 import { useNavigate } from 'react-router'
+import DemoImage from '../../assets/images/demo.jpg'
 
 const ProfilePage = () => {
 
@@ -92,8 +93,8 @@ const ProfilePage = () => {
             <div>
                 <div className='h-50 w-full bg-white absolute top-60 mx-auto auto-width max-w-[80%] sm:max-w-[90%]'>
                     <div className='flex w-full'>
-                        <div className=" aspect-square h-[130px] w-[130px] bg-red-300 m-8 rounded-full">
-
+                        <div className=" aspect-square h-[130px] w-[130px]  m-8 rounded-full relative">
+                                <img src={DemoImage} alt=""  className='object-cover overflow-hidden rounded-full'/>
                         </div>
                         <div className='mt-8 flex justify-between w-full'>
                             <div className=''>

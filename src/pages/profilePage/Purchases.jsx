@@ -16,14 +16,21 @@ const Purchases = () => {
     return (
         <div className='w-full'>
             <div className='w-full p-4'>
-                <h1 className='text-2xl mb-4 ml-2'>Purchases</h1>
+                <h1 className='text-2xl mb-4 ml-2'>Hotel Bookings</h1>
                 
                 <PurchaseCard handlePopUp={handlePopUp}/>
                 {showPopUp &&
                 <AddReview handlePopUp={handlePopUp} />
                 }
                 
-                <h1 className='text-2xl my-4 ml-2'>Reservations</h1>
+                <h1 className='text-2xl my-4 ml-2'>Restaurant Reservations</h1>
+                
+                <PurchaseCard handlePopUp={handlePopUp}/>
+                {showPopUp &&
+                <AddReview handlePopUp={handlePopUp} />
+                }
+
+                <h1 className='text-2xl my-4 ml-2'>Tour Reservations</h1>
                 
                 <PurchaseCard handlePopUp={handlePopUp}/>
                 {showPopUp &&

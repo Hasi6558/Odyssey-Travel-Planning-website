@@ -12,6 +12,7 @@ import { add } from 'date-fns';
 import favIcon from '../../assets/icons/favourite_icon.png';
 import WhiteFavIcon from '../../assets/icons/white_favourite.png';
 import FeatureFlag from '../../assets/icons/feature_flag.png';
+import DemoImg from '../../assets/images/hotel_room.jpg';
 
 const HotelDetails = () => {
 
@@ -34,7 +35,7 @@ const HotelDetails = () => {
                 const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "hotel", token);
                 const hotelData = await ApiService.getHotelById(id);
                 const hotelRoomsData = await ApiService.getRoomsByHotelId("H001");
-                const reviewData = await ApiService.getReviewsByReviewdItemId(id);
+                const reviewData = await ApiService.getReviewsByReviewdItemId("6772ec7679df1f60f2316e03");
                 setHotel(hotelData);
                 setHotelRooms(hotelRoomsData);
                 setReviews(reviewData);
@@ -120,17 +121,18 @@ const HotelDetails = () => {
                         <div className='flex flex-row gap-44 items-center '>
 
                             <div className='w-5/12'>
-                                <ImageGallery images={hotel.imgUrl || []} />
+                                <ImageGallery images={hotel.imgUrl || []}    />
                             </div>
+                           
                             <div><iframe src={hotel.locationMap} width="300" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
 
 
                         </div>
 
                         <div className='my-10 mx-20 rounded-xl shadow-lg p-10 bg-gray-100'>
-                            <div className='font-bold text-2xl pb-1'>About</div>
+                            <div className='font-bold text-2xl pb-1 mb-2'>About</div>
 
-                            <div className=''>{hotel.descriptionLong}</div>
+                            <div className=''><p style={{whiteSpace:'pre-line'}}>{hotel.descriptionLong}</p></div>
                         </div>
 
 
@@ -166,6 +168,7 @@ const HotelDetails = () => {
                                             discountedPrice={hotelRoom.discountedPrice}
                                             avalRooms={hotelRoom.avalCount}
                                             roomId={hotelRoom.id}
+                                            imgUrl ={DemoImg}
                                         />
                                     ))}
 
