@@ -170,9 +170,9 @@ class ApiService {
         }
     }
 
-    static async getTravelPlansByUserId(userId) {
+    static async getTravelPlansByUserId(userId, token) {
         try {
-            const response = await axios.get(`${BASE_URL}/trip-plans/user/${userId}`);
+            const response = await axios.get(`${BASE_URL}/trip-plans/user/${userId}`, { headers: { "Authorization": `Bearer ${token}` } });
             return response.data;
         } catch (error) {
             console.error('Error saving travel plan:', error);

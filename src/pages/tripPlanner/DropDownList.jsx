@@ -29,7 +29,7 @@ const DropDownList = () => {
     });
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('authToken');
-    const [showConfirm,setShowConfirm] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const handleDraftName = (e) => {
         const name = e.target.value;
@@ -105,7 +105,7 @@ const DropDownList = () => {
         setCostInput("");
     };
 
-    const handleCancel =()=>{
+    const handleCancel = () => {
         setShowConfirm(false);
     }
     const handleAddFavorite = (item) => {
@@ -121,7 +121,7 @@ const DropDownList = () => {
             cost,
         };
 
-        
+
 
         setSections((prevSections) => {
             const updatedSections = [...prevSections];
@@ -152,7 +152,7 @@ const DropDownList = () => {
             const draftSavingTime = new Date().toISOString();
 
             const travelPlan = {
-                userId: "user12345",
+                userId: userId,
                 draftName,
                 sections: formattedSections,
                 totalCost,
@@ -276,7 +276,7 @@ const DropDownList = () => {
 
                 </div>
                 <button
-                    onClick={()=>setShowConfirm(true)}
+                    onClick={() => setShowConfirm(true)}
                     className="ms-8 rounded-2xl text-black font-bold hover:text-white hover:bg-black bg-transparent border border-black px-4 py-2 rounded-lg"
                 >
                     Draft
@@ -324,12 +324,12 @@ const DropDownList = () => {
                 </div>
             )}
             {showConfirm && (
-        <ConfirmBox
-          message="Are you sure you want to save?"
-          onConfirm={handleSavePlan}
-          onCancel={handleCancel}
-        />
-      )}
+                <ConfirmBox
+                    message="Are you sure you want to save?"
+                    onConfirm={handleSavePlan}
+                    onCancel={handleCancel}
+                />
+            )}
         </div>
     );
 };
