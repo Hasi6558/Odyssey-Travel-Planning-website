@@ -24,18 +24,18 @@ function App() {
 
   const ScrollToTop = () => {
     const { pathname } = useLocation();
-  
+
     useEffect(() => {
       window.scrollTo(0, 0);
-    }, [pathname]); 
-  
-    return null; 
+    }, [pathname]);
+
+    return null;
   };
 
   return (
     <>
       <BrowserRouter>
-      <ScrollToTop />
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/register' element={<SignUp />}></Route>

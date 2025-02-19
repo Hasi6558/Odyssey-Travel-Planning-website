@@ -123,6 +123,14 @@ const ProfilePage = () => {
                                     <div className='border-2 h-fit p-2 font-semibold'> Change Password</div>
                                     <div><img src={SettingIcon} alt="setting icon" className='p-2 border-y-2 border-e-2' /></div>
                                 </button>
+                                <button
+                                    className="bg-blue-600 text-white py-2 px-4 rounded-md"
+                                    onClick={() => {
+                                        localStorage.clear();
+                                        navigate('/');
+                                    }}>
+                                    Logout
+                                </button>
                             </div>
 
                         </div>

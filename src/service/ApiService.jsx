@@ -2,6 +2,22 @@ import axios from "axios";
 
 const BASE_URL = 'http://localhost:9090/api';
 
+const apiClient = axios.create({
+    baseURL: BASE_URL,
+});
+
+apiClient.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response && error.response.status === 401) {
+            // Token expired or unauthorized
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userId');
+            window.location.href = '/login'; // Redirect to login page
+        }
+        return Promise.reject(error);
+    }
+);
 class ApiService {
     static async getHotels() {
         try {
