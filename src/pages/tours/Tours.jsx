@@ -52,6 +52,8 @@ const Tour = () => {
 
   const displayTours = searchedText ? searchedTours : tours;
 
+  console.log(displayTours);
+
   return (
     <>
       <NavBar />
@@ -86,7 +88,7 @@ const Tour = () => {
                       rating={tour.rating}
                       review_count={tour.review_count}
                       description={tour.description}
-                      imgUrl={tour.image_url?.[0]}
+                      imgUrl={tour.image_url[0]}
                       destination_link={`tour-details/${tour.id}`}
                     />
                   ))
