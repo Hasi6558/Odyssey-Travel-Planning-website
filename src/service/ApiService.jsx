@@ -2,6 +2,22 @@ import axios from "axios";
 
 const BASE_URL = 'http://localhost:9090/api';
 
+const apiClient = axios.create({
+    baseURL: BASE_URL,
+});
+
+apiClient.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response && error.response.status === 401) {
+            // Token expired or unauthorized
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userId');
+            window.location.href = '/login'; // Redirect to login page
+        }
+        return Promise.reject(error);
+    }
+);
 class ApiService {
     static async getHotels() {
         try {
@@ -170,9 +186,9 @@ class ApiService {
         }
     }
 
-    static async getTravelPlansByUserId(userId) {
+    static async getTravelPlansByUserId(userId, token) {
         try {
-            const response = await axios.get(`${BASE_URL}/trip-plans/user/${userId}`);
+            const response = await axios.get(`${BASE_URL}/trip-plans/user/${userId}`, { headers: { "Authorization": `Bearer ${token}` } });
             return response.data;
         } catch (error) {
             console.error('Error saving travel plan:', error);
@@ -272,6 +288,15 @@ class ApiService {
         try {
             return axios.get(`${BASE_URL}/users/${userId}`, { headers: { "Authorization": `Bearer ${token}` } });
         } catch (error) {
+            console.error('Error fetching user:', error);
+            throw error;
+        }
+    }
+    static async updateUserById(userId, updatedUser, token) {
+        try {
+            const response = await axios.put(`${BASE_URL}/users/${userId}`, updatedUser, { headers: { "Authorization": `Bearer ${token}` } });
+            return response;
+        } catch (e) {
             console.error('Error fetching user:', error);
             throw error;
         }

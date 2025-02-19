@@ -27,15 +27,18 @@ const RestaurantDetails = () => {
         const fetchRestaurant = async () => {
             setLoading(true);
             try {
-                const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "restaurant", token);
                 const restaurantData = await ApiService.getRestaurantById(id);
                 const reviewData = await ApiService.getReviewsByReviewdItemId(id);
 
                 setRestaurant(restaurantData);
                 console.log(restaurantData);
                 setReviews(reviewData);
-                const found = favouriteHotelsData.some(fav => fav.itemId === id);
-                setFavourites(found);
+
+                if (userId != undefined) {
+                    const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "restaurant", token);
+                    const found = favouriteHotelsData.some(fav => fav.itemId === id);
+                    setFavourites(found);
+                }
 
             } catch (error) {
                 console.error('Error fetching data', error);
@@ -103,8 +106,8 @@ const RestaurantDetails = () => {
                             <div>{`${restaurant.location_city},${restaurant.location_country}`}</div>
                             <div className='ps-5 font-semibold'><a href="#">Show on map</a></div>
                             <div className='bg-blue-700 text-white p-1 ms-10'><p>{restaurant.rating}</p></div>
-                            {favourites ? (<div className='bg-black text-white font-bold ml-[20px] p-1 pr-4 cursor-pointer rounded-3xl ' onClick={removeFromFavourites}>
-                                <span className='flex'><img src={WhiteFavIcon} className='mx-2'/>Remove From Favourites</span>
+                            {(favourites && userId != undefined) ? (<div className='bg-black text-white font-bold ml-[20px] p-1 pr-4 cursor-pointer rounded-3xl ' onClick={removeFromFavourites}>
+                                <span className='flex'><img src={WhiteFavIcon} className='mx-2' />Remove From Favourites</span>
                             </div>) : (
                                 <div className='bg-black text-white font-bold ml-[20px] p-1 px-4 cursor-pointer rounded-3xl' onClick={addToFavourites}>
                                     <span>Add to Favourites</span>
@@ -125,20 +128,20 @@ const RestaurantDetails = () => {
                         <div className="w-2/3 mx-20 my-10">
                             <h3 className="font-bold text-lg mb-4">Facilities</h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-                               
-                                    {restaurant.facilities?.map((facility,index)=>(
-                                         <div className="flex items-center space-x-2" key={index}>
-                                            <span className='flex'><img src={FeatureFlag} className='mr-2'/>{facility}</span>
-                                            </div>
-                                    ))}
-                                    
-                                   
-                                
-                                
+
+                                {restaurant.facilities?.map((facility, index) => (
+                                    <div className="flex items-center space-x-2" key={index}>
+                                        <span className='flex'><img src={FeatureFlag} className='mr-2' />{facility}</span>
+                                    </div>
+                                ))}
+
+
+
+
                             </div>
                         </div>
                         <div className='my-4'>
-                            <TableReservation id="1234" itemId="54555"/>
+                            <TableReservation id="1234" itemId="54555" />
                         </div>
                         <div className='ms-20'>
                             <ReviewSection review_count={reviews.length} reviews={reviews} />

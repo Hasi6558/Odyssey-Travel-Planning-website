@@ -44,7 +44,7 @@ const Footer = () => {
 
                     <div className='flex items-center'>
                         <img src={Messagelogo} alt="message logo" className='pe-2 w-6' />
-                        <a href="#" className='text-stone-400'><p className='pb-2'>info@odyssey@gmail.com</p></a>
+                        <a href="#" className='text-stone-400'><p className='pb-2'>info@odyssey.com</p></a>
                     </div>
 
                     <div className='flex items-center'>

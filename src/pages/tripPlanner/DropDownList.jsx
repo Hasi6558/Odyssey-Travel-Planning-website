@@ -29,7 +29,7 @@ const DropDownList = () => {
     });
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('authToken');
-    const [showConfirm,setShowConfirm] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const handleDraftName = (e) => {
         const name = e.target.value;
@@ -61,14 +61,10 @@ const DropDownList = () => {
                 const restaurantData = await Promise.all(restaurantPromises);
                 const tourData = await Promise.all(tourPromises);
 
-                const hotelTitles = hotelData.map((hotel) => hotel.title);
-                const restaurantTitles = restaurantData.map((restaurant) => restaurant.title);
-                const tourTitles = tourData.map((tour) => tour.title);
-
                 setFavoriteItems({
-                    hotels: hotelTitles,
-                    restaurants: restaurantTitles,
-                    tours: tourTitles,
+                    hotels: hotelData,
+                    restaurants: restaurantData,
+                    tours: tourData,
                 });
             } catch (error) {
                 console.error("Error fetching data", error);
@@ -103,12 +99,30 @@ const DropDownList = () => {
         setShowFavoritesPanel(true);
         setSearchInput("");
         setCostInput("");
+        console.log("category", favoriteItems);
     };
 
-    const handleCancel =()=>{
+    const handleCancel = () => {
+        setSelectedFavourite(null);
+        setCostInput("");
+        setSearchInput("");
         setShowConfirm(false);
     }
-    const handleAddFavorite = (item) => {
+    const [selectedFavourite, setSelectedFavourite] = useState(null);
+    const selectFavourite = (item) => {
+        if (item != "none") {
+            favoriteItems[currentCategory.toLowerCase() + "s"].forEach((fav) => {
+                if (fav.id === item) {
+                    setSelectedFavourite(fav);
+                    setCostInput(fav?.minSpend || 0);
+                }
+            });
+        } else {
+            setSelectedFavourite(null);
+            setCostInput("");
+        }
+    }
+    const handleAddFavorite = () => {
         const cost = parseFloat(costInput) || 0;
 
         if (cost <= 0) {
@@ -117,11 +131,14 @@ const DropDownList = () => {
         }
 
         const selectedItem = {
-            title: `${currentCategory}: ${item}`,
+            title: `${currentCategory}: ${selectedFavourite.title}`,
             cost,
         };
+        setSelectedFavourite(null);
+        setCostInput("");
+        setSearchInput("");
 
-        
+
 
         setSections((prevSections) => {
             const updatedSections = [...prevSections];
@@ -141,6 +158,7 @@ const DropDownList = () => {
         setShowFavoritesPanel(false);
     };
 
+
     const handleSavePlan = async () => {
         if (draftName) {
             const formattedSections = sections.map((section) =>
@@ -152,7 +170,7 @@ const DropDownList = () => {
             const draftSavingTime = new Date().toISOString();
 
             const travelPlan = {
-                userId: "user12345",
+                userId: userId,
                 draftName,
                 sections: formattedSections,
                 totalCost,
@@ -180,7 +198,7 @@ const DropDownList = () => {
     const filteredFavorites =
         currentCategory && favoriteItems[currentCategory.toLowerCase() + "s"]
             ? favoriteItems[currentCategory.toLowerCase() + "s"].filter((item) =>
-                item.toLowerCase().includes(searchInput.toLowerCase())
+                item?.title.toLowerCase().includes(searchInput.toLowerCase())
             )
             : [];
 
@@ -201,6 +219,7 @@ const DropDownList = () => {
                             ranges={[{ ...dateRange, key: "selection" }]}
                             onChange={handleDateChange}
                             moveRangeOnFirstSelection={false}
+                            minDate={new Date()}
                         />
                     )}
 
@@ -276,7 +295,7 @@ const DropDownList = () => {
 
                 </div>
                 <button
-                    onClick={()=>setShowConfirm(true)}
+                    onClick={() => setShowConfirm(true)}
                     className="ms-8 rounded-2xl text-black font-bold hover:text-white hover:bg-black bg-transparent border border-black px-4 py-2 rounded-lg"
                 >
                     Draft
@@ -285,22 +304,59 @@ const DropDownList = () => {
 
             {showFavoritesPanel && (
                 <div className="absolute top-0 right-0 h-full w-[30%] bg-white shadow-lg p-6 opacity-90">
-                    <h2 className="text-lg font-bold mb-4 mt-20 text-4xl">Add Your Favourite {currentCategory}</h2>
+                    <h2 className="font-bold mb-4 mt-20 text-4xl">Add Your Favourite {currentCategory}</h2>
                     <input
                         type="text"
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
                         placeholder={`Search ${currentCategory}s`}
-                        className="w-full p-4  mb-4 border rounded rounded-2xl border-solid border-2 border-black"
+                        className="w-full p-4  mb-4 rounded-2xl border-solid border-2 border-black"
                     />
-                    <input
+                    {searchInput && (
+                        <div>
+                            {filteredFavorites && (
+                                <ul className="mb-4">
+                                    {filteredFavorites.map((item, index) => (
+                                        <li key={index} className="mb-2 flex justify-between items-center cursor-pointer" onClick={() => selectFavourite(item.id)}>
+                                            <span>{item.title}</span>
+                                            <span>+</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                            {filteredFavorites.length === 0 && (
+                                <p className="text-center mb-2 font-semibold">Nothing in your favourites named "{searchInput}"</p>
+                            )}
+                        </div>
+                    )}
+                    {searchInput === "" && (
+                        <select name="select_fav" id="select_fav" onChange={(e) => selectFavourite(e.target.value)} className="w-full p-4 mb-4  border-solid border-0 border-b-2">
+                            <option value="none">Select Favourite</option>
+                            {filteredFavorites.map((item, index) => (
+                                <option key={index} value={item?.id}>
+                                    {item.title}
+                                </option>
+                            ))}
+                        </select>
+                    )}
+                    {selectedFavourite != null && (
+                        <input
+                            type="number"
+                            value={costInput}
+                            min={0}
+                            onChange={(e) => setCostInput(e.target.value)}
+                            placeholder="Enter cost"
+                            className="w-full p-4 mb-4  border-solid border-0 border-b-2"
+                        />
+                    )}
+                    {/* <input
                         type="number"
                         value={costInput}
                         onChange={(e) => setCostInput(e.target.value)}
                         placeholder="Enter cost"
                         className="w-full p-4 border mb-4  border-solid border-0 border-b-2"
-                    />
-                    <ul className="mb-4">
+                    /> */}
+                    {/* <ul className="mb-4">
                         {filteredFavorites.map((item, index) => (
                             <li key={index} className="mb-2 flex justify-between items-center">
                                 <span>{item}</span>
@@ -314,22 +370,30 @@ const DropDownList = () => {
                                 </button>
                             </li>
                         ))}
-                    </ul>
-                    <button
-                        onClick={() => setShowFavoritesPanel(false)}
-                        className="text-black bg-transparent border border-black px-4 py-2 rounded-lg"
-                    >
-                        Close
-                    </button>
+                    </ul> */}
+                    <div className="flex gap-2">
+                        <button
+                            onClick={handleAddFavorite}
+                            disabled={costInput == "" || selectedFavourite === null}
+                            className="text-white bg-blue-600 px-4 py-2 rounded-lg disabled:opacity-50">
+                            Add
+                        </button>
+                        <button
+                            onClick={() => setShowFavoritesPanel(false)}
+                            className="text-black bg-transparent border border-black px-4 py-2 rounded-lg"
+                        >
+                            Close
+                        </button>
+                    </div>
                 </div>
             )}
             {showConfirm && (
-        <ConfirmBox
-          message="Are you sure you want to save?"
-          onConfirm={handleSavePlan}
-          onCancel={handleCancel}
-        />
-      )}
+                <ConfirmBox
+                    message="Are you sure you want to save?"
+                    onConfirm={handleSavePlan}
+                    onCancel={handleCancel}
+                />
+            )}
         </div>
     );
 };
