@@ -1,13 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react'
 import NavBar from '../../component/navBar/NavBar'
-import Footer from '../../component/Footer/Footer'
-import ContentCard from '../../component/cards/ContentCard';
-import { useParams } from 'react-router';
+import Footer from '../../component/Footer/Footer';
+import { useNavigate, useParams } from 'react-router';
 import ApiService from '../../service/ApiService';
-import LoadingScreen from '../../component/LoadingScreen';
-import CheckIcon from '../../assets/icons/bi_check.png'
-import PayHerePayment from '../../payment/payHerePayment';
+import CheckIcon from '../../assets/icons/bi_check.png';
+import { loadStripe } from "@stripe/stripe-js";
 const BookingPage = () => {
 
     const { id } = useParams();
@@ -18,7 +16,12 @@ const BookingPage = () => {
     const [pricePerDay, setPricePerDay] = useState(12);
     const [totalCost, setTotalCost] = useState(0);
     const [loading, setLoading] = useState(0);
-
+    const navigate = useNavigate();
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('authToken');
+    if (userId == undefined) {
+        navigate('/login');
+    }
 
     useEffect(() => {
         if (startDate && endDate) {
@@ -62,6 +65,39 @@ const BookingPage = () => {
     }, [id])
     console.log(hotelRoom)
     console.log(pricePerDay)
+
+    const handlePayment = async () => {
+        console.log("Payment Processing.....")
+        console.log("Your total cose is:", totalCost)
+        try {
+            const stripe = await loadStripe("pk_test_51Oh8UwKePWxvmPbIZkgdGlmdDLlsxawgUXZVZWTgzLbrd7TgpIPVA9c4g5pbmLnUblqzhLFyj6UscUFxvigves1M005PxtWem4");
+
+            const response = await fetch("http://localhost:9090/api/stripe/create-checkout-session", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    amount: totalCost * 100,
+                    currency: "usd",
+                    roomTitle: hotelRoom.title,
+                    roomId: id,
+                    userId: userId,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.sessionId) {
+                await stripe.redirectToCheckout({ sessionId: data.sessionId });
+            } else {
+                console.error("Failed to create Stripe session.");
+            }
+        } catch (error) {
+            console.error("Error processing payment:", error);
+        }
+    }
 
 
     return (
@@ -122,7 +158,7 @@ const BookingPage = () => {
                 </div>
                 <div className='flex justify-between mt-6'>
                     <p className='text-lg flex'>Total Cost :<span className='text-2xl text-green-800 px-4 font-bold'>{totalCost} $ </span><div>{dayCount > 0 ? (<span>For {dayCount} days</span>) : ("")}</div> </p>
-                    <button className='blue text-white bg-blue-700 px-4 py-2 rounded-2xl'>Proceed</button>
+                    <button className='blue text-white bg-blue-700 px-4 py-2 rounded-2xl' onClick={handlePayment}>Proceed</button>
                 </div>
 
 
