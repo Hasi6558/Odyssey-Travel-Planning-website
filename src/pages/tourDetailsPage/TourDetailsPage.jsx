@@ -22,6 +22,12 @@ const TourDetails = () => {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('authToken');
     const [favourites, setFavourites] = useState([]);
+    const [showContactDetails, setShowContactDetails] = useState(false);
+
+    const handleContactClick = () => {
+        setShowContactDetails(!showContactDetails);
+    };
+
 
     useEffect(() => {
 
@@ -176,11 +182,21 @@ const TourDetails = () => {
                             <div className='flex justify-center'>
 
                                 
-                            <button className='bg-blue-800 text-white p-4 rounded-full text-lg flex '><img src={phoneImg} alt="" className='mx-2' /> Contact Us for Booking </button>
-                            <button className='bg-black rounded-full px-4 ml-4'><img src={emailImg} alt="" /></button>
+                            <button className='bg-blue-800 text-white p-4 rounded-full text-lg flex' onClick={handleContactClick}>
+                                        <img src={phoneImg} alt="" className='mx-2' /> Contact Us for Booking
+                                    </button>
+                            
 
-
+                            <a href="mailto:info@example.com" className='bg-black rounded-full px-4 ml-4'>
+                                        <img src={emailImg} alt=""  className='mt-4'/>
+                                    </a>
                             </div>
+                            {showContactDetails && (
+                                    <div className='mt-4 text-center'>
+                                        <p>Phone: +1 234 567 890</p>
+                                        <p>Email: info@example.com</p>
+                                    </div>
+                                )}
                             
                         </div>
                         

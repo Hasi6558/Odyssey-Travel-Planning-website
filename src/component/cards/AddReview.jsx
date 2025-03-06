@@ -6,6 +6,7 @@ const AddReview = ({handlePopUp,reviewdItemId}) => {
     const [rating,setRating] =useState(0);
     const [hover,setHover] = useState(0);
     const [review,setReview] = useState("");
+    const fullName = localStorage.getItem('fullName');
 
 
     const handleChangeReviewText =(e)=>{
@@ -26,7 +27,7 @@ const AddReview = ({handlePopUp,reviewdItemId}) => {
         const reviewData = {
     
             reviewdItemId: reviewdItemId,
-            reviewerName : "Hasindu Shehan",
+            reviewerName : fullName,
             rate :rating,
             comment: review,
             ratedAt:new Date().toISOString().split('T')[0],

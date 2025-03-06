@@ -60,7 +60,7 @@ const ReservationCard = ({handlePopUp, order}) => {
                 </div>
             </div>
             {showPopUp && (
-                <AddReview handlePopUp={() => setShowPopUp(false)} reviewdItemId={order.id} />
+                <AddReview handlePopUp={() => setShowPopUp(false)} reviewdItemId={order.itemId} />
             )}
         </div>
     );
