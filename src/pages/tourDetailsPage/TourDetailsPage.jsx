@@ -8,6 +8,9 @@ import LocationLogo from '../../assets/icons/location_logo_2.png';
 import ReviewSection from '../../component/ReviewSection';
 import LoadingScreen from '../../component/LoadingScreen';
 import WhiteFavIcon from '../../assets/icons/white_favourite.png';
+import TourPackageCard from '../../component/cards/TourPackageCard';
+import phoneImg from '../../assets/icons/mdi_telephone.png';
+import emailImg from '../../assets/icons/lets-icons_message-light.png';
 
 const TourDetails = () => {
 
@@ -138,6 +141,49 @@ const TourDetails = () => {
                                 }
 
                             </div>
+                        </div>
+                        <div className='mx-20'>
+                        <h3 className="font-bold text-xl mb-4">Tour Packages</h3>
+                        <div className='h-0.5 bg-gray-500 mb-10'></div>
+                        <div className='flex align-center justify-between gap-10 mx-20'>
+                        <TourPackageCard 
+                       
+                            imgUrl="https://plus.unsplash.com/premium_photo-1716866638358-7dfc3c0b31fc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                            title="Title" 
+                            features={['feature 1', 'feature 2', 'feature 3']}
+                            price="200" discountedPrice="150"
+        
+                            
+                        />
+                        <TourPackageCard 
+                            imgUrl="https://plus.unsplash.com/premium_photo-1716866638358-7dfc3c0b31fc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                            title="Title" 
+                            features={['feature 1', 'feature 2', 'feature 3']}
+                            price="200" discountedPrice="150"
+        
+                            
+                        />
+                        <TourPackageCard 
+                            imgUrl="https://plus.unsplash.com/premium_photo-1716866638358-7dfc3c0b31fc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                            title="Title" 
+                            features={['feature 1', 'feature 2', 'feature 3']}
+                            price="200" discountedPrice="150"
+        
+                            
+                        />
+                        </div>
+                        <div>
+                            <div className='flex justify-center'>
+
+                                
+                            <button className='bg-blue-800 text-white p-4 rounded-full text-lg flex '><img src={phoneImg} alt="" className='mx-2' /> Contact Us for Booking </button>
+                            <button className='bg-black rounded-full px-4 ml-4'><img src={emailImg} alt="" /></button>
+
+
+                            </div>
+                            
+                        </div>
+                        
                         </div>
                         <div className='ms-20'>
                             <ReviewSection review_count={reviews.length} reviews={reviews} />

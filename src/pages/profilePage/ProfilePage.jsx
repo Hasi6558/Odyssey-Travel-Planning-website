@@ -124,7 +124,7 @@ const ProfilePage = () => {
                                     <div><img src={SettingIcon} alt="setting icon" className='p-2 border-y-2 border-e-2' /></div>
                                 </button>
                                 <button
-                                    className="bg-blue-600 text-white py-2 px-4 rounded-md"
+                                    className="bg-blue-600 text-white py-2 px-4 rounded-md mt-2"
                                     onClick={() => {
                                         localStorage.clear();
                                         navigate('/');
