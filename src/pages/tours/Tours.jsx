@@ -90,7 +90,7 @@ const Tour = () => {
                       rating={tour.rating}
                       review_count={tour.review_count}
                       description={tour.description}
-                      imgUrl={tour.image_url}
+                      imgUrl={tour.image_url[0]}
                       destination_link={`tour-details/${tour.id}`}
                     />
                   ))
