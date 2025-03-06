@@ -35,6 +35,7 @@ const HotelDetails = () => {
                 const hotelData = await ApiService.getHotelById(id);
                 const hotelRoomsData = await ApiService.getRoomsByHotelId(id);
                 const reviewData = await ApiService.getReviewsByReviewdItemId(id);
+                
           
                 setHotel(hotelData);
                 setHotelRooms(hotelRoomsData);

@@ -141,7 +141,7 @@ const RestaurantDetails = () => {
                             </div>
                         </div>
                         <div className='my-4'>
-                            <TableReservation id="1234" itemId="54555" />
+                            <TableReservation id="1234" itemId={restaurant.id} />
                         </div>
                         <div className='ms-20'>
                             <ReviewSection review_count={reviews.length} reviews={reviews} />

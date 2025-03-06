@@ -329,6 +329,15 @@ class ApiService {
             throw error;
         }
     }
+    static async getReservationByUserId(userId) {
+        try {
+            const response = await axios.get(`${BASE_URL}/reservations/user/${userId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching order by user ID:', error);
+            throw error;
+        }
+    }
    
 
 }
