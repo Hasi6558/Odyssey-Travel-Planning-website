@@ -6,6 +6,7 @@ import ListingCard from '../../component/cards/ListingCard';
 import ApiService from '../../service/ApiService';
 import BackgroundImage from '../../assets/images/tour_bg.jpg';
 import LoadingScreen from '../../component/LoadingScreen';
+import testbg from '../../assets/images/demo.jpg';
 const Tour = () => {
   const [tours, setTours] = useState([]);
   const [searchedText, setSearchedText] = useState('');
@@ -20,6 +21,7 @@ const Tour = () => {
       try {
         const toursData = await ApiService.getTours();
         setTours(toursData);
+        console.log(toursData);
       } catch (error) {
         console.error('Error fetching data', error);
       } finally {
@@ -88,7 +90,7 @@ const Tour = () => {
                       rating={tour.rating}
                       review_count={tour.review_count}
                       description={tour.description}
-                      imgUrl={tour.image_url[0]}
+                      imgUrl={tour.image_url}
                       destination_link={`tour-details/${tour.id}`}
                     />
                   ))

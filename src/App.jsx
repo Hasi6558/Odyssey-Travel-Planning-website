@@ -20,6 +20,7 @@ import { useEffect } from 'react'
 import ForgetPassword from './pages/signUp/ForgetPassword'
 import MediaCenter from './pages/mediaCenter/MediaCenter'
 import ToursBooking from './pages/bookingPage/ToursBooking'
+import PaymentConfirm from './payment/PaymentConfirm'
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
           <Route path='/forget-password' element={<ForgetPassword />} />
           <Route path='/media-center/:tab' element={<MediaCenter />} />
           <Route path='/tour-booking/:id' element={<ToursBooking />} />
+          <Route path='/payment-confirm' element={<PaymentConfirm />} />
         </Routes>
       </BrowserRouter>
     </>

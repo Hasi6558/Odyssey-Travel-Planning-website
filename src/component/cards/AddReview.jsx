@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Star } from "lucide-react";
 import ApiService from '../../service/ApiService';
 
-const AddReview = ({handlePopUp}) => {
+const AddReview = ({handlePopUp,reviewdItemId}) => {
     const [rating,setRating] =useState(0);
     const [hover,setHover] = useState(0);
     const [review,setReview] = useState("");
+
 
     const handleChangeReviewText =(e)=>{
         let value = e.target.value;
@@ -24,12 +25,13 @@ const AddReview = ({handlePopUp}) => {
 
         const reviewData = {
     
-            reviewdItemId: "6772ec7679df1f60f2316e03",
+            reviewdItemId: reviewdItemId,
             reviewerName : "Hasindu Shehan",
             rate :rating,
             comment: review,
             ratedAt:new Date().toISOString().split('T')[0],
         }
+        console.log(reviewData);
     
             const sendData = async ()=>{
                 try{

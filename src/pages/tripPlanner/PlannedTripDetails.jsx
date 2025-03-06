@@ -4,6 +4,7 @@ import Footer from '../../component/Footer/Footer'
 import PlanCard from '../../component/cards/PlanCard'
 import ApiService from '../../service/ApiService'
 import { useParams } from 'react-router'
+import PlannedTripBg from '../../assets/images/trip_planner_bg.jpg'
 
 const PlannedTripDetails = () => {
 
@@ -35,7 +36,7 @@ const PlannedTripDetails = () => {
             <div className='bg-gray-50 max-w-[800px] m-auto h-screen '>
 
                 <div style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFyaXN8ZW58MHx8MHx8fDA%3D')",
+                    backgroundImage: `url(${PlannedTripBg})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",

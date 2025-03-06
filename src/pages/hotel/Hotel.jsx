@@ -112,7 +112,7 @@ const Hotel = () => {
           )}
         </div>
         <div>
-          HI
+          
         </div>
       </div>
       <Footer />
