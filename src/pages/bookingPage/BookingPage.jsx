@@ -69,7 +69,7 @@ const BookingPage = () => {
     const handlePayment = async () => {
         console.log("Payment Processing.....")
         console.log("Your total cose is:", totalCost)
-      
+
         try {
             const stripe = await loadStripe("pk_test_51Oh8UwKePWxvmPbIZkgdGlmdDLlsxawgUXZVZWTgzLbrd7TgpIPVA9c4g5pbmLnUblqzhLFyj6UscUFxvigves1M005PxtWem4");
 
@@ -85,17 +85,20 @@ const BookingPage = () => {
                     roomTitle: hotelRoom.title,
                     roomId: id,
                     userId: userId,
+                    hotelId: hotelRoom.hotelId,
+                    startDate: startDate,
+                    endDate: endDate,
                 }),
             });
 
             const data = await response.json();
             console.log(data);
-         
+
 
             if (data.sessionId) {
                 console.log("Has: Stripe session created successfully.");
                 await stripe.redirectToCheckout({ sessionId: data.sessionId });
-                
+
                 await saveOrderToDatabase();
             } else {
                 console.error("Failed to create Stripe session.");
@@ -198,7 +201,7 @@ const BookingPage = () => {
 
             </div>
 
-           
+
 
             <Footer />
 
