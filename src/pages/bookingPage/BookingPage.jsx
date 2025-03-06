@@ -69,6 +69,7 @@ const BookingPage = () => {
     const handlePayment = async () => {
         console.log("Payment Processing.....")
         console.log("Your total cose is:", totalCost)
+      
         try {
             const stripe = await loadStripe("pk_test_51Oh8UwKePWxvmPbIZkgdGlmdDLlsxawgUXZVZWTgzLbrd7TgpIPVA9c4g5pbmLnUblqzhLFyj6UscUFxvigves1M005PxtWem4");
 
@@ -88,9 +89,14 @@ const BookingPage = () => {
             });
 
             const data = await response.json();
+            console.log(data);
+         
 
             if (data.sessionId) {
+                console.log("Has: Stripe session created successfully.");
                 await stripe.redirectToCheckout({ sessionId: data.sessionId });
+                
+                await saveOrderToDatabase();
             } else {
                 console.error("Failed to create Stripe session.");
             }
@@ -98,6 +104,34 @@ const BookingPage = () => {
             console.error("Error processing payment:", error);
         }
     }
+    const saveOrderToDatabase = async () => {
+        try {
+            const response = await fetch("http://localhost:9090/api/room-bookings/save-booking", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    roomId: id,
+                    hotelId: hotelRoom.hotelId,
+                    roomTitle: hotelRoom.title,
+                    startDate: startDate,
+                    endDate: endDate,
+                    totalCost: totalCost,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to save order to database.");
+            }
+
+            console.log("Order saved to database successfully.");
+        } catch (error) {
+            console.error("Error saving order to database:", error);
+        }
+    };
 
 
     return (
@@ -164,7 +198,7 @@ const BookingPage = () => {
 
             </div>
 
-            {/* <PayHerePayment /> */}
+           
 
             <Footer />
 
