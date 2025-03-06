@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import PurchaseCard from '../../component/cards/PurchaseCard'
-import AddReview from '../../component/cards/AddReview'
 import { useState } from 'react'
 import ApiService from '../../service/ApiService'
+import ReservationCard from '../../component/cards/ReservationCard'
 
 
 const Purchases = () => {
@@ -11,6 +11,8 @@ const Purchases = () => {
     
     const [order, setOrder] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [showPopUp, setShowPopUp] = useState(false);
+    const [reservations, setReservations] = useState([]);
 
     const handlePopUp =()=>{
         setShowPopUp(!showPopUp);
@@ -22,7 +24,10 @@ const Purchases = () => {
             setLoading(true);
             try {
                 const orderData = await ApiService.getOrderByUserId("user123");
+                const reservationData = await ApiService.getReservationByUserId("1234");
+                
                 setOrder(orderData);
+                setReservations(reservationData);
                 
             } catch (error) {
                 console.error('Error fetching data', error);
@@ -51,8 +56,13 @@ const Purchases = () => {
                 
                 
                 <h1 className='text-2xl my-4 ml-2'>Restaurant Reservations</h1>
-                
-               
+                {reservations.map((reservation, index) => (
+                    <div className='mb-4' key={index}>
+                            <ReservationCard order={reservation} handlePopUp={handlePopUp}/>
+                    </div>
+                    
+                ))}
+                     
 
                 <h1 className='text-2xl my-4 ml-2'>Tour Reservations</h1>
                 
