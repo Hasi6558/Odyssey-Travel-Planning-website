@@ -22,6 +22,7 @@ function LogIn() {
             if (response.status === 200) {
                 console.log('User logged in successfully');
                 localStorage.setItem('authToken', response.data.token);
+                localStorage.setItem('fullName', response.data.fullName);
                 localStorage.setItem('userId', response.data.userId);
                 navigate('/');
             } else {

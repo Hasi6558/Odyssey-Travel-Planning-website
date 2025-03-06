@@ -17,7 +17,7 @@ const RestaurantDetails = () => {
     const [restaurant, setRestaurant] = useState({});
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('authToken');
     const [favourites, setFavourites] = useState([]);
@@ -30,9 +30,11 @@ const RestaurantDetails = () => {
                 const restaurantData = await ApiService.getRestaurantById(id);
                 const reviewData = await ApiService.getReviewsByReviewdItemId(id);
 
+
                 setRestaurant(restaurantData);
-                console.log(restaurantData);
                 setReviews(reviewData);
+                console.log(restaurantData);
+                console.log(reviewData);
 
                 if (userId != undefined) {
                     const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "restaurant", token);
@@ -141,7 +143,7 @@ const RestaurantDetails = () => {
                             </div>
                         </div>
                         <div className='my-4'>
-                            <TableReservation id="1234" itemId={restaurant.id} />
+                            <TableReservation id={userId} itemId={restaurant.id} />
                         </div>
                         <div className='ms-20'>
                             <ReviewSection review_count={reviews.length} reviews={reviews} />

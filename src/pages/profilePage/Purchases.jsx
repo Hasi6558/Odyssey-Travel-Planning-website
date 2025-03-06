@@ -7,8 +7,9 @@ import ReservationCard from '../../component/cards/ReservationCard'
 
 const Purchases = () => {
 
+
     
-    
+    const userId = localStorage.getItem('userId');
     const [order, setOrder] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showPopUp, setShowPopUp] = useState(false);
@@ -16,15 +17,15 @@ const Purchases = () => {
 
     const handlePopUp =()=>{
         setShowPopUp(!showPopUp);
-    }
+    }   
     
     
     useEffect(() => {
         const fetchOrder = async () => {
             setLoading(true);
             try {
-                const orderData = await ApiService.getOrderByUserId("user123");
-                const reservationData = await ApiService.getReservationByUserId("1234");
+                const orderData = await ApiService.getOrderByUserId(userId);
+                const reservationData = await ApiService.getReservationByUserId(userId);
                 
                 setOrder(orderData);
                 setReservations(reservationData);
@@ -51,9 +52,6 @@ const Purchases = () => {
                     </div>
                     
                 ))}
-
-               
-                
                 
                 <h1 className='text-2xl my-4 ml-2'>Restaurant Reservations</h1>
                 {reservations.map((reservation, index) => (
@@ -63,8 +61,8 @@ const Purchases = () => {
                     
                 ))}
                      
-
-                <h1 className='text-2xl my-4 ml-2'>Tour Reservations</h1>
+{/* 
+                <h1 className='text-2xl my-4 ml-2'>Tour Reservations</h1> */}
                 
                
             </div>

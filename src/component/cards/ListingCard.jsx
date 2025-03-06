@@ -6,7 +6,8 @@ const ListingCard = ({ title, location_city, location_map_url, rating, review_co
     console.log(imgUrl)
     return (
 
-        <div className='rounded-2xl overflow-hidden flex border max-w-[800px] h-[340px]  m-2'>
+        <a href={destination_link}><div className='w-full flex justify-end pe-4 '>
+            <div className='rounded-2xl overflow-hidden flex border max-w-[800px] h-[340px]  m-2'>
             <div className='w-96'>
                 <img src={imgUrl} alt="listing image" className='h-full w-full object-cover w-[350px] ' />
             </div>
@@ -27,15 +28,14 @@ const ListingCard = ({ title, location_city, location_map_url, rating, review_co
                 <div className='h-24 overflow-hidden'>
                     <p>{description}</p>
                 </div>
-                <a href={destination_link}><div className='w-full flex justify-end pe-4 text-gray-500'>See more</div></a>
-
-
-
-
-
+                
             </div>
 
         </div>
+            
+            </div>
+            </a>
+        
 
     )
 }
