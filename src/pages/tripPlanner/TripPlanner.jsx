@@ -2,7 +2,7 @@ import React from 'react'
 import NavBar from '../../component/navBar/NavBar'
 import Footer from '../../component/Footer/Footer'
 import DropDownList from './DropDownList'
-import TripPlannerBg from '../../assets/images/paper-airplane.jpg'
+import TripPlannerBg from '../../assets/images/trip_planner_bg.jpg'
 import { useNavigate } from 'react-router'
 
 const TripPlanner = () => {

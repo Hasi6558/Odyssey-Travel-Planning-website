@@ -117,7 +117,7 @@ const Home = () => {
                         Ratings={hotel.ratings}
                         title={hotel.title}
                         location_city={hotel.locationCity}
-                        imgUrl={hotel.imgUrl}
+                        imgUrl={hotel.imgUrl[0]}
                         destination_link={`/hotel-details/${hotel.id}`}
                       />
                     ))
@@ -151,7 +151,7 @@ const Home = () => {
                         title={restaurant.title}
                         location_city={restaurant.location_city}
                         destination_link={`/restaurant-details/${restaurant.id}`}
-                        imgUrl={restaurant.image_url}
+                        imgUrl={restaurant.image_url[0]}
                       />
                     ))
                   ) : (
@@ -184,7 +184,7 @@ const Home = () => {
                         title={tour.title}
                         location_city={tour.location_city}
                         destination_link={`/tour-details/${tour.id}`}
-                        imgUrl={tour.image_url}
+                        imgUrl={tour.image_url[0]}
                       />
                     ))
                   ) : (

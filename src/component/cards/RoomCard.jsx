@@ -17,27 +17,16 @@ const RoomCard = ({ title, subTitle, features, price, discountedPrice, avalRooms
 
                 <div className="w-64">
                     <h3 className="font-bold text-sm my-2 ">{subTitle}</h3>
-                    <ul className="space-y-0.5 text-sm">
-                        <li className="flex items-center">
-                            <span className="text-green-600 text-xl font-bold mr-2">🅿️</span>
-                            <span>{features[0]}</span>
-                        </li>
-                        <li className="flex items-center">
-                            <span className="text-xl font-bold mr-2">📶</span>
-                            {features[1]}
-                        </li>
-                        <li className="flex items-center">
-                            <span className="text-xl font-bold mr-2">📐</span>
-                            {features[2]}
-                        </li>
-                        <li className="flex items-center">
-                            <span className="text-xl font-bold mr-2">👥</span>
-                            {features[3]}
-                        </li>
-                        <li className="flex items-center">
-                            <span className="text-xl font-bold mr-2 mb-1">🛏️</span>
-                            {features[4]}
-                        </li>
+                    <ul className="space-y-0.5 text-sm h-[120px] overflow-y-auto">
+
+                        {features.map((feature, index) => (
+                            <li key={index} className="flex items-center">
+                                <span className='h-2 w-2 bg-black mr-2 rounded-full'></span>
+                                {/* <span className="text-xl font-bold mr-2">🅿️</span> */}
+                                <span>{feature}</span>
+                            </li>
+                        ))}
+                      
                     </ul>
                 </div>
                 <div >
