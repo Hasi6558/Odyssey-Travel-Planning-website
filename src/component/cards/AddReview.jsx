@@ -38,7 +38,7 @@ const AddReview = ({handlePopUp,reviewdItemId}) => {
                 try{
                     
                     await ApiService.AddReview(reviewData);
-                    const hotel = await ApiService.getHotelById("6772ec7679df1f60f2316e03");
+                    const hotel = await ApiService.getHotelById(reviewData.reviewdItemId);
                     const currentReviewCount = hotel.reviewCount;
                     const currentRatings = hotel.ratings;
                     const newReviewCount = currentReviewCount +1;
