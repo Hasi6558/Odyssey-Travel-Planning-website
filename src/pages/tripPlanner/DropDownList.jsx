@@ -6,8 +6,12 @@ import { format, eachDayOfInterval } from "date-fns";
 import ArrowIcon from '../../assets/icons/weui_arrow-filled.png';
 import ApiService from '../../service/ApiService';
 import ConfirmBox from "../../component/boxes/ConfirmBox";
+import { useNavigate } from "react-router-dom";
+
 
 const DropDownList = () => {
+    
+    const navigate = useNavigate();
     const [dateRange, setDateRange] = useState({
         startDate: new Date(),
         endDate: new Date(),
@@ -166,6 +170,7 @@ const DropDownList = () => {
             );
 
             const noOfSections = sections.length;
+            console.log(noOfSections);
 
             const draftSavingTime = new Date().toISOString();
 
@@ -198,12 +203,12 @@ const DropDownList = () => {
     const filteredFavorites =
         currentCategory && favoriteItems[currentCategory.toLowerCase() + "s"]
             ? favoriteItems[currentCategory.toLowerCase() + "s"].filter((item) =>
-                item?.title.toLowerCase().includes(searchInput.toLowerCase())
+                item?.title?.toLowerCase().includes(searchInput.toLowerCase())
             )
             : [];
 
     return (
-        <div className="flex flex-col min-h-screen bg-white max-w-fit m-auto p-8 px-16 mb-8  mt-4 rounded-2xl">
+        <div className="flex flex-col min-h-screen bg-white max-w-fit m-auto ml-[140px] p-8 px-16 mb-8  mt-4 rounded-2xl">
             <h1 className="text-center font-bold text-4xl mb-4 mt-8 ">Plan and Organize your Destinations</h1>
             <div className="flex-grow">
                 <div className="w-full max-w-[800px] mx-auto mt-10 flex flex-col rounded-xl">
@@ -303,7 +308,7 @@ const DropDownList = () => {
             </div>
 
             {showFavoritesPanel && (
-                <div className="absolute top-0 right-0 h-full w-[30%] bg-white shadow-lg p-6 opacity-90">
+                <div className="absolute top-0 right-0 h-full w-[30%] bg-white shadow-lg p-6 opacity-100">
                     <h2 className="font-bold mb-4 mt-20 text-4xl">Add Your Favourite {currentCategory}</h2>
                     <input
                         type="text"

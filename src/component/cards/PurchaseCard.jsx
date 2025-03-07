@@ -26,15 +26,15 @@ const PurchaseCard = ({ handlePopUp, order }) => {
     }, []);
 
     return (
-        <div className='border rounded-xl px-8 py-4 bg-white'>
+        <div className='border rounded-xl px-8 py-4 bg-white mr-10'>
             <div className='flex flex-col items-end '>
                 <div className=''>Order Id: <span>{order.id}</span></div>
                 <div>Date : {order.startDate}</div>
             </div>
             <hr />
             <div className='flex justify-between'>
-                <div className='flex flex-col justify-between'>
-                    <div className='mt-4'><h1 className='text-2xl font-semibold '>{hotel.title} - {order.roomTitle}</h1></div>
+                <div className='flex flex-col justify-between max-w-[600px] '>
+                    <div className='mt-4'><h1 className='text-2xl '>{hotel.title} - {order.roomTitle}</h1></div>
                     <div className='text-xl mt-1 font-semibold mb-2'><p>Total :{order.totalCost} $ </p></div>
                 </div>
                 <div className='flex flex-col justify-center items-center m-2 my-4'>

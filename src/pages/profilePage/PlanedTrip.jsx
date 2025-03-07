@@ -29,7 +29,7 @@ const PlanedTrip = () => {
     return (
 
 
-        <div className='min-h-screen'>
+        <div className='min-h-screen ml-10'>
             <div className='text-2xl  mx-4 my-4'>Planned Travels</div>
 
             <div >

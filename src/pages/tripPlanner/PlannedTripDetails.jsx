@@ -43,13 +43,16 @@ const PlannedTripDetails = () => {
                     height: "200px",
                     width: "100%",
                 }} className='relative'>
-                    <div className='flex absolute bottom-0 items-end justify-between w-full'>
+                    <div className='flex absolute bottom-2 items-end justify-between w-full'>
                         <div>
                             <h1 className='text-white text-5xl font-bold ms-4 mb-2'>{plan.draftName}</h1>
+                            <h3 className='text-white ml-4'>Total Cost : {plan.totalCost} $</h3>
                             <h2 className='text-white text-xl ms-4 mb-2'><span>{plan.noOfSections}</span> Day Travel Planner</h2>
+                            
                         </div>
 
                         <h3 className='text-gray-800 text-white mb-2 text-2xl font-semibold me-8 mb-4' >{plan.draftSavingTime}</h3>
+                        
                     </div>
 
                 </div>

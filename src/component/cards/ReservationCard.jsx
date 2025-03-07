@@ -43,7 +43,7 @@ const ReservationCard = ({handlePopUp, order}) => {
     
 
     return (
-        <div className='border rounded-xl px-8 py-4 bg-white'>
+        <div className='border rounded-xl px-8 py-4 bg-white mr-10'>
             <div className='flex flex-col items-end '>
                 <div className=''>Reservation Id: <span>{order.id}</span></div>
                 <div>Date : {order.bookingDate}</div>

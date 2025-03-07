@@ -11,12 +11,13 @@ import PlanedTrip from './PlanedTrip'
 import { useNavigate } from 'react-router'
 import { use } from 'react'
 import ApiService from '../../service/ApiService'
+import ProfilePic from '../../assets/images/profile_pic.jpg'
 
 const ProfilePage = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-    const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+    // const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
     const [passwordData, setPasswordData] = useState({
         currentPassword: '',
         newPassword: '',
@@ -102,8 +103,8 @@ const ProfilePage = () => {
             <div>
                 <div className='h-50 w-full bg-white absolute top-60 mx-auto auto-width max-w-[80%] sm:max-w-[90%]'>
                     <div className='flex w-full'>
-                        <div className=" aspect-square h-[130px] w-[130px] bg-red-300 m-8 rounded-full">
-
+                        <div className=" aspect-square h-[130px] w-[130px]  m-8 rounded-full">
+                            <img src={ProfilePic} alt="" />
                         </div>
                         <div className='mt-8 flex justify-between w-full'>
                             <div className=''>
@@ -116,13 +117,13 @@ const ProfilePage = () => {
                                     <div className='border-2 h-fit p-2 font-semibold'> Edit Profile</div>
                                     <div><img src={SettingIcon} alt="setting icon" className='p-2 border-y-2 border-e-2' /></div>
                                 </button>
-                                <button
+                                {/* <button
                                     onClick={handleChangePasswordClick}
                                     className='flex mt-2'
                                 >
                                     <div className='border-2 h-fit p-2 font-semibold'> Change Password</div>
                                     <div><img src={SettingIcon} alt="setting icon" className='p-2 border-y-2 border-e-2' /></div>
-                                </button>
+                                </button> */}
                                 <button
                                     className="bg-blue-600 text-white py-2 px-4 rounded-md mt-2"
                                     onClick={() => {
@@ -234,7 +235,7 @@ const ProfilePage = () => {
                 </div>
             )}
 
-            {isChangePasswordOpen && (
+            {/* {isChangePasswordOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-8 rounded-lg shadow-lg w-96">
                         <h2 className="text-2xl font-semibold mb-4">Change Password</h2>
@@ -292,7 +293,7 @@ const ProfilePage = () => {
                         </div>
                     </div>
                 </div>
-            )}
+            )} */}
 
             <div className=' '>
                 <Footer />

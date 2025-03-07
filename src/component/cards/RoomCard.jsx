@@ -1,14 +1,16 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
-const RoomCard = ({ title, subTitle, features, price, discountedPrice, avalRooms, roomId,imgUrl }) => {
+
+const RoomCard = ({ title, subTitle, features, price, discountedPrice, avalRooms, roomId }) => {
 
 
     const navigate = useNavigate();
 
+
     return (
         <div className='w-72 border rounded-[35px] border-2 border-gray-400 mb-10'>
-            <div className='w-full h-44 overflow-hidden  rounded-[32px] rounded-b-none'>
-                <img src={imgUrl} alt="" />
+            <div className='w-full h-32 overflow-hidden  rounded-[32px] rounded-b-none'>
+                <img src="https://img.freepik.com/premium-photo/blue-screen-shiny-glowing-effects-abstract-background-design_851755-168839.jpg" alt="" />
             </div>
             <div className='p-4'>
                 <div>

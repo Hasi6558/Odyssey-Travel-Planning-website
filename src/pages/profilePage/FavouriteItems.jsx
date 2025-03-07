@@ -56,12 +56,12 @@ const FavouriteItems = ({ indexParameter }) => {
 
 
     return (
-        <div>
-            <div className='text-2xl mb-4'>Favourites</div>
+        <div className='ml-10'>
+            <div className='text-2xl mb-4 font-bold'>Favourites</div>
 
 
             <div className="mb-4">
-                <div className='text-lg my-2'>Hotels</div>
+                <div className='text-lg my-2 font-semibold'>Hotels</div>
                 {hotels.length === 0 && (
                     <div><span>No Favourite Hotels.</span><span className='text-blue-500 underline cursor-pointer' onClick={() => navigate('/hotel')}>Click here to view hotels</span></div>
                 )}
@@ -74,7 +74,7 @@ const FavouriteItems = ({ indexParameter }) => {
                             Ratings={hotel.ratings}
                             title={hotel.title}
                             location_city={hotel.locationCity}
-                            imgUrl={hotel.imgUrl[0]}
+                            imgUrl={hotel.imgUrl}
                             destination_link={`/hotel-details/${hotel.id}`}
                         />
                     ))}
@@ -91,7 +91,7 @@ const FavouriteItems = ({ indexParameter }) => {
 
 
             <div className="mb-4">
-                <div className='text-lg my-2'>Restaurants</div>
+                <div className='text-lg my-2 font-semibold'>Restaurants</div>
                 {restaurants.length === 0 && (
                     <div><span>No Favourite Restaurants.</span><span className='text-blue-500 underline cursor-pointer' onClick={() => navigate('/restaurant')}>Click here to view Restaurants</span></div>
                 )}
@@ -104,7 +104,7 @@ const FavouriteItems = ({ indexParameter }) => {
                             title={restaurant.title}
                             location_city={restaurant.location_city}
                             destination_link={`/restaurant-details/${restaurant.id}`}
-                            imgUrl={restaurant.image_url[0]}
+                            imgUrl={restaurant.image_url}
                         />
                     ))}
                 </div>
@@ -120,7 +120,7 @@ const FavouriteItems = ({ indexParameter }) => {
 
 
             <div className="mb-4">
-                <div className='text-lg my-2'>Tours</div>
+                <div className='text-lg my-2 font-semibold'>Tours</div>
                 {tours.length === 0 && (
                     <div><span>No Favourite Tours.</span><span className='text-blue-500 underline cursor-pointer' onClick={() => navigate('/tours')}>Click here to view Tours</span></div>
                 )}
@@ -133,7 +133,7 @@ const FavouriteItems = ({ indexParameter }) => {
                             title={tour.title}
                             location_city={tour.location_city}
                             destination_link={`/tour-details/${tour.id}`}
-                            imgUrl={tour.image_url[0]}
+                            imgUrl={tour.image_url}
                         />
                     ))}
                 </div>

@@ -13,6 +13,7 @@ import favIcon from '../../assets/icons/favourite_icon.png';
 import WhiteFavIcon from '../../assets/icons/white_favourite.png';
 import FeatureFlag from '../../assets/icons/feature_flag.png';
 
+
 const HotelDetails = () => {
 
     const { id } = useParams();
@@ -169,7 +170,6 @@ const HotelDetails = () => {
                                                 discountedPrice={hotelRoom.discountedPrice}
                                                 avalRooms={hotelRoom.avalCount}
                                                 roomId={hotelRoom.id}
-                                                imgUrl={hotelRoom.roomImg}
                                             />
                                         ))}
 

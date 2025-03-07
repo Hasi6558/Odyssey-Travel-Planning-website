@@ -42,9 +42,9 @@ const Purchases = () => {
 
     
     return (
-        <div className='w-full'>
+        <div className='w-full ml-10'>
             <div className='w-full p-4'>
-                <h1 className='text-2xl mb-4 ml-2'>Hotel Bookings</h1>
+                <h1 className='text-2xl mb-4 ml-2 font-bold'>Hotel Bookings</h1>
                 
                 {order.map((order, index) => (
                     <div className='mb-4' key={index}>
@@ -53,7 +53,7 @@ const Purchases = () => {
                     
                 ))}
                 
-                <h1 className='text-2xl my-4 ml-2'>Restaurant Reservations</h1>
+                <h1 className='text-2xl my-4 ml-2 font-bold'>Restaurant Reservations</h1>
                 {reservations.map((reservation, index) => (
                     <div className='mb-4' key={index}>
                             <ReservationCard order={reservation} handlePopUp={handlePopUp}/>

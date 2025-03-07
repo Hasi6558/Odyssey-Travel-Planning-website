@@ -10,7 +10,7 @@ const ReviewCard = ({ reviewerName, rate, ratedAt, comment }) => {
 
             <div className='flex justify-between' >
                 <div className='flex items-center mb-1'>
-                    <div className=''><h3 className='font-bold text-sm me-4 '>{reviewerName}</h3></div>
+                    
                     <div><RatingBar totalDots={5} rating={rate} /></div>
                 </div>
                 <div className='text-xs'>
@@ -20,6 +20,7 @@ const ReviewCard = ({ reviewerName, rate, ratedAt, comment }) => {
             <div>
                 {comment}
             </div>
+            <div className=''><h3 className='font-bold text-sm me-4 mt-2 italic'>- {reviewerName}</h3></div>
 
         </div>
     )
