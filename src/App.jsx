@@ -18,23 +18,26 @@ import BookingPage from './pages/bookingPage/BookingPage'
 import PlannedTripDetails from './pages/tripPlanner/PlannedTripDetails'
 import { useEffect } from 'react'
 import ForgetPassword from './pages/signUp/ForgetPassword'
+import MediaCenter from './pages/mediaCenter/MediaCenter'
+import ToursBooking from './pages/bookingPage/ToursBooking'
+import PaymentConfirm from './payment/PaymentConfirm'
 
 function App() {
 
   const ScrollToTop = () => {
     const { pathname } = useLocation();
-  
+
     useEffect(() => {
       window.scrollTo(0, 0);
-    }, [pathname]); 
-  
-    return null; 
+    }, [pathname]);
+
+    return null;
   };
 
   return (
     <>
       <BrowserRouter>
-      <ScrollToTop />
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
@@ -52,6 +55,9 @@ function App() {
           <Route path='/booking-page/:id' element={<BookingPage />} />
           <Route path='/trip-planDetails/:id' element={<PlannedTripDetails />} />
           <Route path='/forget-password' element={<ForgetPassword />} />
+          <Route path='/media-center/:tab' element={<MediaCenter />} />
+          <Route path='/tour-booking/:id' element={<ToursBooking />} />
+          <Route path='/payment-confirm' element={<PaymentConfirm />} />
         </Routes>
       </BrowserRouter>
     </>

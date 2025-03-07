@@ -29,10 +29,10 @@ const Footer = () => {
                 </div>
                 <div className='p-8'>
                     <p className='font-bold pb-4'>USEFUL LINKS</p>
-                    <a href="#" className='text-stone-400'><p className='pb-2'>About us</p></a>
-                    <a href="#" className='text-stone-400'><p className='pb-2'>Contact us</p></a>
-                    <a href="#" className='text-stone-400'><p className='pb-2'>Privacy policy</p></a>
-                    <a href="#" className='text-stone-400'><p>Terms and conditions</p></a>
+                    <a href="/media-center/0" className='text-stone-400'><p className='pb-2'>About us</p></a>
+                    <a href="/media-center/3" className='text-stone-400'><p className='pb-2'>Contact us</p></a>
+                    <a href="/media-center/2" className='text-stone-400'><p className='pb-2'>Privacy policy</p></a>
+                    <a href="/media-center/1" className='text-stone-400'><p>Terms and conditions</p></a>
 
                 </div>
                 <div className='p-8'>
@@ -44,7 +44,7 @@ const Footer = () => {
 
                     <div className='flex items-center'>
                         <img src={Messagelogo} alt="message logo" className='pe-2 w-6' />
-                        <a href="#" className='text-stone-400'><p className='pb-2'>info@odyssey@gmail.com</p></a>
+                        <a href="#" className='text-stone-400'><p className='pb-2'>info@odyssey.com</p></a>
                     </div>
 
                     <div className='flex items-center'>

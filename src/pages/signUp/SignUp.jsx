@@ -54,8 +54,8 @@ function SignUp() {
     try {
       const { confirmPassword, ...finalUserData } = userData;
       const response = await ApiService.registerUser(finalUserData);
-
-      if (response && response.status === 200) {
+      console.log(response);
+      if (response && response.status === 201) {
         console.log('User registered successfully:', response.message);
         setUserData({
           firstName: '',
@@ -72,8 +72,11 @@ function SignUp() {
         setError(response.message || 'User registration failed');
       }
     } catch (error) {
-      console.error('Registration Failed:', error);
-      setError(error.response?.data?.message || 'Something went wrong. Please try again.');
+      if (error.status === 409) {
+        setError('Username already exists');
+      } else {
+        setError(error.response?.data?.message || 'Something went wrong. Please try again.');
+      }
     }
   };
 

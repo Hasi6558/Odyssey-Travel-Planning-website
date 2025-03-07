@@ -13,6 +13,7 @@ const Hotel = () => {
   const [searchedHotels, setsearchedHotels] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  
 
   const resultsRef = useRef(null);
 
@@ -61,6 +62,8 @@ const Hotel = () => {
   const displayHotels = searchedText ? searchedHotels : hotels;
 
 
+
+
   return (
     <>
       <NavBar />
@@ -107,6 +110,9 @@ const Hotel = () => {
             </>
 
           )}
+        </div>
+        <div>
+          
         </div>
       </div>
       <Footer />

@@ -7,6 +7,10 @@ import ImageGallery from '../../component/imageGallery/ImageGallery';
 import LocationLogo from '../../assets/icons/location_logo_2.png';
 import ReviewSection from '../../component/ReviewSection';
 import LoadingScreen from '../../component/LoadingScreen';
+import WhiteFavIcon from '../../assets/icons/white_favourite.png';
+import TourPackageCard from '../../component/cards/TourPackageCard';
+import phoneImg from '../../assets/icons/mdi_telephone.png';
+import emailImg from '../../assets/icons/lets-icons_message-light.png';
 
 const TourDetails = () => {
 
@@ -18,20 +22,29 @@ const TourDetails = () => {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('authToken');
     const [favourites, setFavourites] = useState([]);
+    const [showContactDetails, setShowContactDetails] = useState(false);
+
+    const handleContactClick = () => {
+        setShowContactDetails(!showContactDetails);
+    };
+
 
     useEffect(() => {
 
         const fetchTour = async () => {
             setLoading(true);
             try {
-                const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "tour", token);
                 const tourData = await ApiService.getTourById(id);
                 const reviewData = await ApiService.getReviewsByReviewdItemId(id);
 
                 setTour(tourData);
                 setReviews(reviewData);
-                const found = favouriteHotelsData.some(fav => fav.itemId === id);
-                setFavourites(found);
+
+                if (userId != undefined) {
+                    const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "tour", token);
+                    const found = favouriteHotelsData.some(fav => fav.itemId === id);
+                    setFavourites(found);
+                }
 
             } catch (error) {
                 console.error('Error fetching data', error);
@@ -98,11 +111,11 @@ const TourDetails = () => {
                             <div className='ms-20 me-2'><img src={LocationLogo} alt="" className='h-4' /></div>
                             <div>{`${tour.location_city}, ${tour.location_country}`}</div>
                             <div className='ps-10 font-semibold'><a href="#">Show on map</a></div>
-                            <div className='bg-blue-700 text-white p-1 ms-10'><p>{tour.rating}</p></div>
-                            {favourites ? (<div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={removeFromFavourites}>
-                                <span>Remove From Favourites</span>
+                            <div className='bg-blue-700 text-white p-1 ms-5'><p>{tour.rating}</p></div>
+                            {(favourites && userId != undefined) ? (<div className='bg-black text-white font-bold ml-[20px] p-1 pr-4 cursor-pointer rounded-3xl ' onClick={removeFromFavourites}>
+                                <span className='flex'><img src={WhiteFavIcon} className='mx-2' />Remove From Favourites</span>
                             </div>) : (
-                                <div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={addToFavourites}>
+                                <div className='bg-black text-white font-bold ml-[20px] p-1 px-4 cursor-pointer rounded-3xl' onClick={addToFavourites}>
                                     <span>Add to Favourites</span>
                                 </div>
                             )}
@@ -111,7 +124,7 @@ const TourDetails = () => {
                             <div className='w-5/12'>
                                 <ImageGallery images={tour.image_url || []} />
                             </div>
-                            <div><iframe src={tour.location_map} width="200" height="200" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
+                            <div><iframe src={tour.location_map} width="300" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
                         </div>
                         <div className='my-10 mx-20 rounded-xl shadow-lg p-10 bg-gray-100'>
                             <div className='font-bold text-2xl pb-1'>About</div>
@@ -134,6 +147,59 @@ const TourDetails = () => {
                                 }
 
                             </div>
+                        </div>
+                        <div className='mx-20'>
+                        <h3 className="font-bold text-xl mb-4">Tour Packages</h3>
+                        <div className='h-0.5 bg-gray-500 mb-10'></div>
+                        <div className='flex align-center justify-between gap-10 mx-20'>
+                        <TourPackageCard 
+                       
+                            imgUrl="https://plus.unsplash.com/premium_photo-1716866638358-7dfc3c0b31fc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                            title="Title" 
+                            features={['feature 1', 'feature 2', 'feature 3']}
+                            price="200" discountedPrice="150"
+        
+                            
+                        />
+                        <TourPackageCard 
+                            imgUrl="https://plus.unsplash.com/premium_photo-1716866638358-7dfc3c0b31fc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                            title="Title" 
+                            features={['feature 1', 'feature 2', 'feature 3']}
+                            price="200" discountedPrice="150"
+        
+                            
+                        />
+                        <TourPackageCard 
+                            imgUrl="https://plus.unsplash.com/premium_photo-1716866638358-7dfc3c0b31fc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                            title="Title" 
+                            features={['feature 1', 'feature 2', 'feature 3']}
+                            price="200" discountedPrice="150"
+        
+                            
+                        />
+                        </div>
+                        <div>
+                            <div className='flex justify-center'>
+
+                                
+                            <button className='bg-blue-800 text-white p-4 rounded-full text-lg flex' onClick={handleContactClick}>
+                                        <img src={phoneImg} alt="" className='mx-2' /> Contact Us for Booking
+                                    </button>
+                            
+
+                            <a href="mailto:info@example.com" className='bg-black rounded-full px-4 ml-4'>
+                                        <img src={emailImg} alt=""  className='mt-4'/>
+                                    </a>
+                            </div>
+                            {showContactDetails && (
+                                    <div className='mt-4 text-center'>
+                                        <p>Phone: +1 234 567 890</p>
+                                        <p>Email: info@example.com</p>
+                                    </div>
+                                )}
+                            
+                        </div>
+                        
                         </div>
                         <div className='ms-20'>
                             <ReviewSection review_count={reviews.length} reviews={reviews} />

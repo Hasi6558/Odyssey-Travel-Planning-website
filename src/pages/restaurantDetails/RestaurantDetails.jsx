@@ -7,6 +7,9 @@ import ImageGallery from '../../component/imageGallery/ImageGallery';
 import LocationLogo from '../../assets/icons/location_logo_2.png';
 import ReviewSection from '../../component/ReviewSection';
 import LoadingScreen from '../../component/LoadingScreen';
+import WhiteFavIcon from '../../assets/icons/white_favourite.png';
+import FeatureFlag from '../../assets/icons/feature_flag.png';
+import TableReservation from '../../component/fieldSets/TableReservation';
 
 const RestaurantDetails = () => {
 
@@ -14,7 +17,7 @@ const RestaurantDetails = () => {
     const [restaurant, setRestaurant] = useState({});
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('authToken');
     const [favourites, setFavourites] = useState([]);
@@ -24,14 +27,20 @@ const RestaurantDetails = () => {
         const fetchRestaurant = async () => {
             setLoading(true);
             try {
-                const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "restaurant", token);
                 const restaurantData = await ApiService.getRestaurantById(id);
                 const reviewData = await ApiService.getReviewsByReviewdItemId(id);
 
+
                 setRestaurant(restaurantData);
                 setReviews(reviewData);
-                const found = favouriteHotelsData.some(fav => fav.itemId === id);
-                setFavourites(found);
+                console.log(restaurantData);
+                console.log(reviewData);
+
+                if (userId != undefined) {
+                    const favouriteHotelsData = await ApiService.getFavouritesByUserIdAndItemType(userId, "restaurant", token);
+                    const found = favouriteHotelsData.some(fav => fav.itemId === id);
+                    setFavourites(found);
+                }
 
             } catch (error) {
                 console.error('Error fetching data', error);
@@ -97,12 +106,12 @@ const RestaurantDetails = () => {
                         <div className='flex items-center my-2'>
                             <div className='ms-20 me-2'><img src={LocationLogo} alt="" className='h-4' /></div>
                             <div>{`${restaurant.location_city},${restaurant.location_country}`}</div>
-                            <div className='ps-10 font-semibold'><a href="#">Show on map</a></div>
+                            <div className='ps-5 font-semibold'><a href="#">Show on map</a></div>
                             <div className='bg-blue-700 text-white p-1 ms-10'><p>{restaurant.rating}</p></div>
-                            {favourites ? (<div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={removeFromFavourites}>
-                                <span>Remove From Favourites</span>
+                            {(favourites && userId != undefined) ? (<div className='bg-black text-white font-bold ml-[20px] p-1 pr-4 cursor-pointer rounded-3xl ' onClick={removeFromFavourites}>
+                                <span className='flex'><img src={WhiteFavIcon} className='mx-2' />Remove From Favourites</span>
                             </div>) : (
-                                <div className='bg-blue-700 text-white font-bold ml-[20px] p-1 px-4 cursor-pointer' onClick={addToFavourites}>
+                                <div className='bg-black text-white font-bold ml-[20px] p-1 px-4 cursor-pointer rounded-3xl' onClick={addToFavourites}>
                                     <span>Add to Favourites</span>
                                 </div>
                             )}
@@ -111,7 +120,7 @@ const RestaurantDetails = () => {
                             <div className='w-5/12'>
                                 <ImageGallery images={restaurant.image_url || []} />
                             </div>
-                            <div><iframe src={restaurant.location_map} width="200" height="200" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
+                            <div><iframe src={restaurant.location_map} width="300" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
                         </div>
                         <div className='my-10 mx-20 rounded-xl shadow-lg p-10 bg-gray-100'>
                             <div className='font-bold text-2xl pb-1'>About</div>
@@ -121,31 +130,20 @@ const RestaurantDetails = () => {
                         <div className="w-2/3 mx-20 my-10">
                             <h3 className="font-bold text-lg mb-4">Facilities</h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">🔥</span>
-                                    <span>{restaurant.facilities?.[0]}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">❄️</span>
-                                    <span>{restaurant.facilities?.[1]}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">🅿️</span>
-                                    <span>{restaurant.facilities?.[2]}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">🏡</span>
-                                    <span>{restaurant.facilities?.[3]}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">🌀</span>
-                                    <span>{restaurant.facilities?.[4]}</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-xl">📶</span>
-                                    <span>{restaurant.facilities?.[5]}</span>
-                                </div>
+
+                                {restaurant.facilities?.map((facility, index) => (
+                                    <div className="flex items-center space-x-2" key={index}>
+                                        <span className='flex'><img src={FeatureFlag} className='mr-2' />{facility}</span>
+                                    </div>
+                                ))}
+
+
+
+
                             </div>
+                        </div>
+                        <div className='my-4'>
+                            <TableReservation id={userId} itemId={restaurant.id} />
                         </div>
                         <div className='ms-20'>
                             <ReviewSection review_count={reviews.length} reviews={reviews} />

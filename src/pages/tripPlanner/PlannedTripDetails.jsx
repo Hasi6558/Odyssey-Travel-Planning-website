@@ -4,6 +4,7 @@ import Footer from '../../component/Footer/Footer'
 import PlanCard from '../../component/cards/PlanCard'
 import ApiService from '../../service/ApiService'
 import { useParams } from 'react-router'
+import PlannedTripBg from '../../assets/images/trip_planner_bg.jpg'
 
 const PlannedTripDetails = () => {
 
@@ -35,20 +36,23 @@ const PlannedTripDetails = () => {
             <div className='bg-gray-50 max-w-[800px] m-auto h-screen '>
 
                 <div style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFyaXN8ZW58MHx8MHx8fDA%3D')",
+                    backgroundImage: `url(${PlannedTripBg})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     height: "200px",
                     width: "100%",
                 }} className='relative'>
-                    <div className='flex absolute bottom-0 items-end justify-between w-full'>
+                    <div className='flex absolute bottom-2 items-end justify-between w-full'>
                         <div>
                             <h1 className='text-white text-5xl font-bold ms-4 mb-2'>{plan.draftName}</h1>
+                            <h3 className='text-white ml-4'>Total Cost : {plan.totalCost} $</h3>
                             <h2 className='text-white text-xl ms-4 mb-2'><span>{plan.noOfSections}</span> Day Travel Planner</h2>
+                            
                         </div>
 
                         <h3 className='text-gray-800 text-white mb-2 text-2xl font-semibold me-8 mb-4' >{plan.draftSavingTime}</h3>
+                        
                     </div>
 
                 </div>
