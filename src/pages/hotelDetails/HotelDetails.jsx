@@ -126,7 +126,7 @@ const HotelDetails = () => {
                             <div className='w-5/12'>
                                 <ImageGallery images={hotel.imgUrl || []} />
                             </div>
-                            <div><iframe src={hotel.locationMap} width="300" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
+                            <div className='w-7/12'><iframe src={hotel.locationMap} width="300" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe></div>
 
 
                         </div>

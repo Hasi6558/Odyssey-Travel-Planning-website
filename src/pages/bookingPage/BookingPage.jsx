@@ -136,6 +136,13 @@ const BookingPage = () => {
         }
     };
 
+    const getTodayDate = () => {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd}`;
+    };
 
     return (
         <>
@@ -189,9 +196,9 @@ const BookingPage = () => {
                 <span className='text-2xl font-bold' >How many days are you willing to stay</span>
                 <div className='flex items-center mt-5'>
                     <span className='font-bold me-4 text-lg'>Start From</span>
-                    <input type="date" className='p-2 rounded-xl border-solid border-gray-100 w-64 me-4' onChange={(e) => setStartDate(e.target.value)} />
+                    <input type="date" className='p-2 rounded-xl border-solid border-gray-100 w-64 me-4' min={getTodayDate()} onChange={(e) => setStartDate(e.target.value)} />
                     <span className='font-bold me-4 taxt-lg'>To</span>
-                    <input type="date" className='p-2 rounded-xl border-solid border-gray-100 w-64 me-4' onChange={(e) => setEndDate(e.target.value)} />
+                    <input type="date" className='p-2 rounded-xl border-solid border-gray-100 w-64 me-4' min={startDate || getTodayDate()} onChange={(e) => setEndDate(e.target.value)} />
                 </div>
                 <div className='flex justify-between mt-6'>
                     <p className='text-lg flex'>Total Cost :<span className='text-2xl text-green-800 px-4 font-bold'>{totalCost} $ </span><div>{dayCount > 0 ? (<span>For {dayCount} days</span>) : ("")}</div> </p>

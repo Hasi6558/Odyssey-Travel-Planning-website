@@ -149,10 +149,10 @@ const TourDetails = () => {
                             </div>
                         </div>
                         <div className='mx-20'>
-                        <h3 className="font-bold text-xl mb-4">Tour Packages</h3>
-                        <div className='h-0.5 bg-gray-500 mb-10'></div>
+                        <h3 className="font-bold text-xl mb-4">Price Per one user - {tour.pricePerOnePerson} $</h3>
+                        {/* <div className='h-0.5 bg-gray-500 mb-10'></div> */}
                         <div className='flex align-center justify-between gap-10 mx-20'>
-                        <TourPackageCard 
+                        {/* <TourPackageCard 
                        
                             imgUrl="https://plus.unsplash.com/premium_photo-1716866638358-7dfc3c0b31fc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                             title="Title" 
@@ -176,7 +176,7 @@ const TourDetails = () => {
                             price="200" discountedPrice="150"
         
                             
-                        />
+                        /> */}
                         </div>
                         <div>
                             <div className='flex justify-center'>
